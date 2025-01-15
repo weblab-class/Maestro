@@ -11,9 +11,9 @@ import Guy from "../modules/Guy";
 import Key from "../modules/Key";
 
 const Composer = () => {
-  const soundPath = "../../../";
-  const imgPath = "../../../";
-  const gifPath = "../../../";
+  const soundPath = "../../../src/assets/";
+  const imgPath = "../../../src/assets/";
+  const gifPath = "../../../src/assets/";
 
   const errorGuy = {
     key: "error",
@@ -65,22 +65,24 @@ const Composer = () => {
   const [buttonBinds, setButtonBinds] = useState(defaultBinds);
   const [selectedGuy, setSelectedGuy] = useState(null);
 
-  // const onButtonClick = (key, guy) => {
-  //   if (selectedGuy !== null) {
-  //     let curlist = buttonBinds.filter((binds) => binds.key !== key);
-  //     curlist.push({ key: key, guy: guy });
-  //     setButtonBinds(curlist);
-  //     const sound = new Audio(guy.sound);
-  //     sound.play();
-  //     setSelectedGuy(null);
-  //   } else {
-  //     var sound = new Audio(guy.sound);
-  //     console.log("error");
-  //     sound.play().catch((error) => {
-  //       console.error("Playback failed:", error);
-  //     });
-  //   }
-  // };
+  const onButtonClick = (key) => {
+    return () => {
+      if (selectedGuy !== null) {
+        let curlist = buttonBinds.map((binds) =>
+          binds.key === key ? { key: key, guy: selectedGuy } : binds
+        );
+        setButtonBinds(curlist);
+        setSelectedGuy(null);
+      } else {
+        var sound = new Audio(
+          buttonBinds.find((button) => {
+            return button.key === key;
+          }).guy.sound
+        );
+        sound.play();
+      }
+    };
+  };
 
   const onGuyClick = (guy) => {
     return () => {
@@ -93,14 +95,7 @@ const Composer = () => {
     <div>
       <div>
         {buttonBinds.map((bind) => (
-          <Key
-            buttonKey={bind.key}
-            key={bind.key}
-            guy={bind.guy}
-            onButtonClick={() => {
-              console.log("Hello");
-            }}
-          />
+          <Key buttonKey={bind.key} key={bind.key} guy={bind.guy} onButtonClick={onButtonClick} />
         ))}
       </div>
 
