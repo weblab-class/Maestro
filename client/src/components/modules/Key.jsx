@@ -1,0 +1,18 @@
+import React, { useState, useEffect, useContext } from "react";
+import { get } from "../../utilities";
+import "./Key.css";
+
+/**
+ * Card is a component for displaying content like stories
+ *
+ * Proptypes
+ * @param {string} buttonKey
+ * @param {string} guy
+ */
+const Key = (props) => {
+  const guy = props.guy;
+
+  return <button onClick={props.onButtonClick(props.buttonKey, guy)}>{props.buttonKey}</button>;
+};
+
+export default Key;

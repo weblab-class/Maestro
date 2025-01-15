@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 
 import "../../utilities.css";
-import "./Skeleton.css";
+import "./Search.css";
 import { UserContext } from "../App";
 
-const Skeleton = () => {
+const Search = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
   return (
     <>
@@ -39,8 +39,22 @@ const Skeleton = () => {
       <a href="https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing">
         Check out this getting started guide
       </a>
+      <div>
+        <picture>
+          <source
+            srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f412/512.webp"
+            type="image/webp"
+          />
+          <img
+            src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f412/512.gif"
+            alt="🐒"
+            width="512"
+            height="512"
+          />
+        </picture>
+      </div>
     </>
   );
 };
 
-export default Skeleton;
+export default Search;
