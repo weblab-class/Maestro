@@ -1,1 +1,9 @@
 /* Fill me in :) */
+.key-button {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 4px;
+  margin-right: 2px;
+  margin-left: 2px;
+}

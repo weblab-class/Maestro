@@ -11,6 +11,8 @@ import { get, post } from "../utilities";
 
 export const UserContext = createContext(null);
 
+import NavBar from "./modules/NavBar";
+
 /**
  * Define the "App" component
  */
@@ -48,9 +50,12 @@ const App = () => {
   };
 
   return (
-    <UserContext.Provider value={authContextValue}>
-      <Outlet />
-    </UserContext.Provider>
+    <div>
+      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      <UserContext.Provider value={authContextValue}>
+        <Outlet />
+      </UserContext.Provider>
+    </div>
   );
 };
 

@@ -25,8 +25,8 @@ const router = createBrowserRouter(
     <Route errorElement={<NotFound />} element={<App />}>
       <Route path="/" element={<Composer />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/guycreator" element={<GuyCreator />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/creator" element={<GuyCreator />} />
+      <Route path="/profile/:userId" element={<Profile />} />
     </Route>
   )
 );

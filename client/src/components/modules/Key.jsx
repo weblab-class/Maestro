@@ -12,7 +12,11 @@ import "./Key.css";
 const Key = (props) => {
   const guy = props.guy;
 
-  return <button onClick={props.onButtonClick(props.buttonKey)}>{props.buttonKey}</button>;
+  return (
+    <button className="key-button" onClick={props.onButtonClick(props.buttonKey)}>
+      {props.buttonKey}
+    </button>
+  );
 };
 
 export default Key;
