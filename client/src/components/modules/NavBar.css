@@ -15,7 +15,6 @@
 }
 
 .NavBar-linkContainer {
-  /* margin-left: var(--l); */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -25,7 +24,6 @@
 .NavBar-link,
 .NavBar-link:visited {
   color: var(--white);
-  opacity: 0.6;
   text-decoration: none;
 }
 
@@ -40,4 +38,12 @@
 
 .NavBar-link + .NavBar-link {
   margin-left: var(--m);
+}
+
+.NavBar-leftContainer {
+  justify-content: flex-end;
+}
+
+.NavBar-rightContainer {
+  justify-content: flex-start;
 }

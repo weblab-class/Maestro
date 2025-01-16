@@ -8,10 +8,10 @@ import Key from "./Key";
  *
  * Proptypes
  * @param {string} buttonBinds
+ * @param {boolean} vis
  */
 const Keyboard = (props) => {
   const splits = [10, 20, 29, 37]; // End indices of each range
-
   return (
     <div className="keyboard-container">
       {splits.map((end, index) => {
@@ -24,6 +24,7 @@ const Keyboard = (props) => {
                 key={bind.key}
                 guy={bind.guy}
                 onButtonClick={props.onButtonClick}
+                guyVis={props.guyVis}
               />
             ))}
           </div>

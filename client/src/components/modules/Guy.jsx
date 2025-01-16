@@ -12,15 +12,22 @@ const Guy = (props) => {
   const guy = props.guy;
 
   const Hover = (event) => {
-    event.target.setAttribute("src", guy.gif);
+    event.target.setAttribute(
+      "src",
+      `https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`
+    );
   };
   const Unhover = (event) => {
-    event.target.setAttribute("src", guy.img);
+    event.target.setAttribute(
+      "src",
+      `https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.png`
+    );
   };
 
   return (
     <img
-      src={guy.img}
+      className="guy-icon"
+      src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.png`}
       onMouseOver={Hover}
       onMouseOut={Unhover}
       onClick={props.onGuyClick(guy)}
