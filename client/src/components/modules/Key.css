@@ -10,3 +10,11 @@
   display: flex;
   font-size: 25px;
 }
+
+.tooltip {
+  font-size: 14px;
+}
+
+.button-text {
+  font-size: 24px;
+}

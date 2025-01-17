@@ -10,6 +10,7 @@ import { socket } from "../client-socket";
 import { get, post } from "../utilities";
 
 export const UserContext = createContext(null);
+export const GuyContext = createContext(null);
 
 import NavBar from "./modules/NavBar";
 
@@ -18,6 +19,326 @@ import NavBar from "./modules/NavBar";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
+  const [guyVisibility, setGuyVisibility] = useState(false);
+
+  const soundPath = "../../../src/assets/";
+  const defaultGuyList = [
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+
+    {
+      guy_name: "goat_guy",
+      guy_id: "goat",
+      asset_id: "1f410",
+      creator_name: "Smelvin",
+      description: "Goat guy",
+      sound: soundPath + "goat.mp3",
+    },
+    {
+      guy_name: "dog_guy",
+      guy_id: "dog",
+      asset_id: "1f415",
+      creator_name: "Smelvin",
+      description: "Dog guy",
+      sound: soundPath + "dog.mp3",
+    },
+    {
+      guy_name: "default_guy",
+      guy_id: "default",
+      asset_id: "2795",
+      creator_name: "Smelvin",
+      description: "Default guy",
+      sound: soundPath + "default.mp3",
+    },
+    {
+      guy_name: "monkey_guy",
+      guy_id: "monkey",
+      asset_id: "1f412",
+      creator_name: "Smelvin",
+      description: "Monkey guy",
+      sound: soundPath + "monkey.mp3",
+    },
+  ];
+
+  const [guyList, setGuyList] = useState(defaultGuyList);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -51,10 +372,18 @@ const App = () => {
 
   return (
     <div>
-      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-      <UserContext.Provider value={authContextValue}>
-        <Outlet />
-      </UserContext.Provider>
+      <GuyContext.Provider value={{ guyVisibility, setGuyVisibility, guyList }}>
+        <NavBar
+          handleLogin={handleLogin}
+          handleLogout={handleLogout}
+          userId={userId}
+          guyVisibility={guyVisibility}
+          setGuyVisibility={setGuyVisibility}
+        />
+        <UserContext.Provider value={authContextValue}>
+          <Outlet />
+        </UserContext.Provider>
+      </GuyContext.Provider>
     </div>
   );
 };
