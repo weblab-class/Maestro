@@ -1,6 +1,7 @@
 const { OAuth2Client } = require("google-auth-library");
 const User = require("./models/user");
 const socketManager = require("./server-socket");
+const defaultGuyList = require("../client/src/assets/defaultGuyList");
 
 // create a new OAuth client used to verify google sign-in
 //    TODO: replace with your own CLIENT_ID
@@ -26,6 +27,8 @@ function getOrCreateUser(user) {
     const newUser = new User({
       name: user.name,
       googleid: user.sub,
+      guy_list: defaultGuyList,
+      asset_id: "1f600",
     });
 
     return newUser.save();

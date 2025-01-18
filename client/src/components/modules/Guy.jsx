@@ -10,10 +10,10 @@ import "./Guy.css";
  */
 const Guy = (props) => {
   const guy = props.guy;
-
+  console.log(guy);
   return (
     <button className="guy-button tooltip" width="120" height="120">
-      <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+      <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
       <img
         className="guy-icon"
         src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}

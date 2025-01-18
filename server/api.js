@@ -20,6 +20,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const user = require("./models/user");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -47,6 +48,14 @@ router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
   });
+});
+
+router.get("/pfpget", (req, res) => {
+  if (req.user) {
+    res.send({ pfp: req.user.asset_id });
+  } else {
+    res.send({ pfp: "1f331" });
+  }
 });
 
 // anything else falls to this "not found" case

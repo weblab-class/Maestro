@@ -26,7 +26,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
         <span className="button-text">{props.buttonKey}</span>
       </button>
     );
@@ -38,7 +38,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
         <img
           src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
           width="40px"

@@ -29,6 +29,9 @@ const GuyList = (props) => {
       Find a new Guy!
     </button>,
   ];
+  useEffect(() => {
+    setDisplayRow(0);
+  }, [guyList]);
 
   // Calculate the number of rows needed
   const numRows = Math.ceil(guyList.length / itemsPerRow);
@@ -72,8 +75,8 @@ const GuyList = (props) => {
       <div className="GuyList" onWheel={handleScroll}>
         {currentRowItems.map((item) => {
           // If the item has a guy_id (assuming that's how you identify a Guy)
-          if (item.guy_id) {
-            return <Guy key={item.guy_id} guy={item} onGuyClick={props.onGuyClick} />;
+          if (item.guy_name) {
+            return <Guy key={item._id} guy={item} onGuyClick={props.onGuyClick} />;
           }
           // If the item does not have a guy_id (render a button)
           return item;
