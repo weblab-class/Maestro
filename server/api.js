@@ -28,7 +28,6 @@ router.get("/whoami", (req, res) => {
     // not logged in
     return res.send({});
   }
-
   res.send(req.user);
 });
 
@@ -44,9 +43,25 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.get("/user", (req, res) => {
-  User.findById(req.query.userid).then((user) => {
+  User.findById(req.query._id).then((user) => {
     res.send(user);
   });
+});
+
+router.get("/pfpget", (req, res) => {
+  if (req.user) {
+    res.send({ pfp: req.user.asset_id });
+  } else {
+    res.send({ pfp: "2795" });
+  }
+});
+
+router.get("/guyListGet", (req, res) => {
+  if (req.user) {
+    res.send({ guyList: req.user.guy_list });
+  } else {
+    res.send({ guyList: [] });
+  }
 });
 
 // anything else falls to this "not found" case

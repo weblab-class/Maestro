@@ -1,14 +1,26 @@
 import "./GuyList.css";
 import Guy from "./Guy";
-import { GuyContext } from "../App";
+import { UserContext } from "../App";
 import { useContext, useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { get } from "../../utilities";
+
+/**
+ * GuyList renders all the guys in rows, which can be changed by clicking arrow keys or scrolling.
+ *
+ * Proptypes
+ * @param {String} selectedGuy // Gets displayed next to guyList
+ * @param {Function} onGuyClick // run when guy is clicked.
+ *
+ */
 
 const GuyList = (props) => {
   const navigate = useNavigate();
-  const { guyList } = useContext(GuyContext);
+  const { userId } = useContext(UserContext);
   const [displayRow, setDisplayRow] = useState(0); // Track the visible row number
   const itemsPerRow = 8;
+
+  const [guyList, setGuyList] = useState([]);
 
   const renderList = [
     ...guyList,
@@ -31,7 +43,7 @@ const GuyList = (props) => {
   ];
 
   // Calculate the number of rows needed
-  const numRows = Math.ceil(guyList.length / itemsPerRow);
+  let numRows = Math.max(1, Math.ceil(guyList.length / itemsPerRow));
 
   // Handle scroll event
   const handleScroll = (event) => {
@@ -42,6 +54,7 @@ const GuyList = (props) => {
     }
   };
 
+  // Handle up/down key clicks
   const handleKeyDown = (event) => {
     if (event.key === "ArrowDown") {
       setDisplayRow((prevRow) => (prevRow + 1) % numRows);
@@ -50,6 +63,7 @@ const GuyList = (props) => {
     }
   };
 
+  // Listen for key presses
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
 
@@ -58,6 +72,15 @@ const GuyList = (props) => {
     };
   }, [numRows]);
 
+  useEffect(() => {
+    get("/api/guyListGet").then(({ guyList }) => {
+      console.log("Returned GL" + guyList);
+      setDisplayRow(0);
+      setGuyList(guyList);
+    });
+  }, [userId]);
+
+  // Determines currently rendered guys.
   const currentRowItems = renderList.slice(
     displayRow * itemsPerRow,
     (displayRow + 1) * itemsPerRow
@@ -71,9 +94,10 @@ const GuyList = (props) => {
 
       <div className="GuyList" onWheel={handleScroll}>
         {currentRowItems.map((item) => {
+          console.log(item);
           // If the item has a guy_id (assuming that's how you identify a Guy)
-          if (item.guy_id) {
-            return <Guy key={item.guy_id} guy={item} onGuyClick={props.onGuyClick} />;
+          if (item.sound) {
+            return <Guy key={item._id} guy={item} onGuyClick={props.onGuyClick} />;
           }
           // If the item does not have a guy_id (render a button)
           return item;

@@ -1,24 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
-import { get } from "../../utilities";
+import React, { useContext } from "react";
 import "./Key.css";
+import { GuyContext } from "../App";
 
 /**
- * Card is a component for displaying content like stories
+ * Key represents an onscreen button, which produces a sound when clicked.
  *
  * Proptypes
- * @param {string} buttonKey
- * @param {string} guy
+ * @param {string} buttonKey // Keyboard key being represented
+ * @param {Object} guy // Contains sound and emoji
+ * @param {Function} onButtonClick // What happens when buttonKey gets pressed
  */
 
 const Key = (props) => {
   const guy = props.guy;
+  const { guyVisibility } = useContext(GuyContext);
 
+  // Makes it so the keys on the keyboard cannot be selected with tab.
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     button.setAttribute("tabindex", "-1");
   });
-
-  if (!props.guyVis) {
+  // Conditionally render the emoji or key, depending on guyVisibility
+  if (!guyVisibility) {
     return (
       <button
         className="key-button tooltip"
@@ -26,7 +29,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
         <span className="button-text">{props.buttonKey}</span>
       </button>
     );
@@ -38,7 +41,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
         <img
           src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
           width="40px"

@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { get } from "../../utilities";
+import React from "react";
 import "./Keyboard.css";
 import Key from "./Key";
 
 /**
- * Card is a component for displaying content like stories
+ * Keyboard contains keys corresponding to the letters and keys on the keyboard.
  *
  * Proptypes
- * @param {string} buttonBinds
- * @param {boolean} vis
+ * @param {[Object]} buttonBinds // has key and guy property
+ * @param {Function} onButtonClick // run when key gets clicked
+ *
  */
 const Keyboard = (props) => {
   const splits = [10, 20, 29, 37]; // End indices of each range
@@ -19,13 +19,7 @@ const Keyboard = (props) => {
         return (
           <div key={`slice-${index}`} className="keyboard-row">
             {props.buttonBinds.slice(start, end).map((bind) => (
-              <Key
-                buttonKey={bind.key}
-                key={bind.key}
-                guy={bind.guy}
-                onButtonClick={props.onButtonClick}
-                guyVis={props.guyVis}
-              />
+              <Key buttonKey={bind.key} guy={bind.guy} onButtonClick={props.onButtonClick} />
             ))}
           </div>
         );

@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
-import { get } from "../../utilities";
 import "./Guy.css";
 
 /**
- * Card is a component for displaying content like stories
+ * Guy is a container for guy documents. These contain an emoticon and a sound.
  *
  * Proptypes
- * @param {string} guy
+ * @param {Object} guy
+ * @param {String} key
+ * @param {Function} onGuyClick
  */
 const Guy = (props) => {
   const guy = props.guy;
 
   return (
     <button className="guy-button tooltip" width="120" height="120">
-      <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_name} </span>
+      <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
       <img
         className="guy-icon"
         src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}

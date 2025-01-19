@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./MainTutorial.css"; // Import the CSS file
+import "./MainTutorial.css";
 import { GuyContext, UserContext } from "../App";
 
 const MainTutorial = () => {
+  const { userId } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
   const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
-  const authContextValue = useContext(UserContext);
 
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
@@ -20,8 +20,9 @@ const MainTutorial = () => {
   };
 
   useEffect(() => {
-    setIsPopupOpen(authContextValue !== null && authContextValue.userId !== null);
-  }, []);
+    console.log(userId);
+    setIsPopupOpen(userId === undefined);
+  }, [userId]);
 
   return (
     <div>
@@ -31,6 +32,7 @@ const MainTutorial = () => {
           src="https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.webp"
           width="40px"
           height="40px"
+          alt="Open Tutorial"
         />
       </button>
 

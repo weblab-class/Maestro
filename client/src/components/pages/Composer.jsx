@@ -1,19 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import "../../utilities.css";
 import "./Composer.css";
-import Guy from "../modules/Guy";
 import Keyboard from "../modules/Keyboard";
-import guyIds from "../../assets/guyIds";
 import GuyList from "../modules/GuyList";
-
 import { GuyContext } from "../App";
 
 const Composer = () => {
-  const { guyVisibility, setGuyVisibility, guyList } = useContext(GuyContext);
+  const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
 
   const keyboardKeys = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
+
   const defaultBinds = keyboardKeys.split("").map((key) => {
-    return { key: key, guy: guyList[0] };
+    return {
+      key: key,
+      guy: {
+        guy_name: "default_guy",
+        _id: "default",
+        asset_id: "2795",
+        creator_id: "Smelvin",
+        sound: "../../../src/assets/default.mp3",
+      },
+    };
   });
 
   const [buttonBinds, setButtonBinds] = useState(defaultBinds);
@@ -24,15 +31,15 @@ const Composer = () => {
       if (selectedGuy !== null) {
         setButtonBinds((prevBinds) => {
           return prevBinds.map((bind) =>
-            bind.key === key && bind.guy.key === guyList[0].key
-              ? { key: key, guy: selectedGuy }
-              : bind
+            bind.key === key ? { key: key, guy: selectedGuy } : bind
           );
         });
         setSelectedGuy(null);
       } else {
-        var sound = new Audio(buttonBinds.find((button) => button.key === key).guy.sound);
-        sound.play();
+        const sound = buttonBinds.find((bind) => bind.key === key).guy.sound;
+        console.log(sound);
+        var audio = new Audio(sound);
+        audio.play();
       }
     };
   };
@@ -101,7 +108,7 @@ const Composer = () => {
 
   return (
     <div>
-      <Keyboard buttonBinds={buttonBinds} onButtonClick={onButtonClick} guyVis={guyVisibility} />
+      <Keyboard buttonBinds={buttonBinds} onButtonClick={onButtonClick} />
       <GuyList onGuyClick={onGuyClick} selectedGuy={selectedGuy} />
     </div>
   );
