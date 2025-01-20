@@ -20,7 +20,6 @@ const MainTutorial = () => {
   };
 
   useEffect(() => {
-    console.log(userId);
     setIsPopupOpen(userId === undefined);
   }, [userId]);
 

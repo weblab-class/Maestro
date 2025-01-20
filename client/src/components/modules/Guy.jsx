@@ -1,4 +1,6 @@
 import "./Guy.css";
+import { get } from "../../utilities";
+import { useState, useEffect } from "react";
 
 /**
  * Guy is a container for guy documents. These contain an emoticon and a sound.
@@ -11,9 +13,17 @@ import "./Guy.css";
 const Guy = (props) => {
   const guy = props.guy;
 
+  const [creatorId, setCreatorId] = useState("");
+
+  useEffect(() => {
+    get("/api/user", { creator_id: guy.creator_id }).then((userResponse) => {
+      setCreatorId(userResponse.name);
+    });
+  }, []);
+
   return (
     <button className="guy-button tooltip" width="120" height="120">
-      <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
+      <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
       <img
         className="guy-icon"
         src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}

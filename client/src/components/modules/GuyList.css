@@ -11,7 +11,6 @@
 .GuyList {
   display: flex;
   gap: 20px; /* Space between guys */
-  overflow-x: auto; /* Allow horizontal scrolling */
   justify-content: center; /* Center guys */
   flex-grow: 1; /* Take up available space */
 }

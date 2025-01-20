@@ -4,27 +4,39 @@ import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
 import { GuyContext } from "../App";
+import { get } from "../../utilities";
 
 const Composer = () => {
   const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
 
   const keyboardKeys = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
-
-  const defaultBinds = keyboardKeys.split("").map((key) => {
-    return {
-      key: key,
-      guy: {
-        guy_name: "default_guy",
-        _id: "default",
-        asset_id: "2795",
-        creator_id: "Smelvin",
-        sound: "../../../src/assets/default.mp3",
-      },
-    };
-  });
-
-  const [buttonBinds, setButtonBinds] = useState(defaultBinds);
+  const [buttonBinds, setButtonBinds] = useState([]);
   const [selectedGuy, setSelectedGuy] = useState(null);
+
+  // Fetch random guys on first render and assign them to the keyboard keys
+  useEffect(() => {
+    // Fetch random guys when component mounts
+    get("/api/randomGuysGet")
+      .then((randomGuys) => {
+        // Ensure the number of guys is always enough for the keys by repeating the list if necessary
+        const extendedGuys = [];
+        for (let i = 0; i < keyboardKeys.length; i++) {
+          extendedGuys.push(randomGuys[i % randomGuys.length]); // Use modulus to loop through randomGuys
+        }
+
+        const defaultBinds = keyboardKeys.split("").map((key, index) => {
+          return {
+            key: key,
+            guy: extendedGuys[index], // Assign a guy (repeated or not) to the key
+          };
+        });
+
+        setButtonBinds(defaultBinds); // Update state with the new button binds
+      })
+      .catch((error) => {
+        console.error("Error fetching random guys:", error);
+      });
+  }, []); // Empty dependency array ensures this runs only once, on component mount
 
   const onButtonClick = (key) => {
     return () => {
@@ -37,7 +49,6 @@ const Composer = () => {
         setSelectedGuy(null);
       } else {
         const sound = buttonBinds.find((bind) => bind.key === key).guy.sound;
-        console.log(sound);
         var audio = new Audio(sound);
         audio.play();
       }
@@ -65,16 +76,13 @@ const Composer = () => {
     };
 
     if (/[a-z]/.test(inputKey) && inputKey.length === 1) {
-      // Convert lowercase letters to uppercase
       return inputKey.toUpperCase();
     } else if (/[0-9]/.test(inputKey)) {
-      // Return number as is
       return inputKey;
     } else if (shiftedKeys[inputKey]) {
-      // If it's a shifted character, map it to the corresponding number
       return shiftedKeys[inputKey];
     }
-    return inputKey; // Return any other character unchanged
+    return inputKey;
   }
 
   const handleKeyDown = (event) => {
@@ -104,7 +112,7 @@ const Composer = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  });
+  }, [guyVisibility, selectedGuy]); // Re-run if guyVisibility or selectedGuy changes
 
   return (
     <div>

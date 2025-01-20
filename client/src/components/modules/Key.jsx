@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Key.css";
 import { GuyContext } from "../App";
+import { get } from "../../utilities";
 
 /**
  * Key represents an onscreen button, which produces a sound when clicked.
@@ -20,6 +21,15 @@ const Key = (props) => {
   buttons.forEach((button) => {
     button.setAttribute("tabindex", "-1");
   });
+
+  const [creatorId, setCreatorId] = useState("");
+
+  useEffect(() => {
+    get("/api/user", { creator_id: guy.creator_id }).then((userResponse) => {
+      setCreatorId(userResponse.name);
+    });
+  }, []);
+
   // Conditionally render the emoji or key, depending on guyVisibility
   if (!guyVisibility) {
     return (
@@ -29,7 +39,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
+        <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
         <span className="button-text">{props.buttonKey}</span>
       </button>
     );
@@ -41,7 +51,7 @@ const Key = (props) => {
         onClick={props.onButtonClick(props.buttonKey)}
         tabIndex={-1}
       >
-        <span className="tooltiptext">{guy.guy_name + " by " + guy.creator_id} </span>
+        <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
         <img
           src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
           width="40px"

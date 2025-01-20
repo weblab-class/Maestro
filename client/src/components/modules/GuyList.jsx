@@ -74,7 +74,6 @@ const GuyList = (props) => {
 
   useEffect(() => {
     get("/api/guyListGet").then(({ guyList }) => {
-      console.log("Returned GL" + guyList);
       setDisplayRow(0);
       setGuyList(guyList);
     });
@@ -94,7 +93,6 @@ const GuyList = (props) => {
 
       <div className="GuyList" onWheel={handleScroll}>
         {currentRowItems.map((item) => {
-          console.log(item);
           // If the item has a guy_id (assuming that's how you identify a Guy)
           if (item.sound) {
             return <Guy key={item._id} guy={item} onGuyClick={props.onGuyClick} />;
@@ -105,7 +103,7 @@ const GuyList = (props) => {
       </div>
 
       <div className={`SelectedGuyIndicator ${!props.selectedGuy ? "placeholder" : ""}`}>
-        {props.selectedGuy ? props.selectedGuy.guy_name : ""}
+        {props.selectedGuy ? props.selectedGuy.name : ""}
       </div>
     </div>
   );
