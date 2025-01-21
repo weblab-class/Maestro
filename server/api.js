@@ -49,6 +49,12 @@ router.get("/randomGuysGet", async (req, res) => {
 });
 
 router.get("/user", (req, res) => {
+  User.findById(req.query.userid).then((user) => {
+    res.send(user);
+  });
+});
+
+router.get("/username", (req, res) => {
   // Check if creator_id is provided
   const creatorId = req.query.creator_id;
   if (!creatorId) {
@@ -88,6 +94,42 @@ router.get("/guyListGet", async (req, res) => {
     res.send({ guyList });
   } else {
     res.send({ guyList: [] });
+  }
+});
+
+router.get("/profileGuyList", async (req, res) => {
+  try {
+    let profileGuyList = [];
+
+    // Parse or split guy_list from query string
+    if (req.query.guy_list) {
+      if (Array.isArray(req.query.guy_list)) {
+        profileGuyList = req.query.guy_list;
+      } else if (typeof req.query.guy_list === "string") {
+        if (req.query.guy_list.startsWith("[") && req.query.guy_list.endsWith("]")) {
+          profileGuyList = JSON.parse(req.query.guy_list); // Handle JSON format
+        } else {
+          profileGuyList = req.query.guy_list.split(","); // Handle comma-separated format
+        }
+      }
+    }
+
+    // console.log("Parsed profileGuyList:", profileGuyList);
+
+    if (profileGuyList.length > 0) {
+      const guyListResponse = await Promise.all(
+        profileGuyList.map(async (guy_id) => {
+          return Guy.findById(guy_id); // Assuming guy_id is valid
+        })
+      );
+      // console.log("Guy List Response:", guyListResponse);
+      res.send({ guyList: guyListResponse });
+    } else {
+      res.send({ guyList: [] });
+    }
+  } catch (error) {
+    console.error("Error in /profileGuyList:", error.message);
+    res.status(500).send({ error: "Internal Server Error" });
   }
 });
 

@@ -8,36 +8,44 @@ import "./Profile.css";
 const Profile = () => {
   let props = useParams();
   const [user, setUser] = useState();
+  const [guyList, setGuyList] = useState([]);
 
   useEffect(() => {
-    get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
+    get("/api/user", { userid: props.userId }).then((userObj) => {
+      setUser(userObj);
+    });
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      get("/api/profileGuyList", { guy_list: user.guy_list }).then((guyListResponse) => {
+        setGuyList(guyListResponse.guyList);
+      });
+    }
+  }, [user]);
+
   if (!user) {
-    return <div> Loading!</div>;
+    return <div>Loading!</div>;
   }
+
+  console.log("Current guyList:", guyList); // Debugging guyList
+
   return (
     <>
-      <div className="Profile-avatarContainer" onClick={() => {}}>
-        <div className="Profile-avatar" />
-      </div>
-      <h1 className="Profile-name u-textCenter">{user.name}</h1>
-      <hr className="Profile-linejj" />
-      <div className="u-flex">
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">About Me</h4>
-          <div id="profile-description">
-            I am really allergic to cats i don't know why i have a catbook
-          </div>
-        </div>
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">Cat Happiness</h4>
-        </div>
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">My Favorite Type of Cat</h4>
-          <div id="favorite-cat">corgi</div>
-        </div>
-      </div>
+      <img
+        src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.webp`}
+        alt="User Avatar"
+      />
+      <div>{user.name}</div>
+      <ul>
+        {Array.isArray(guyList) && guyList.length > 0 ? (
+          guyList.map((guy) => (
+            <li key={guy._id || guy.name || Math.random()}>{guy.name || "Unnamed Guy"}</li>
+          ))
+        ) : (
+          <li>No data available</li>
+        )}
+      </ul>
     </>
   );
 };

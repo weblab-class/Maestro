@@ -25,7 +25,7 @@ const Key = (props) => {
   const [creatorId, setCreatorId] = useState("");
 
   useEffect(() => {
-    get("/api/user", { creator_id: guy.creator_id }).then((userResponse) => {
+    get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });
   }, []);
