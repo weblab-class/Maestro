@@ -1,0 +1,39 @@
+/* Ensure the results container fills available space without unnecessary gaps */
+.guy-results-container {
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  height: 90%; /* Take up all available space inside the results panel */
+}
+
+/* Style for each individual result */
+.result-guy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+.result-guy:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+/* Add margin and padding to avoid the text from sticking to the edges */
+.result-guy p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style for when no results are found */
+.no-results {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+}

@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import "../../utilities.css";
 import "./Profile.css";
 
+// GUY LIST IS SET UP!!! NEED TO WORK ON ASSIGNING GUYS
+
 const Profile = () => {
   let props = useParams();
   const [user, setUser] = useState();

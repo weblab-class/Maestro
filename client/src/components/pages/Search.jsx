@@ -1,59 +1,93 @@
-import React, { useContext } from "react";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
-
-import "../../utilities.css";
-import "./Search.css";
+import React, { useContext, useEffect, useState } from "react";
+import { get } from "../../utilities";
+import GuyResults from "../modules/GuyResults";
+import GuyDisplay from "../modules/GuyDisplay";
 import { UserContext } from "../App";
+
+import "./Search.css";
 
 const Search = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
+
+  const [nameInput, setNameInput] = useState("");
+  const [usernameInput, setUsernameInput] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [results, setResults] = useState([]);
+  const [selectedGuy, setSelectedGuy] = useState(null);
+
+  const handleNameChange = (event) => setNameInput(event.target.value);
+  const handleUsernameChange = (event) => setUsernameInput(event.target.value);
+
+  const search = () => {
+    get("/api/search", { name: nameInput, username: usernameInput, page }).then((response) => {
+      setResults(response.results || []);
+      setTotalPages(response.totalPages || 0);
+    });
+  };
+
+  const changePage = (delta) => () => {
+    const newPage =
+      delta > 0 && page === totalPages ? 1 : delta < 0 && page === 1 ? totalPages : page + delta;
+    setPage(newPage);
+  };
+
+  useEffect(() => {
+    search();
+  }, [page, nameInput, usernameInput]);
+
+  useEffect(() => {
+    const handleArrowKeyPress = (event) => {
+      if (event.key === "ArrowRight") changePage(1)();
+      if (event.key === "ArrowLeft") changePage(-1)();
+    };
+    window.addEventListener("keydown", handleArrowKeyPress);
+    return () => window.removeEventListener("keydown", handleArrowKeyPress);
+  }, [page, totalPages]);
+
   return (
-    <>
-      {userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
+    <div className="search-container">
+      {/* Header for search inputs and buttons */}
+      <div className="search-header">
+        <input
+          type="text"
+          placeholder="Search guy name!"
+          value={nameInput}
+          className="search-input"
+          autoFocus
+          onChange={handleNameChange}
+        />
+        <input
+          type="text"
+          placeholder="Search username!"
+          value={usernameInput}
+          className="search-input"
+          onChange={handleUsernameChange}
+        />
+        <button onClick={search} className="action-button">
+          Search!
         </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-      )}
-      <h1>Good luck on your project :)</h1>
-      <h2> What you need to change in this skeleton</h2>
-      <ul>
-        <li>
-          Change the Frontend CLIENT_ID (index.jsx) to your team's CLIENT_ID (obtain this at
-          http://weblab.is/clientid)
-        </li>
-        <li>Change the Server CLIENT_ID to the same CLIENT_ID (auth.js)</li>
-        <li>
-          Change the Database SRV (mongoConnectionURL) for Atlas (server.js). You got this in the
-          MongoDB setup.
-        </li>
-        <li>Change the Database Name for MongoDB to whatever you put in the SRV (server.js)</li>
-      </ul>
-      <h2>How to go from this skeleton to our actual app</h2>
-      <a href="https://docs.google.com/document/d/110JdHAn3Wnp3_AyQLkqH2W8h5oby7OVsYIeHYSiUzRs/edit?usp=sharing">
-        Check out this getting started guide
-      </a>
-      <div>
-        <picture>
-          <source
-            srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f412/512.webp"
-            type="image/webp"
-          />
-          <img
-            src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f412/512.gif"
-            alt="🐒"
-            width="512"
-            height="512"
-          />
-        </picture>
+        <button onClick={changePage(-1)} className="action-button">
+          {" "}
+          {"<"}{" "}
+        </button>
+        <button onClick={changePage(1)} className="action-button">
+          {" "}
+          {">"}{" "}
+        </button>
       </div>
-    </>
+
+      {/* Left panel */}
+      <div className="results-panel">
+        {/* Optionally add content here */}
+        <GuyResults results={results} setter={setSelectedGuy} />
+      </div>
+
+      {/* Right panel */}
+      <div className="right-panel">
+        <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} />
+      </div>
+    </div>
   );
 };
 
