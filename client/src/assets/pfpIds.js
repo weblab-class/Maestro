@@ -1,4 +1,4 @@
-const guyIds = [
+const pfpIds = [
   "1f600",
   "1f603",
   "1f604",
@@ -412,4 +412,4 @@ const guyIds = [
   "1f3f3",
 ];
 
-export default guyIds;
+module.exports = { pfpIds };

@@ -6,6 +6,8 @@ import "./NavBar.css";
 import MainTutorial from "./MainTutorial";
 import { UserContext } from "../App";
 import { get } from "../../utilities";
+import SearchTutorial from "./SearchTutorial";
+import ProfileTutorial from "./ProfileTutorial";
 
 /*
  * NavBar displays the title, a button for showing a tutorial,
@@ -21,6 +23,10 @@ const NavBar = () => {
 
   if (pathname === "/") {
     tutorial = <MainTutorial />;
+  } else if (pathname.startsWith("/search")) {
+    tutorial = <SearchTutorial />;
+  } else if (pathname.startsWith("/profile")) {
+    tutorial = <ProfileTutorial />;
   }
 
   useEffect(() => {

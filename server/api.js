@@ -22,6 +22,7 @@ const router = express.Router();
 
 //initialize socket
 const socketManager = require("./server-socket");
+const { pfpIds } = require("../client/src/assets/pfpIds");
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -214,7 +215,7 @@ router.post("/switchGuys", async (req, res) => {
     const index = user.guy_list.indexOf(oldGuyObjectId);
     if (index !== -1) {
       user.guy_list[index] = newGuyObjectId;
-
+      req.user.guy_list[index] = newGuyObjectId;
       await user.save();
 
       // Find the new guy object based on newGuyId
@@ -232,6 +233,30 @@ router.post("/switchGuys", async (req, res) => {
     console.error("Error:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
+});
+
+router.post("/pfpset", async (req, res) => {
+  let newPfp = req.body.newPfp;
+
+  if (newPfp.startsWith("u")) {
+    newPfp = newPfp.slice(1); // Remove the first character (the "u")
+  }
+
+  console.log(newPfp);
+  const user = await User.findById(req.user._id);
+  if (pfpIds.includes(newPfp)) {
+    user.asset_id = newPfp;
+    user.save();
+    res.send({ newPfp: newPfp });
+  }
+});
+
+router.post("/nameSet", async (req, res) => {
+  const user = await User.findById(req.user._id);
+  console.log(user);
+  user.name = req.body.newName;
+  user.save();
+  res.send({ newName: user.name });
 });
 
 // anything else falls to this "not found" case

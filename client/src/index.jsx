@@ -7,7 +7,7 @@ import Composer from "./components/pages/Composer";
 import NotFound from "./components/pages/NotFound";
 import GuyCreator from "./components/pages/GuyCreator";
 import Search from "./components/pages/Search";
-import Profile from "./components/pages/Profile";
+import ProfileCard from "./components/pages/ProfileCard";
 
 import {
   createBrowserRouter,
@@ -17,7 +17,7 @@ import {
 } from "react-router-dom";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import SoundMaker from "./components/pages/SoundMaker"; 
+import SoundMaker from "./components/pages/SoundMaker";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "755479868382-tunoraa77oa1skp6dg05m3g0ttvho489.apps.googleusercontent.com";
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Composer />} />
       <Route path="/search" element={<Search />} />
       <Route path="/soundmaker" element={<SoundMaker />} />
-      <Route path="/profile/:userId" element={<Profile />} />
+      <Route path="/profile/:userId?" element={<ProfileCard />} />
     </Route>
   )
 );

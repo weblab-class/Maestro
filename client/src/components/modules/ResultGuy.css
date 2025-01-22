@@ -39,3 +39,8 @@
   color: #555;
   font-size: 14px;
 }
+
+.result-guy-box.result-guy-selected {
+  background-color: #65d1df;
+  border-color: #00343b;
+}
