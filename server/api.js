@@ -242,8 +242,7 @@ router.post("/pfpset", async (req, res) => {
     newPfp = newPfp.slice(1); // Remove the first character (the "u")
   }
 
-  console.log(newPfp);
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.body.userId);
   if (pfpIds.includes(newPfp)) {
     user.asset_id = newPfp;
     user.save();
@@ -252,8 +251,7 @@ router.post("/pfpset", async (req, res) => {
 });
 
 router.post("/nameSet", async (req, res) => {
-  const user = await User.findById(req.user._id);
-  console.log(user);
+  const user = await User.findById(req.body.userId);
   user.name = req.body.newName;
   user.save();
   res.send({ newName: user.name });

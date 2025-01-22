@@ -30,14 +30,15 @@ const ProfileCard = () => {
   }, [paramUserId, contextUserId]);
 
   const handleNameSave = () => {
-    post("/api/nameSet", { newName: newName }).then(({ newName }) => {
+    console.log(contextUserId);
+    post("/api/nameSet", { newName: newName, userId: contextUserId }).then(({ newName }) => {
       setUser((prev) => ({ ...prev, name: newName }));
     });
     setIsEditingName(false);
   };
 
   const handleAvatarSave = () => {
-    post("/api/pfpset", { newPfp: newAvatar }).then(({ newPfp }) => {
+    post("/api/pfpset", { newPfp: newAvatar, userId: contextUserId }).then(({ newPfp }) => {
       setUser((prev) => ({ ...prev, asset_id: newPfp }));
     });
     setIsAvatarPopupOpen(false);
