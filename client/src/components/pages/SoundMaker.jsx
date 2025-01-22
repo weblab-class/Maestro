@@ -4,6 +4,7 @@ import Slider from "../modules/Slider"
 import PlayButton from "../modules/Playbutton";
 import Dropdown from '../modules/Dropdown';
 import WaveformAnimation from "../modules/WaveformAnimation";
+import { post } from "../../utilities"
 // import sound from '../../../../server/models/sound';
 // import Form from "../modules/Form";
 // import Piano from "../modules/Piano";
@@ -81,13 +82,13 @@ const SoundMaker = (props) => {
         release: modEnvRelease,
       }
     };
-
-    post("/api/postSound", soundData)
-      .then((res) => {
-        const soundId = res.soundId;
-        return post("/api/postGuy", { soundId });
-      })
-  };
+    // I think the error is here - may have written this function wrong 
+      post("/api/postSound", soundData)
+        .then((res) => {
+          const soundId = res.soundId;
+          post("/api/postGuy", { soundId });
+        })
+    };
 
   return (
     <div
