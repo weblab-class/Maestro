@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Guy = require("./models/guy");
+const Sound = require("./models/sound");
 const mongoose = require("mongoose");
 
 // import authentication library
@@ -40,6 +41,29 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
+router.post("/postSound", (req, res)  => {
+  const soundData = req.body
+  const sound = new Sound({
+    note: soundData.note,
+    harmonicity: soundData.harmonicity,
+    oscillator: soundData.oscillator,
+    modulation: soundData.modulation,
+    envelope: soundData.envelope,
+    modulationEnvelope: soundData.modulationEnvelope,
+  });
+
+  sound.save().then((savedSound) => res.send({soundId: savedSound._id}))
+});
+
+router.post("/postGuy", (req, res)  => {
+  const userID = req.user._id
+  const soundID = req.sound._id
+  const guy = new Guy({
+      creator_id: userID,
+      sound: soundID
+  })
+});
+
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
@@ -54,6 +78,13 @@ router.get("/user", (req, res) => {
     res.send(user);
   });
 });
+
+router.get("/sound", (req, res) => {
+  Sound.findById(req.query.soundid).then((sound) => {
+    res.send(sound);
+  });
+});
+
 
 router.get("/username", (req, res) => {
   // Check if creator_id is provided

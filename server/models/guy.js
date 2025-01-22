@@ -4,7 +4,7 @@ const GuySchema = new mongoose.Schema({
   name: String,
   asset_id: String,
   creator_id: mongoose.Schema.Types.ObjectId,
-  sound: String,
+  sound: mongoose.Schema.Types.Mixed,
 });
 
 // compile model from schema
