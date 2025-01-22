@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
 import "./ResultGuy.css";
 import { get } from "../../utilities";
+import { Link } from "react-router-dom";
 
 /**
  * ResultGuy displays details of a single guy result.
@@ -39,7 +40,10 @@ const ResultGuy = memo((props) => {
         />
       </button>
       <p className="result-guy-name">{guy.name}</p>
-      <p className="result-guy-username">{creatorName}</p>
+
+      <Link to={`/profile/${guy.creator_id}`} className="result-guy-username">
+        {creatorName}
+      </Link>
     </div>
   );
 });

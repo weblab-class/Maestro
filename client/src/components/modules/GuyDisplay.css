@@ -3,13 +3,11 @@
   flex-direction: column; /* Stack rows vertically */
   justify-content: center; /* Vertically center content */
   align-items: center; /* Horizontally center content */
-  height: 70vh; /* Ensure full viewport height to center content */
+
   position: relative; /* Allow for absolute positioning of selectedGuy */
 }
 
 .selected-guy {
-  position: absolute; /* Position selectedGuy above the rows of guys */
-  top: 15px; /* Adjust top space between selectedGuy and the top of the screen */
   z-index: 10; /* Ensure it appears above other content */
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   color: white;

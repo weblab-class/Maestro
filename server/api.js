@@ -90,6 +90,7 @@ router.get("/pfpget", (req, res) => {
 
 router.get("/guyListGet", async (req, res) => {
   if (req.user) {
+    console.log(req.user.guy_list);
     const guyList = await Promise.all(req.user.guy_list.map((guy_id) => Guy.findById(guy_id)));
     res.send({ guyList });
   } else {
@@ -183,25 +184,25 @@ router.get("/search", async (req, res) => {
 });
 
 router.post("/switchGuys", async (req, res) => {
-  const newGuyId = req.body.newGuyId;
-  const oldGuyId = req.body.oldGuyId;
-  const curUserId = req.user._id;
-
-  // Convert to ObjectId if they are strings
-  const newGuyObjectId = new mongoose.Types.ObjectId(newGuyId);
-  const oldGuyObjectId = new mongoose.Types.ObjectId(oldGuyId);
-  const curUserObjectId = new mongoose.Types.ObjectId(curUserId);
+  const { newGuyId, oldGuyId } = req.body;
+  const userId = req.user._id;
 
   try {
-    const user = await User.findById(curUserObjectId);
-
+    // Find the user in the database using their ID
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Ensure `guy_list` items are treated as ObjectId for comparison
+    user.guy_list = user.guy_list.map((id) => new mongoose.Types.ObjectId(id));
+
+    // Convert the input IDs to ObjectId
+    const newGuyObjectId = new mongoose.Types.ObjectId(newGuyId);
+    const oldGuyObjectId = new mongoose.Types.ObjectId(oldGuyId);
+
     // Check if the newGuyId is already in the guy_list
-    if (user.guy_list.includes(newGuyObjectId)) {
-      // If newGuyId is already in the list, send back the old guy
+    if (user.guy_list.some((id) => id.equals(newGuyObjectId))) {
       const oldGuy = await Guy.findById(oldGuyObjectId);
       if (!oldGuy) {
         return res.status(404).json({ message: "Old guy not found" });
@@ -211,11 +212,22 @@ router.post("/switchGuys", async (req, res) => {
     }
 
     // Replace the oldGuyId with the newGuyId in the guy_list array
-    const index = user.guy_list.indexOf(oldGuyObjectId);
+    console.log("Hello");
+    const index = user.guy_list.findIndex((id) => id.equals(oldGuyObjectId));
     if (index !== -1) {
-      user.guy_list[index] = newGuyObjectId;
+      console.log("Before Update:", user.guy_list);
 
-      await user.save();
+      // Update the guy_list directly
+      user.guy_list[index] = newGuyObjectId;
+      req.user.guy_list[index] = newGuyObjectId;
+      await User.updateOne(
+        { _id: userId }, // Filter
+        { $set: { [`guy_list.${index}`]: newGuyObjectId } } // Update specific index
+      );
+
+      // Reload the user from the database to confirm changes
+      const updatedUser = await User.findById(userId);
+      console.log("After Update:", updatedUser.guy_list);
 
       // Find the new guy object based on newGuyId
       const newGuy = await Guy.findById(newGuyObjectId);
@@ -223,14 +235,13 @@ router.post("/switchGuys", async (req, res) => {
         return res.status(404).json({ message: "New guy not found" });
       }
 
-      // Send the response back with the new guy
-      res.status(200).json({ message: "Guy switched successfully!", newGuy });
+      return res.status(200).json({ message: "Guy switched successfully!", newGuy });
     } else {
-      res.status(404).json({ message: "Old guy ID not found in the list" });
+      return res.status(404).json({ message: "Old guy ID not found in the list" });
     }
   } catch (err) {
     console.error("Error:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    return res.status(500).json({ message: "Server error", error: err.message });
   }
 });
 
