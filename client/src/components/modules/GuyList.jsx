@@ -27,7 +27,7 @@ const GuyList = (props) => {
     <button
       className="guy-button guy-icon guy-impostor"
       onClick={() => {
-        navigate("/creator");
+        navigate("/soundmaker");
       }}
     >
       Create a new Guy!
