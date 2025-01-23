@@ -59,6 +59,8 @@ router.post("/postGuy", (req, res)  => {
   const userID = req.user._id
   const soundID = req.sound._id
   const guy = new Guy({
+      name: "default_name_for_now",
+      asset_id: asset_id,
       creator_id: userID,
       sound: soundID
   })
