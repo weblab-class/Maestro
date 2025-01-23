@@ -61,12 +61,14 @@ const NavBar = () => {
             </Link>
           </div>
         ) : (
-          <GoogleLogin
-            text="signin_with"
-            onSuccess={handleLogin}
-            onFailure={(err) => console.log(err)}
-            containerProps={{ className: "NavBar-link NavBar-login" }}
-          />
+          <div className="NavBar-login">
+            <GoogleLogin
+              text="signin_with"
+              onSuccess={handleLogin}
+              onFailure={(err) => console.log(err)}
+              containerProps={{ className: "NavBar-link NavBar-login" }}
+            />
+          </div>
         )}
       </div>
     </nav>

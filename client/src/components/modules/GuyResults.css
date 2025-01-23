@@ -1,11 +1,10 @@
-/* Ensure the results container fills available space without unnecessary gaps */
 .guy-results-container {
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
-  overflow-y: auto; /* Allow vertical scrolling if content exceeds height */
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  height: 90%; /* Take up all available space inside the results panel */
+  padding: 10px; /* Remove unnecessary padding */
+  overflow-y: auto; /* Allow vertical scrolling */
+  box-sizing: border-box; /* Ensure proper sizing */
+  scroll-behavior: smooth; /* Smooth scrolling for key navigation */
+  max-height: 70vh; /* Adjust this to fit within the viewport */
+  height: auto; /* Ensure it grows to fit content */
 }
 
 /* Style for each individual result */
@@ -36,4 +35,17 @@
   font-size: 18px;
   color: #777;
   text-align: center;
+}
+
+.pagination-container {
+  position: sticky;
+  top: 0; /* Keep the buttons at the very top of the scrollable area */
+  z-index: 10; /* Ensure the buttons stay above other elements */
+  display: flex;
+  justify-content: center; /* Center-align the buttons */
+  gap: 10px; /* Space between buttons */
+  background-color: #fff; /* White background for visibility */
+  padding: 10px; /* Add padding for touch-friendly buttons */
+  border-bottom: 1px solid #ddd; /* Optional: Add a subtle divider */
+  align-items: center;
 }

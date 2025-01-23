@@ -49,8 +49,10 @@ const Composer = () => {
         setSelectedGuy(null);
       } else {
         const sound = buttonBinds.find((bind) => bind.key === key).guy.sound;
-        var audio = new Audio(sound);
-        audio.play();
+        if (typeof sound === "string") {
+          var audio = new Audio(sound);
+          audio.play();
+        }
       }
     };
   };

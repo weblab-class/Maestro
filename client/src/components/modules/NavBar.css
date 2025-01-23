@@ -31,7 +31,8 @@
   opacity: 0.8;
 }
 
-.NavBar-link.NavBar-login {
+.NavBar-login {
+  margin-right: 100px;
   opacity: 1;
   color: black;
 }

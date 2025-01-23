@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { get } from "../../utilities";
 import GuyResults from "../modules/GuyResults";
 import GuyDisplay from "../modules/GuyDisplay";
-import { UserContext } from "../App";
 
 import "./Search.css";
 
@@ -72,20 +71,18 @@ const Search = () => {
         <button onClick={search} className="action-button">
           Search!
         </button>
-        <button onClick={changePage(-1)} className="action-button">
-          {" "}
-          {"<"}{" "}
-        </button>
-        <button onClick={changePage(1)} className="action-button">
-          {" "}
-          {">"}{" "}
-        </button>
       </div>
 
       {/* Left panel */}
       <div className="results-panel">
         {/* Optionally add content here */}
-        <GuyResults results={results} setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
+        <GuyResults
+          results={results}
+          setSelectedGuy={setSelectedGuy}
+          selectedGuy={selectedGuy}
+          changePage={changePage}
+          page={page}
+        />
       </div>
 
       {/* Right panel */}

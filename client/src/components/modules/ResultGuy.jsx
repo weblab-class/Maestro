@@ -26,8 +26,10 @@ const ResultGuy = memo((props) => {
 
   const onClick = () => {
     props.setSelectedGuy(guy);
-    var sound = new Audio(guy.sound);
-    sound.play();
+    if (typeof guy.sound === "string") {
+      var sound = new Audio(guy.sound);
+      sound.play();
+    }
   };
 
   return (

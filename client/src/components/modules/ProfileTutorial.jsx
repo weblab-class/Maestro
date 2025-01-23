@@ -40,25 +40,21 @@ const ProfileTutorial = () => {
         <div className="popup-overlay">
           <div className="popup-content">
             <h2>Welcome to the profile page!</h2>
-            <p>Here, you can look at a user's information, or your own</p>
+            <p>Here, you can look at a user's information, or your own! </p>
             <ul>
               <li>Change your username and profile picture!</li>
               <li>Find a user's guys!</li>
             </ul>
-            <p>
-              <strong>More specific instructions to edit your own profile:</strong>
-            </p>
+
+            <strong> How to edit your profile: </strong>
+
             <ul>
               <li> Log in, and go to your profile page.</li>
+              <li> Username: Click your current username, enter your new name and submit! </li>
               <li>
-                {" "}
-                Change your username by clicking your current username, entering your new name and
-                submitting{" "}
-              </li>
-              <li>
-                Change your profile picture by first clicking your current profile picture. Then, go
-                into the linked website and click on your favorite emoji! Find the code in the top
-                right, and enter that code to change your profile picture!
+                Profile Picture: Click current profile picture. Navigate to the provided link, and
+                find your favorite emoji's unicode in the top right of the screen. Enter it into the
+                textbox and submit!
               </li>
             </ul>
 

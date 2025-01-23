@@ -87,7 +87,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 500;
 }
 
 .avatar-popup-content {

@@ -39,40 +39,42 @@ const SearchTutorial = () => {
       {isPopupOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <h2>Welcome to the search menu!</h2>
-            <p>Here, you can find other user's guys! 👀</p>
+            <h1>Welcome to the Search Menu!</h1>
+
+            <p>Here you can:</p>
             <ul>
-              <li>Search by guy or username!</li>
-              <li>Visit other profiles!</li>
-              <li>Use your newly found guys in the composer!</li>
+              <li>Search for guys based on username or guy name.</li>
+              <li>View other user's profiles.</li>
+              <li>Use other user's guys in your own composer!</li>
             </ul>
-            <p>You can even listen to other user's guys before collecting them.</p>
-            <p>
-              <strong>Let’s get started:</strong>
-            </p>
+            <p className="highlight">To start:</p>
             <ul>
-              <li> Type a search query into the username or guy text boxes.</li>
-              <li> Navigate the search results by clicking the arrow buttons. </li>
+              <li>Type a guy name or username into the searchboxes.</li>
+              <li>Navigate the results by clicking the arrows above the left panel.</li>
+              <li>Select a guy by clicking on a button in the left panel.</li>
               <li>
-                {" "}
-                Your guys are on the right side of the screen. With a guy selected, click on one of
-                these to replace it with your new guy!
-              </li>
-              <li>
-                {" "}
-                When you are done, click the Maestro name in the navigation menu to use your new
-                guys!
+                With a guy selected, click on a guy in the right panel to use that guy in your next
+                composition!
               </li>
             </ul>
-            <p>
-              <strong>For keyboard users:</strong>
-            </p>
+
+            <p className="highlight">For Keyboard Users:</p>
             <ul>
-              <li>Use the right and left arrow keys to navigate search results</li>
-              <li>Use the up and down arrow keys to scroll the results</li>
               <li>
-                Press <code>Control</code> and the number key corresponding to the number next to a
-                guy to select it!
+                <code>Control + # </code>: Selects a guy from the left panel
+              </li>
+              <li>
+                <code>Control + ` </code>: Deselect a guy
+              </li>
+              <li>
+                <code>Right or Left arrow </code>: Change Page
+              </li>
+              <li>
+                <code>Up or Down arrow </code>: Scroll Results
+              </li>
+              <li>
+                <code>Shift + #1 #2 </code>: Replaces the guy in row #1, column #2 with your
+                currently selected guy
               </li>
             </ul>
 
