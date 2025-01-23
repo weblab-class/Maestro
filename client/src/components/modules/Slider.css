@@ -1,64 +1,44 @@
-/* Center the slider in the container */
 .slider-container {
-    max-width: 500px;
-    font-family: Arial, sans-serif;
-    margin-right: 50px;  
-  }
-  
-  /* Label and value display */
-  .slider-label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .slider-value {
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  /* Custom slider styles */
-  .custom-slider {
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(90deg, #007bff, #e9ecef);
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  
-  /* Thumb styles */
-  .custom-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .custom-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-  }
-  
-  /* For Firefox */
-  .custom-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  /* Add focus and active styles */
-  .custom-slider:focus {
-    background: linear-gradient(90deg, #0056b3, #e9ecef);
-  }
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.slider-label {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #333;
+}
+
+.slider-value {
+  width: 50px;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.custom-slider {
+  width: 400px;
+  height: 6px;
+  border-radius: 4px;
+  appearance: none;
+}
+
+.custom-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.custom-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #007bff;
+  cursor: pointer;
+}

@@ -1,18 +1,15 @@
 .play-button {
-    background-color: green;  /* Green background */
-    color: white;             /* White text color */
-    padding: 10px 20px;       /* Padding inside the button */
-    border: none;             /* Remove default border */
-    border-radius: 15px;       /* Rounded corners */
-    cursor: pointer;         /* Change cursor to pointer on hover */
-    font-size: 16px;          /* Font size */
-    transition: background-color 0.3s ease;  /* Smooth transition for hover effect */
-    position: absolute;
-    bottom: 10%;               /* Center vertically */
-    left: 50%;              /* Center horizontally */
-    transform: translate(-50%, -50%);  
-  }
-  
-  .play-button:hover {
-    background-color: darkgreen; /*  Dark green when hovering */
-  }
+  background-color: green; /* Green background */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* Remove default border */
+  border-radius: 15px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  margin: 0px 20px 0px 20px;
+}
+
+.play-button:hover {
+  background-color: darkgreen; /*  Dark green when hovering */
+}

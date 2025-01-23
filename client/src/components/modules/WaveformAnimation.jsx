@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as Tone from "tone";
+import "./WaveformAnimation.css";
 
 const WaveformAnimation = ({ fmSynth }) => {
   const canvasRef = useRef(null);
@@ -10,7 +11,7 @@ const WaveformAnimation = ({ fmSynth }) => {
   const drawWaveform = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const waveform = analyser.current.getValue(); 
+    const waveform = analyser.current.getValue();
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
@@ -29,8 +30,8 @@ const WaveformAnimation = ({ fmSynth }) => {
         context.lineTo(i, y);
       }
     }
-    context.strokeStyle = "#8ACE00"; //Green 
-    context.lineWidth = 2;
+    context.strokeStyle = "#8ACE00"; //Green
+    context.lineWidth = 3;
     context.stroke();
   };
 
@@ -41,12 +42,14 @@ const WaveformAnimation = ({ fmSynth }) => {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={400}
-      height={150}
-      style={{ border: "1px solid #000", marginTop: "20px" }}
-    />
+    <div className="waveform-animation">
+      <canvas
+        ref={canvasRef}
+        width={400}
+        height={150}
+        style={{ border: "1px solid #000", marginTop: "20px" }}
+      />
+    </div>
   );
 };
 

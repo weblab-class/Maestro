@@ -6,8 +6,13 @@ const Slider = ({ label, min, max, step, onChange }) => {
 
   const handleChange = (e) => {
     const newValue = parseFloat(e.target.value);
-    setValue(newValue);
-    onChange(newValue);
+    if (isNaN(newValue)) {
+      setValue(0);
+      onChange(0);
+    } else {
+      setValue(newValue);
+      onChange(newValue);
+    }
   };
 
   const percentage = ((value - min) / (max - min)) * 100;
@@ -15,9 +20,18 @@ const Slider = ({ label, min, max, step, onChange }) => {
   return (
     <div className="slider-container">
       <div className="slider-label">
-        <span>{label}</span>
-        <span className="slider-value">{value}</span>
+        <span>{label}: </span>
       </div>
+
+      <input
+        type="number"
+        className="slider-value"
+        min={min}
+        max={max}
+        value={value}
+        onChange={handleChange}
+      />
+
       <input
         type="range"
         className="custom-slider"

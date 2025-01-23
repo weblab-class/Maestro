@@ -41,31 +41,6 @@ router.post("/initsocket", (req, res) => {
   res.send({});
 });
 
-router.post("/postSound", (req, res)  => {
-  const soundData = req.body
-  const sound = new Sound({
-    note: soundData.note,
-    harmonicity: soundData.harmonicity,
-    oscillator: soundData.oscillator,
-    modulation: soundData.modulation,
-    envelope: soundData.envelope,
-    modulationEnvelope: soundData.modulationEnvelope,
-  });
-
-  sound.save().then((savedSound) => res.send({soundId: savedSound._id}))
-});
-
-router.post("/postGuy", (req, res)  => {
-  const userID = req.user._id
-  const soundID = req.sound._id
-  const guy = new Guy({
-      name: "default_name_for_now",
-      asset_id: asset_id,
-      creator_id: userID,
-      sound: soundID
-  })
-});
-
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
@@ -86,7 +61,6 @@ router.get("/sound", (req, res) => {
     res.send(sound);
   });
 });
-
 
 router.get("/username", (req, res) => {
   // Check if creator_id is provided
@@ -265,6 +239,27 @@ router.post("/switchGuys", async (req, res) => {
     console.error("Error:", err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
+});
+
+router.post("/postSound", (req, res) => {
+  const soundData = req.body;
+  const sound = new Sound({
+    note: soundData.note,
+    harmonicity: soundData.harmonicity,
+    oscillator: soundData.oscillator,
+    modulation: soundData.modulation,
+    envelope: soundData.envelope,
+    modulationEnvelope: soundData.modulationEnvelope,
+  });
+
+  sound.save().then((savedSound) => res.send({ soundId: savedSound._id }));
+});
+
+router.post("/postGuy", (req, res) => {
+  const guy = new Guy({ ...req.body.guy, sound: new mongoose.Types.ObjectId(req.body.guy.sound) });
+  guy.save().then((savedGuy) => {
+    res.send(savedGuy);
+  });
 });
 
 // anything else falls to this "not found" case
