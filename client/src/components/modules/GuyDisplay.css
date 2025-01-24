@@ -3,24 +3,17 @@
   flex-direction: column; /* Stack rows vertically */
   justify-content: center; /* Vertically center content */
   align-items: center; /* Horizontally center content */
-  height: 70vh; /* Ensure full viewport height to center content */
-  position: relative; /* Allow for absolute positioning of selectedGuy */
-}
-
-.selected-guy {
-  position: absolute; /* Position selectedGuy above the rows of guys */
-  top: 15px; /* Adjust top space between selectedGuy and the top of the screen */
-  z-index: 10; /* Ensure it appears above other content */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  min-width: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
+  position: relative;
+  top: 60px;
 }
 
 .guy-row {
   display: flex; /* Align guys in a row */
   justify-content: center; /* Horizontally center the guys within the row */
+}
+
+.selected-row {
+  background-color: #d3d3d3; /* Light gray background */
+  border: 2px solid #007bff; /* Blue border */
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Subtle shadow */
 }

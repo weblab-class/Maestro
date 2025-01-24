@@ -3,11 +3,13 @@ import * as Tone from "tone";
 import Slider from "../modules/Slider";
 import Dropdown from "../modules/Dropdown";
 import WaveformAnimation from "../modules/WaveformAnimation";
-import { post } from "../../utilities";
+import { post, get } from "../../utilities";
 import { UserContext } from "../App";
 import { GoogleLogin } from "@react-oauth/google";
-import guyIds from "../../assets/guyIds";
 
+import { useNavigate } from "react-router-dom";
+
+import pfpIds from "../../assets/pfpIds";
 import "./NewSoundMaker.css";
 
 const NewSoundMaker = (props) => {
@@ -27,6 +29,9 @@ const NewSoundMaker = (props) => {
 
   const [guyName, setGuyName] = useState("");
   const [assetId, setAssetId] = useState("");
+  const [username, setUsername] = useState(null);
+
+  const navigate = useNavigate();
 
   const waveforms = ["sine", "square", "triangle", "sawtooth", "fatsawtooth"];
 
@@ -73,6 +78,16 @@ const NewSoundMaker = (props) => {
     modEnvRelease,
   ]);
 
+  useEffect(() => {
+    if (userId) {
+      get("/api/user", { userid: userId }).then((userObj) => {
+        setUsername(userObj.name);
+      });
+    } else {
+      setUsername(null);
+    }
+  }, [userId]);
+
   function isValidNote(input) {
     // Regular expression to match musical notes from A0 to C8 (including sharps)
     const noteRegex = /^(A|B|C|D|E|F|G)(#|b)?[0-8]$/;
@@ -83,13 +98,14 @@ const NewSoundMaker = (props) => {
 
   const checkAssetId = (id) => {
     // Check if the id is directly in the list
-    if (guyIds.includes(id)) {
-      return true;
+    if (pfpIds.includes(id)) {
+      return id; // Return the id as is if it's found in the list
     }
 
     // Check if the id without the "u" at the start is in the list
-    if (guyIds.includes(id.startsWith("u") ? id.slice(1) : id)) {
-      return true;
+    const idWithoutU = id.startsWith("u") ? id.slice(1) : id;
+    if (pfpIds.includes(idWithoutU)) {
+      return idWithoutU; // Return the id without "u" if it's found in the list
     }
 
     // If neither condition is met, return false
@@ -106,7 +122,8 @@ const NewSoundMaker = (props) => {
   };
 
   const saveSound = () => {
-    if (checkAssetId(assetId)) {
+    const newAssetId = checkAssetId(assetId);
+    if (newAssetId) {
       const soundData = {
         note: isValidNote(note) ? note : "C4",
         harmonicity,
@@ -131,10 +148,14 @@ const NewSoundMaker = (props) => {
           guy: {
             name: guyName,
             creator_id: userId,
-            asset_id: assetId,
+            asset_id: newAssetId,
             sound: res.soundId,
           },
           userId: userId,
+        }).then(() => {
+          navigate(
+            `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
+          );
         });
       });
     }

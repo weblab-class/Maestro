@@ -21,11 +21,14 @@ const App = () => {
   const [userId, setUserId] = useState(undefined);
   const [guyVisibility, setGuyVisibility] = useState(false);
 
+  const [assetId, setAssetId] = useState("1fae5");
+
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
+        setAssetId(user.asset_id);
       }
     });
   }, []);
@@ -36,12 +39,14 @@ const App = () => {
     console.log(`Logged in as ${decodedCredential.name}`);
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
+      setAssetId(user.asset_id);
       post("/api/initsocket", { socketid: socket.id });
     });
   };
 
   const handleLogout = () => {
     setUserId(undefined);
+    setAssetId("1fae5");
     post("/api/logout");
   };
 
@@ -49,6 +54,8 @@ const App = () => {
     userId,
     handleLogin,
     handleLogout,
+    assetId,
+    setAssetId,
   };
 
   return (

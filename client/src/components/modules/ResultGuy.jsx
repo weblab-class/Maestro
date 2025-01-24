@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
 import "./ResultGuy.css";
 import { get } from "../../utilities";
+import { Link } from "react-router-dom";
 
 /**
  * ResultGuy displays details of a single guy result.
@@ -13,6 +14,7 @@ import { get } from "../../utilities";
 
 const ResultGuy = memo((props) => {
   const guy = props.guy;
+  const selectedGuy = props.selectedGuy;
 
   const [creatorName, setCreatorName] = useState("");
 
@@ -23,13 +25,15 @@ const ResultGuy = memo((props) => {
   }, []);
 
   const onClick = () => {
-    props.setter(guy);
-    var sound = new Audio(guy.sound);
-    sound.play();
+    props.setSelectedGuy(guy);
+    if (typeof guy.sound === "string") {
+      var sound = new Audio(guy.sound);
+      sound.play();
+    }
   };
 
   return (
-    <div className="result-guy-box">
+    <div className={`result-guy-box ${guy === selectedGuy ? "result-guy-selected" : ""}`}>
       <p className="result-guy-index">{props.index}</p>
       <button className="result-guy-image-button">
         <img
@@ -39,7 +43,9 @@ const ResultGuy = memo((props) => {
         />
       </button>
       <p className="result-guy-name">{guy.name}</p>
-      <p className="result-guy-username">{creatorName}</p>
+      <Link to={`/profile/${guy.creator_id}`} className="result-guy-username">
+        {creatorName}
+      </Link>
     </div>
   );
 });

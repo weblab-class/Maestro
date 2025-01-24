@@ -1,59 +1,77 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./GuyResults.css";
 
 import ResultGuy from "./ResultGuy";
 
-/**
- * GuyResults renders search results.
- *
- * Proptypes
- * @param {Array} results // Resulting guys
- * @param {Function} setter // Sets the selectedGuy in Search
- *
- */
-
-const GuyResults = ({ results = [], setter }) => {
+const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, page }) => {
   const containerRef = useRef(null);
 
-  // Handle the scroll position
-  const scrollStep = 50; // Scroll by 50px with each key press
+  const scrollStep = 50;
 
   const handleKeyDown = (event) => {
     if (containerRef.current) {
       if (event.key === "ArrowDown") {
-        // Scroll down
         containerRef.current.scrollBy(0, scrollStep);
       } else if (event.key === "ArrowUp") {
-        // Scroll up
         containerRef.current.scrollBy(0, -scrollStep);
+      }
+    }
+
+    if (event.ctrlKey) {
+      const numberKey = event.key;
+      let index;
+
+      if (numberKey >= "1" && numberKey <= "9") {
+        index = parseInt(numberKey, 10) - 1;
+      } else if (numberKey === "0") {
+        index = 9;
+      } else {
+        setSelectedGuy(null);
+      }
+
+      if (index !== undefined && index < results.length) {
+        setSelectedGuy(results[index]);
       }
     }
   };
 
   useEffect(() => {
-    // Add event listener for keydown
     window.addEventListener("keydown", handleKeyDown);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [results]);
 
   return (
-    <div className="guy-results-container" ref={containerRef}>
-      {results.length > 0 ? (
-        results.map((result, index) => (
-          <ResultGuy
-            key={result._id || index} // Use a unique key if possible
-            index={index + 1}
-            guy={result}
-            setter={setter}
-          />
-        ))
-      ) : (
-        <p className="no-results">No results found</p>
-      )}
+    <div>
+      <div className="pagination-container">
+        <button onClick={changePage(-1)} className="action-button">
+          {"<"}
+        </button>
+        <div>{page}</div>
+        <button onClick={changePage(1)} className="action-button">
+          {">"}
+        </button>
+      </div>
+      <div className="guy-results-container" ref={containerRef}>
+        {results.length > 0 ? (
+          results.map((result, index) => {
+            const displayIndex = index === 9 ? 0 : index + 1;
+            return (
+              <ResultGuy
+                key={result._id || index}
+                index={displayIndex}
+                guy={result}
+                setSelectedGuy={setSelectedGuy}
+                selectedGuy={selectedGuy}
+              />
+            );
+          })
+        ) : (
+          <p className="no-results">No results found</p>
+        )}
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import Composer from "./components/pages/Composer";
 import NotFound from "./components/pages/NotFound";
 // import GuyCreator from "./components/pages/GuyCreator";
 import Search from "./components/pages/Search";
-import Profile from "./components/pages/Profile";
+import ProfileCard from "./components/pages/ProfileCard";
 
 import {
   createBrowserRouter,
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Composer />} />
       <Route path="/search" element={<Search />} />
       <Route path="/soundmaker" element={<NewSoundMaker />} />
-      <Route path="/profile/:userId" element={<Profile />} />
+      <Route path="/profile/:userId" element={<ProfileCard />} />
     </Route>
   )
 );

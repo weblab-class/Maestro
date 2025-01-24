@@ -221,7 +221,7 @@ router.post("/switchGuys", async (req, res) => {
     const index = user.guy_list.indexOf(oldGuyObjectId);
     if (index !== -1) {
       user.guy_list[index] = newGuyObjectId;
-
+      req.user.guy_list[index] = newGuyObjectId;
       await user.save();
 
       // Find the new guy object based on newGuyId
@@ -260,6 +260,21 @@ router.post("/postGuy", (req, res) => {
   guy.save().then((savedGuy) => {
     res.send(savedGuy);
   });
+});
+
+router.post("/pfpset", async (req, res) => {
+  let newPfp = req.body.newPfp;
+  const user = await User.findById(req.body.userId);
+  user.asset_id = newPfp;
+  user.save();
+  res.send({ newPfp: newPfp });
+});
+
+router.post("/nameSet", async (req, res) => {
+  const user = await User.findById(req.body.userId);
+  user.name = req.body.newName;
+  user.save();
+  res.send({ newName: user.name });
 });
 
 // anything else falls to this "not found" case

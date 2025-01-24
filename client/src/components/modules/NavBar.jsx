@@ -6,6 +6,8 @@ import "./NavBar.css";
 import MainTutorial from "./MainTutorial";
 import { UserContext } from "../App";
 import { get } from "../../utilities";
+import SearchTutorial from "./SearchTutorial";
+import ProfileTutorial from "./ProfileTutorial";
 
 /*
  * NavBar displays the title, a button for showing a tutorial,
@@ -15,19 +17,16 @@ import { get } from "../../utilities";
 const NavBar = () => {
   let tutorial = "";
 
-  const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const { userId, handleLogin, handleLogout, assetId } = useContext(UserContext);
   const pathname = useLocation().pathname;
-  const [pfp, setPfp] = useState("2795");
 
   if (pathname === "/") {
     tutorial = <MainTutorial />;
+  } else if (pathname.startsWith("/search")) {
+    tutorial = <SearchTutorial />;
+  } else if (pathname.startsWith("/profile")) {
+    tutorial = <ProfileTutorial />;
   }
-
-  useEffect(() => {
-    get("/api/pfpget").then((pfpResponse) => {
-      setPfp(pfpResponse.pfp);
-    });
-  }, [userId]);
 
   return (
     <nav className="NavBar-container">
@@ -47,7 +46,7 @@ const NavBar = () => {
             <Link to={`/profile/${userId}`} className="NavBar-link">
               <button className="open-button">
                 <img
-                  src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${pfp}/512.webp`}
+                  src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${assetId}/512.webp`}
                   width="40px"
                   height="40px"
                 />
@@ -55,12 +54,14 @@ const NavBar = () => {
             </Link>
           </div>
         ) : (
-          <GoogleLogin
-            text="signin_with"
-            onSuccess={handleLogin}
-            onFailure={(err) => console.log(err)}
-            containerProps={{ className: "NavBar-link NavBar-login" }}
-          />
+          <div className="NavBar-login">
+            <GoogleLogin
+              text="signin_with"
+              onSuccess={handleLogin}
+              onFailure={(err) => console.log(err)}
+              containerProps={{ className: "NavBar-link NavBar-login" }}
+            />
+          </div>
         )}
       </div>
     </nav>

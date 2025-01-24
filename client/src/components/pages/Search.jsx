@@ -1,16 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { get } from "../../utilities";
 import GuyResults from "../modules/GuyResults";
 import GuyDisplay from "../modules/GuyDisplay";
-import { UserContext } from "../App";
 
 import "./Search.css";
 
 const Search = () => {
-  const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  // Get query parameters from the URL
+  const params = new URLSearchParams(window.location.search);
 
-  const [nameInput, setNameInput] = useState("");
-  const [usernameInput, setUsernameInput] = useState("");
+  // Retrieve specific parameters
+  const name = params.get("name");
+  const username = params.get("username");
+
+  const [nameInput, setNameInput] = useState(name || "");
+  const [usernameInput, setUsernameInput] = useState(username || "");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [results, setResults] = useState([]);
@@ -67,20 +71,18 @@ const Search = () => {
         <button onClick={search} className="action-button">
           Search!
         </button>
-        <button onClick={changePage(-1)} className="action-button">
-          {" "}
-          {"<"}{" "}
-        </button>
-        <button onClick={changePage(1)} className="action-button">
-          {" "}
-          {">"}{" "}
-        </button>
       </div>
 
       {/* Left panel */}
       <div className="results-panel">
         {/* Optionally add content here */}
-        <GuyResults results={results} setter={setSelectedGuy} />
+        <GuyResults
+          results={results}
+          setSelectedGuy={setSelectedGuy}
+          selectedGuy={selectedGuy}
+          changePage={changePage}
+          page={page}
+        />
       </div>
 
       {/* Right panel */}
