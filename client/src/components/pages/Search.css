@@ -1,0 +1,66 @@
+/* Prevent overall page scrolling */
+body {
+  overflow: hidden;
+}
+
+/* Main container splits the screen into two sections */
+.search-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Left and right sections */
+  height: 100vh;
+  gap: 0; /* No gap between columns */
+  box-sizing: border-box;
+}
+
+/* Search inputs and buttons row at the top */
+.search-header {
+  grid-column: span 2; /* Spans across both columns */
+  display: flex;
+  justify-content: flex-start; /* Align items to the left */
+  align-items: center;
+  gap: 15px; /* Space between inputs and buttons */
+  padding: 10px 15px; /* Reduced padding */
+  box-sizing: border-box;
+  background-color: #f4f4f4; /* Optional: Light background */
+  border-bottom: 1px solid #ccc; /* Divider line */
+}
+
+/* Inputs and buttons style */
+.search-input {
+  flex: 1; /* Inputs take up available space */
+  padding: 10px; /* Reduced padding */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.action-button {
+  padding: 8px 12px; /* Reduced padding */
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+/* Left panel styling */
+.right-panel {
+  padding: 15px; /* Reduced padding */
+  box-sizing: border-box;
+  height: calc(100vh - 120px); /* Ensure it fits under the search header */
+  overflow-y: auto; /* Allow scrolling within this container */
+}
+
+/* Results container that is scrollable inside its fixed height */
+.results-panel {
+  padding-left: 15px;
+  padding-right: 15px;
+  border-left: 1px solid #ccc;
+  box-sizing: border-box;
+  height: calc(100vh - 120px); /* Ensure it fits under the search header */
+}

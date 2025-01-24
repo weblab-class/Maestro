@@ -1,0 +1,57 @@
+.soundmaker-container {
+  display: flex;
+  justify-content: space-between; /* Ensure items go to the edges */
+  align-items: flex-start; /* Align items at the top */
+  height: 100vh; /* Full height of the viewport */
+  padding: 10px; /* Optional padding */
+  gap: 20px; /* Space between the left and right containers */
+}
+
+.soundstuff {
+  flex: 1; /* Occupies the remaining left space */
+  background-color: #f0f0f0; /* Optional background for visibility */
+  padding: 10px; /* Optional padding */
+  border: 1px solid #ccc; /* Optional border */
+}
+
+.guystuff {
+  flex: 1; /* Takes only as much width as needed */
+  background-color: #e0e0e0; /* Optional background for visibility */
+  padding: 10px; /* Optional padding */
+  border: 1px solid #ccc; /* Optional border */
+}
+
+.dropdown-container,
+.note-container {
+  max-width: 500px;
+  font-family: Arial, sans-serif;
+  margin-right: 50px;
+}
+
+.dropdown-label,
+.note-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.note-container input[type="text"] {
+  width: 90px; /* Smaller width for inputs specifically in .note-container */
+  padding: 5px; /* Optional: for better appearance */
+  border-radius: 4px; /* Optional: rounded corners */
+}
+
+.sound-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 120px;
+}
