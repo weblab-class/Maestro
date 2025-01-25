@@ -19,6 +19,9 @@ const ProfileCard = () => {
   const [newName, setNewName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
 
+  const [avatarError, setAvatarError] = useState("");
+  const [nameError, setNameError] = useState("");
+
   useEffect(() => {
     const idToFetch = paramUserId || contextUserId;
 
@@ -83,9 +86,30 @@ const ProfileCard = () => {
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="Enter new name"
+                maxLength={10}
               />
-              <button onClick={handleNameSave}>Save</button>
-              <button onClick={() => setIsEditingName(false)}>Cancel</button>
+              <button
+                onClick={() => {
+                  if (newName.trim() !== "") {
+                    handleNameSave;
+                  } else {
+                    setNameError("Enter a valid Name!");
+                  }
+                }}
+              >
+                Save
+              </button>
+              <button
+                onClick={() => {
+                  setIsEditingName(false);
+                  setNameError(false);
+                }}
+              >
+                Cancel
+              </button>
+              {nameError && (
+                <p style={{ color: "red" }}>{nameError}</p> // Display the error message in red
+              )}
             </div>
           ) : (
             <div
@@ -110,6 +134,9 @@ const ProfileCard = () => {
         <div className="avatar-popup">
           <div className="avatar-popup-content">
             <h3>Change Avatar</h3>
+            {avatarError && (
+              <p style={{ color: "red" }}>{avatarError}</p> // Display the error message in red
+            )}
 
             <AvatarList
               selectedAvatar={selectedAvatar}
@@ -120,13 +147,24 @@ const ProfileCard = () => {
 
             <button
               onClick={() => {
-                handleAvatarSave();
-                setIsAvatarPopupOpen(false);
+                if (selectedAvatar === "") {
+                  setAvatarError("Select an avatar to save it!");
+                } else {
+                  handleAvatarSave();
+                  setIsAvatarPopupOpen(false);
+                }
               }}
             >
               Save
             </button>
-            <button onClick={() => setIsAvatarPopupOpen(false)}>Cancel</button>
+            <button
+              onClick={() => {
+                setIsAvatarPopupOpen(false);
+                setAvatarError("");
+              }}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       )}

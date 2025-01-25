@@ -11,7 +11,6 @@ const ProfileDropdown = () => {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-    console.log("isOpen, ", isOpen);
   };
 
   const profileLinkClick = () => {

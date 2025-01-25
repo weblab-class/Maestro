@@ -34,6 +34,7 @@ const NewSoundMaker = (props) => {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [showNavigateOption, setShowNavigateOption] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -131,8 +132,7 @@ const NewSoundMaker = (props) => {
     if (isValidNote(note)) {
       fmSynth.current.triggerAttackRelease(note, "2n");
     } else {
-      setNote("C4");
-      fmSynth.current.triggerAttackRelease("C4", "2n");
+      setMessage("Choose a valid Note!");
     }
   };
 
@@ -140,45 +140,45 @@ const NewSoundMaker = (props) => {
     const newAssetId = checkAssetId(assetId);
     if (newAssetId) {
       const soundData = {
-        note: isValidNote(note) ? note : "C4",
-        harmonicity,
-        oscillator,
-        modulation,
-        envelope: {
-          attack: envAttack,
-          decay: envDecay,
-          sustain: envSustain,
-          release: envRelease,
-        },
-        modulationEnvelope: {
-          attack: modEnvAttack,
-          decay: modEnvDecay,
-          sustain: modEnvSustain,
-          release: modEnvRelease,
+        note: "C4",
+        parameters: {
+          harmonicity: harmonicity,
+          oscillator: { type: oscillator },
+          modulation: { type: modulation },
+          envelope: {
+            attack: envAttack,
+            decay: envDecay,
+            sustain: envSustain,
+            release: envRelease,
+          },
+          modulationEnvelope: {
+            attack: modEnvAttack,
+            decay: modEnvDecay,
+            sustain: modEnvSustain,
+            release: modEnvRelease,
+          },
         },
       };
 
-      post("/api/postSound", soundData).then((res) => {
-        post("/api/postGuy", {
-          guy: {
-            name: guyName,
-            creator_id: userId,
-            asset_id: newAssetId,
-            sound: res.soundId,
-          },
-          userId: userId,
-        }).then(() => {
-          if (bool) {
-            navigate(
-              `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
-            );
-          } else {
-            setGuyName("");
-            setAssetId("");
-            setShowConfirm(false);
-            setShowNavigateOption(false);
-          }
-        });
+      post("/api/postGuy", {
+        guy: {
+          name: guyName,
+          creator_id: userId,
+          asset_id: newAssetId,
+          sound: soundData,
+        },
+        userId: userId,
+      }).then(() => {
+        if (bool) {
+          navigate(
+            `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
+          );
+        } else {
+          setGuyName("");
+          setAssetId("");
+          setShowConfirm(false);
+          setShowNavigateOption(false);
+        }
       });
     }
   };
@@ -203,7 +203,17 @@ const NewSoundMaker = (props) => {
           <div className="note-label">
             {" "}
             <label>Note: </label>
-            <input type="text" onChange={(e) => setNote(e.target.value)} value={note} />
+            <input
+              type="text"
+              onChange={(e) => setNote(e.target.value)}
+              value={note}
+              onKeyDown={(e) => {
+                if (e.key === " ") {
+                  e.preventDefault();
+                }
+              }}
+              maxLength={3}
+            />
           </div>
         </div>
         <Dropdown
@@ -308,6 +318,7 @@ const NewSoundMaker = (props) => {
                 setGuyName(e.target.value);
               }}
               value={guyName}
+              maxLength={10}
             />
           </div>
           <div className="avatar-list-container">
@@ -318,11 +329,22 @@ const NewSoundMaker = (props) => {
             <button
               className="play-button"
               onClick={() => {
-                setShowConfirm(true);
+                if (!isValidNote(note)) {
+                  setMessage("Choose a valid Note!");
+                } else if (guyName.trim() === "") {
+                  setMessage("Enter a valid Name!");
+                } else if (assetId === "") {
+                  setMessage("Select an Icon!");
+                } else {
+                  setMessage("");
+                  setShowConfirm(true);
+                }
               }}
             >
               Next
             </button>
+
+            {message && <p style={{ color: "red" }}>{message}</p>}
 
             {showConfirm && !showNavigateOption && (
               <div className="confirm">

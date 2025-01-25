@@ -242,21 +242,18 @@ router.post("/switchGuys", async (req, res) => {
 });
 
 router.post("/postSound", (req, res) => {
-  const soundData = req.body;
+  const soundData = req.body.soundData;
   const sound = new Sound({
     note: soundData.note,
-    harmonicity: soundData.harmonicity,
-    oscillator: soundData.oscillator,
-    modulation: soundData.modulation,
-    envelope: soundData.envelope,
-    modulationEnvelope: soundData.modulationEnvelope,
+    parameters: soundData.parameters,
   });
+  console.log(sound);
 
   sound.save().then((savedSound) => res.send({ soundId: savedSound._id }));
 });
 
 router.post("/postGuy", (req, res) => {
-  const guy = new Guy({ ...req.body.guy, sound: new mongoose.Types.ObjectId(req.body.guy.sound) });
+  const guy = new Guy(req.body.guy);
   guy.save().then((savedGuy) => {
     res.send(savedGuy);
   });

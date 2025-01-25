@@ -15,12 +15,16 @@ const AvatarList = ({ selectedAvatar, handleAvatarClick }) => {
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
+    } else {
+      setCurrentPage(1);
     }
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
+    } else {
+      setCurrentPage(totalPages);
     }
   };
 
@@ -44,15 +48,11 @@ const AvatarList = ({ selectedAvatar, handleAvatarClick }) => {
       </div>
 
       <div className="pagination-controls">
-        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-          Previous
-        </button>
+        <button onClick={handlePreviousPage}>Previous</button>
         <span>
           Page {currentPage} of {totalPages}
         </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
+        <button onClick={handleNextPage}>Next</button>
       </div>
     </div>
   );
