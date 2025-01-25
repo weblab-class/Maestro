@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "./Key.css";
 import { get } from "../../utilities";
+import * as Tone from "tone";
 
 /**
  * Key represents an onscreen button, which produces a sound when clicked.
@@ -14,6 +15,8 @@ import { get } from "../../utilities";
 const Key = (props) => {
   const guy = props.guy;
   const guyVisibility = props.guyVisibility;
+
+  const fmSynth = useRef(null);
 
   // Makes it so the keys on the keyboard cannot be selected with tab.
   const buttons = document.querySelectorAll("button");
@@ -35,7 +38,15 @@ const Key = (props) => {
       <button
         className="key-button tooltip"
         id={props.buttonKey}
-        onClick={props.onButtonClick(props.buttonKey)}
+        onClick={props.onButtonClick(
+          props.buttonKey,
+          typeof guy.sound !== "string"
+            ? new Tone.FMSynth({
+                ...guy.sound.parameters,
+                modulationIndex: 10,
+              }).toDestination()
+            : null
+        )}
         tabIndex={-1}
       >
         <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
@@ -47,7 +58,15 @@ const Key = (props) => {
       <button
         className="key-button tooltip"
         id={props.buttonKey}
-        onClick={props.onButtonClick(props.buttonKey)}
+        onClick={props.onButtonClick(
+          props.buttonKey,
+          typeof guy.sound !== "string"
+            ? new Tone.FMSynth({
+                ...guy.sound.parameters,
+                modulationIndex: 10,
+              }).toDestination()
+            : null
+        )}
         tabIndex={-1}
       >
         <span className="tooltiptext">{guy.name + " by " + creatorId} </span>

@@ -13,21 +13,7 @@ const Composer = () => {
   const [buttonBinds, setButtonBinds] = useState([]);
   const [selectedGuy, setSelectedGuy] = useState(null);
 
-  const fmSynth = useRef(
-    new Tone.FMSynth({
-      harmonicity: 2,
-      modulationIndex: 10,
-      oscillator: { type: "sine" },
-      modulation: { type: "square" },
-      envelope: { attack: 0.1, decay: 0.2, sustain: 0.5, release: 0.8 },
-      modulationEnvelope: {
-        attack: 0.1,
-        decay: 0.2,
-        sustain: 0.5,
-        release: 0.8,
-      },
-    }).toDestination()
-  );
+  const fmSynth = useRef(null);
 
   // Fetch random guys on first render and assign them to the keyboard keys
   useEffect(() => {
@@ -54,7 +40,7 @@ const Composer = () => {
       });
   }, []); // Empty dependency array ensures this runs only once, on component mount
 
-  const onButtonClick = (key) => {
+  const onButtonClick = (key, fmSynth) => {
     return () => {
       if (selectedGuy !== null) {
         setButtonBinds((prevBinds) => {
@@ -69,8 +55,8 @@ const Composer = () => {
           var audio = new Audio(sound);
           audio.play();
         } else {
-          fmSynth.current.set(sound.parameters);
-          fmSynth.current.triggerAttackRelease(sound.note, "2n");
+          console.log(sound);
+          fmSynth.triggerAttackRelease(sound.note, "2n");
         }
       }
     };

@@ -140,7 +140,7 @@ const NewSoundMaker = (props) => {
     const newAssetId = checkAssetId(assetId);
     if (newAssetId) {
       const soundData = {
-        note: "C4",
+        note: note,
         parameters: {
           harmonicity: harmonicity,
           oscillator: { type: oscillator },
