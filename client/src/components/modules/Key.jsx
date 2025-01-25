@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./Key.css";
-import { GuyContext } from "../App";
 import { get } from "../../utilities";
 
 /**
@@ -14,7 +13,7 @@ import { get } from "../../utilities";
 
 const Key = (props) => {
   const guy = props.guy;
-  const { guyVisibility } = useContext(GuyContext);
+  const guyVisibility = props.guyVisibility;
 
   // Makes it so the keys on the keyboard cannot be selected with tab.
   const buttons = document.querySelectorAll("button");

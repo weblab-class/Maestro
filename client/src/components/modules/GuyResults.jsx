@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "./GuyResults.css";
 
-import ResultGuy from "./ResultGuy";
+import GuyResultsGuy from "./GuyResultsGuy";
 
 const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, page }) => {
   const containerRef = useRef(null);
@@ -30,7 +30,8 @@ const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, pag
       }
 
       if (index !== undefined && index < results.length) {
-        setSelectedGuy(results[index]);
+        const gDg = document.querySelectorAll(`[index="${index === 9 ? 0 : index + 1}"]`)[0];
+        gDg.click();
       }
     }
   };
@@ -59,7 +60,7 @@ const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, pag
           results.map((result, index) => {
             const displayIndex = index === 9 ? 0 : index + 1;
             return (
-              <ResultGuy
+              <GuyResultsGuy
                 key={result._id || index}
                 index={displayIndex}
                 guy={result}

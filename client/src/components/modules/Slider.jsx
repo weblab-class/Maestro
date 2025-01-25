@@ -15,6 +15,12 @@ const Slider = ({ label, min, max, step, onChange }) => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === " ") {
+      e.preventDefault();
+    }
+  };
+
   const percentage = ((value - min) / (max - min)) * 100;
 
   return (
@@ -29,7 +35,9 @@ const Slider = ({ label, min, max, step, onChange }) => {
         min={min}
         max={max}
         value={value}
+        step={(max - min) / 20}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
 
       <input
@@ -40,6 +48,7 @@ const Slider = ({ label, min, max, step, onChange }) => {
         step={step}
         value={value}
         onChange={handleChange}
+        tabIndex="-1"
         style={{
           background: `linear-gradient(90deg, #007bff ${percentage}%, #e9ecef ${percentage}%)`,
         }}

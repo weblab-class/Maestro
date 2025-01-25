@@ -21,7 +21,7 @@ const GuyDisplayGuy = (props) => {
     if (selectedGuy) {
       post("/api/switchGuys", { oldGuyId: guy._id, newGuyId: selectedGuy._id }).then(
         ({ newGuy }) => {
-          console.log(newGuy);
+          console.log("New Guy: " + newGuy.name);
           setGuy(newGuy);
           props.setSelectedGuy(null);
           setId(newGuy._id);
@@ -31,6 +31,10 @@ const GuyDisplayGuy = (props) => {
   };
 
   useEffect(() => {
+    console.log(id);
+  }, [id]);
+
+  useEffect(() => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });
@@ -38,7 +42,7 @@ const GuyDisplayGuy = (props) => {
 
   return (
     <button
-      id={id}
+      button_id={id}
       className="display-guy-button tooltip"
       width="80"
       height="80"

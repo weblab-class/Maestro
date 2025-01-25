@@ -10,7 +10,6 @@ import { socket } from "../client-socket";
 import { get, post } from "../utilities";
 
 export const UserContext = createContext(null);
-export const GuyContext = createContext(null);
 
 import NavBar from "./modules/NavBar";
 
@@ -19,9 +18,12 @@ import NavBar from "./modules/NavBar";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
-  const [guyVisibility, setGuyVisibility] = useState(false);
 
   const [assetId, setAssetId] = useState("1fae5");
+
+  useEffect(() => {
+    console.log(assetId);
+  }, [assetId]);
 
   useEffect(() => {
     get("/api/whoami").then((user) => {
@@ -60,12 +62,10 @@ const App = () => {
 
   return (
     <div>
-      <GuyContext.Provider value={{ guyVisibility, setGuyVisibility }}>
-        <UserContext.Provider value={authContextValue}>
-          <NavBar />
-          <Outlet />
-        </UserContext.Provider>
-      </GuyContext.Provider>
+      <UserContext.Provider value={authContextValue}>
+        <NavBar assetId={assetId} />
+        <Outlet />
+      </UserContext.Provider>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React, { memo, useState, useEffect } from "react";
-import "./ResultGuy.css";
+import "./GuyResultsGuy.css";
 import { get } from "../../utilities";
 import { Link } from "react-router-dom";
 
 /**
- * ResultGuy displays details of a single guy result.
+ * GuyResultsGuy displays details of a single guy result.
  *
  * Proptypes:
  * @param {number} index The relative index of the guy in the current page
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
  * @param {Function} setter Sets the selectedGuy in Search
  */
 
-const ResultGuy = memo((props) => {
+const GuyResultsGuy = memo((props) => {
   const guy = props.guy;
   const selectedGuy = props.selectedGuy;
 
@@ -35,11 +35,10 @@ const ResultGuy = memo((props) => {
   return (
     <div className={`result-guy-box ${guy === selectedGuy ? "result-guy-selected" : ""}`}>
       <p className="result-guy-index">{props.index}</p>
-      <button className="result-guy-image-button">
+      <button index={`${props.index}`} className="result-guy-image-button" onClick={onClick}>
         <img
           src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
           className="result-guy-image"
-          onClick={onClick}
         />
       </button>
       <p className="result-guy-name">{guy.name}</p>
@@ -50,4 +49,4 @@ const ResultGuy = memo((props) => {
   );
 });
 
-export default ResultGuy;
+export default GuyResultsGuy;

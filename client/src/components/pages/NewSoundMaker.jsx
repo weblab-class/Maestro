@@ -9,7 +9,7 @@ import { GoogleLogin } from "@react-oauth/google";
 
 import { useNavigate } from "react-router-dom";
 
-import pfpIds from "../../assets/pfpIds";
+import assetIds from "../../assets/assetIds";
 import "./NewSoundMaker.css";
 
 const NewSoundMaker = (props) => {
@@ -30,6 +30,9 @@ const NewSoundMaker = (props) => {
   const [guyName, setGuyName] = useState("");
   const [assetId, setAssetId] = useState("");
   const [username, setUsername] = useState(null);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showNavigateOption, setShowNavigateOption] = useState(false);
 
   const navigate = useNavigate();
 
@@ -88,6 +91,17 @@ const NewSoundMaker = (props) => {
     }
   }, [userId]);
 
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === " ") {
+        const pB = document.querySelectorAll(`[buttonid="play-button"]`)[0];
+        pB.click();
+      }
+    };
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
+  }, []);
+
   function isValidNote(input) {
     // Regular expression to match musical notes from A0 to C8 (including sharps)
     const noteRegex = /^(A|B|C|D|E|F|G)(#|b)?[0-8]$/;
@@ -98,13 +112,13 @@ const NewSoundMaker = (props) => {
 
   const checkAssetId = (id) => {
     // Check if the id is directly in the list
-    if (pfpIds.includes(id)) {
+    if (assetIds.includes(id)) {
       return id; // Return the id as is if it's found in the list
     }
 
     // Check if the id without the "u" at the start is in the list
     const idWithoutU = id.startsWith("u") ? id.slice(1) : id;
-    if (pfpIds.includes(idWithoutU)) {
+    if (assetIds.includes(idWithoutU)) {
       return idWithoutU; // Return the id without "u" if it's found in the list
     }
 
@@ -121,7 +135,7 @@ const NewSoundMaker = (props) => {
     }
   };
 
-  const saveSound = () => {
+  const saveSound = (bool) => {
     const newAssetId = checkAssetId(assetId);
     if (newAssetId) {
       const soundData = {
@@ -153,9 +167,15 @@ const NewSoundMaker = (props) => {
           },
           userId: userId,
         }).then(() => {
-          navigate(
-            `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
-          );
+          if (bool) {
+            navigate(
+              `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
+            );
+          } else {
+            setGuyName("");
+            setAssetId("");
+            setShowConfirm(false);
+          }
         });
       });
     }
@@ -269,7 +289,7 @@ const NewSoundMaker = (props) => {
           onChange={setModEnvRelease}
         />
         <div className="sound-button-container">
-          <button className="play-button" onClick={playNote}>
+          <button buttonid="play-button" className="play-button" onClick={playNote}>
             Play Note
           </button>
         </div>
@@ -297,9 +317,52 @@ const NewSoundMaker = (props) => {
               }}
             />
           </div>
-          <button className="play-button" onClick={saveSound}>
-            Save Sound
-          </button>
+          <div>
+            <button
+              className="play-button"
+              onClick={() => {
+                setShowConfirm(true);
+              }}
+            >
+              Next
+            </button>
+
+            {showConfirm && !showNavigateOption && (
+              <div className="confirm">
+                <div className="confirm-content">
+                  <p>Do you want to publish your sound?</p>
+                  <div className="confirm-actions">
+                    <button
+                      onClick={() => {
+                        setShowNavigateOption(true); // Show navigation options
+                      }}
+                    >
+                      Publish
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowConfirm(false); // Cancel confirmation
+                      }}
+                    >
+                      Do Not Publish
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {showNavigateOption && (
+              <div className="confirm">
+                <div className="confirm-content">
+                  <p>Would you like to navigate to another page?</p>
+                  <div className="confirm-actions">
+                    <button onClick={() => saveSound(true)}>Yes, navigate</button>
+                    <button onClick={() => saveSound(false)}>No, stay here</button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

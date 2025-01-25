@@ -3,7 +3,8 @@ import { get, post } from "../../utilities";
 import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../App";
 import { GoogleLogin } from "@react-oauth/google";
-import pfpIds from "../../assets/pfpIds";
+import assetIds from "../../assets/assetIds";
+import AvatarList from "../modules/AvatarList";
 
 import "../../utilities.css";
 import "./ProfileCard.css";
@@ -14,9 +15,10 @@ const ProfileCard = () => {
   const { userId: contextUserId, handleLogin, setAssetId } = useContext(UserContext);
 
   const [isEditingName, setIsEditingName] = useState(false);
-  const [newName, setNewName] = useState("");
   const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
-  const [newAvatar, setNewAvatar] = useState("");
+
+  const [newName, setNewName] = useState("");
+  const [selectedAvatar, setSelectedAvatar] = useState("");
 
   useEffect(() => {
     const idToFetch = paramUserId || contextUserId;
@@ -32,13 +34,13 @@ const ProfileCard = () => {
 
   const checkAssetId = (id) => {
     // Check if the id is directly in the list
-    if (pfpIds.includes(id)) {
+    if (assetIds.includes(id)) {
       return id; // Return the id as is if it's found in the list
     }
 
     // Check if the id without the "u" at the start is in the list
     const idWithoutU = id.startsWith("u") ? id.slice(1) : id;
-    if (pfpIds.includes(idWithoutU)) {
+    if (assetIds.includes(idWithoutU)) {
       return idWithoutU; // Return the id without "u" if it's found in the list
     }
 
@@ -47,7 +49,6 @@ const ProfileCard = () => {
   };
 
   const handleNameSave = () => {
-    console.log(contextUserId);
     post("/api/nameSet", { newName: newName, userId: contextUserId }).then(({ newName }) => {
       setUser((prev) => ({ ...prev, name: newName }));
     });
@@ -55,13 +56,12 @@ const ProfileCard = () => {
   };
 
   const handleAvatarSave = () => {
-    const newAssetId = checkAssetId(newAvatar);
-    if (newAssetId)
-      post("/api/pfpset", { newPfp: newAssetId, userId: contextUserId }).then(({ newPfp }) => {
-        setUser((prev) => ({ ...prev, asset_id: newPfp }));
-        setAssetId(newPfp);
-      });
-    setIsAvatarPopupOpen(false);
+    post("/api/pfpset", { newPfp: selectedAvatar, userId: contextUserId }).then(({ newPfp }) => {
+      setUser((prev) => ({ ...prev, asset_id: newPfp }));
+      setAssetId(newPfp);
+      setSelectedAvatar("");
+      setIsAvatarPopupOpen(false);
+    });
   };
 
   if (!user && !paramUserId) {
@@ -126,21 +126,22 @@ const ProfileCard = () => {
         <div className="avatar-popup">
           <div className="avatar-popup-content">
             <h3>Change Avatar</h3>
-            <a
-              href="https://googlefonts.github.io/noto-emoji-animation/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Click on an emoji and enter its code (found top right)
-            </a>
 
-            <input
-              type="text"
-              value={newAvatar}
-              onChange={(e) => setNewAvatar(e.target.value)}
-              placeholder="Enter new avatar URL"
+            <AvatarList
+              selectedAvatar={selectedAvatar}
+              handleAvatarClick={(avatar) => {
+                setSelectedAvatar(avatar);
+              }}
             />
-            <button onClick={handleAvatarSave}>Save</button>
+
+            <button
+              onClick={() => {
+                handleAvatarSave();
+                setIsAvatarPopupOpen(false);
+              }}
+            >
+              Save
+            </button>
             <button onClick={() => setIsAvatarPopupOpen(false)}>Cancel</button>
           </div>
         </div>

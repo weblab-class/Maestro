@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./MainTutorial.css";
-import { GuyContext, UserContext } from "../App";
+import { UserContext } from "../App";
 
 const MainTutorial = () => {
   const { userId } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
 
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
@@ -13,10 +12,6 @@ const MainTutorial = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-  };
-
-  const onChange = () => {
-    setGuyVisibility(!guyVisibility);
   };
 
   useEffect(() => {
@@ -69,14 +64,9 @@ const MainTutorial = () => {
                 Hold <code>Shift</code> to keep a Guy selected and assign it to multiple keys.
               </li>
               <li>
-                Press <code>CapsLock</code> to see your Guys’ emojis on the on-screen keyboard.
+                Press <code>Spacebar</code> to see your Guys’ emojis on the on-screen keyboard.
               </li>
             </ul>
-            <p>
-              <strong>One last thing!</strong> If you’re using a real keyboard, make sure to choose
-              whether <code>CapsLock</code> is on or off before you start!
-              <input type="checkbox" onChange={onChange} />
-            </p>
 
             {/* Close button */}
             <button className="close-button" onClick={handleClosePopup}>

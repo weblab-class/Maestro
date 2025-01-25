@@ -58,7 +58,6 @@ const Search = () => {
           placeholder="Search guy name!"
           value={nameInput}
           className="search-input"
-          autoFocus
           onChange={handleNameChange}
         />
         <input

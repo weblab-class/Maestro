@@ -19,7 +19,12 @@ const Keyboard = (props) => {
         return (
           <div key={`slice-${index}`} className="keyboard-row">
             {props.buttonBinds.slice(start, end).map((bind) => (
-              <Key buttonKey={bind.key} guy={bind.guy} onButtonClick={props.onButtonClick} />
+              <Key
+                buttonKey={bind.key}
+                guy={bind.guy}
+                onButtonClick={props.onButtonClick}
+                guyVisibility={props.guyVisibility}
+              />
             ))}
           </div>
         );

@@ -1,0 +1,61 @@
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  grid-template-rows: repeat(4, auto); /* 4 rows */
+  gap: 1rem; /* Space between grid items */
+  justify-content: center; /* Optional: Center the grid horizontally */
+  padding: 1rem; /* Optional: Add padding around the grid */
+}
+
+.avatar-option {
+  background: none;
+  border-radius: 54px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.avatar-option img {
+  display: block;
+  border-radius: 4px;
+}
+
+.avatar-option.selected {
+  border-color: #007bff; /* Highlight selected avatar */
+  transform: scale(1.1);
+}
+
+.avatar-option:hover {
+  transform: scale(1.1); /* Add hover effect */
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem; /* Space between buttons and text */
+  margin-top: 1rem;
+}
+
+.pagination-controls span {
+  min-width: 100px; /* Set a fixed width */
+  text-align: center; /* Center align the text */
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:not(:disabled):hover {
+  background-color: #0056b3;
+}

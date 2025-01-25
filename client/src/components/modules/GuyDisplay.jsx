@@ -7,6 +7,7 @@ import GuyDisplayGuy from "./GuyDisplayGuy";
 const GuyDisplay = (props) => {
   const userId = useContext(UserContext);
   const [guyList, setGuyList] = useState([]);
+  const [rows, setRows] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
   const [selectedCol, setSelectedCol] = useState(null);
@@ -20,10 +21,13 @@ const GuyDisplay = (props) => {
   }, [userId]);
 
   // Split the guyList into chunks of 8
-  const rows = [];
-  for (let i = 0; i < guyList.length; i += 8) {
-    rows.push(guyList.slice(i, i + 8));
-  }
+  useEffect(() => {
+    const tempRows = [];
+    for (let i = 0; i < guyList.length; i += 8) {
+      tempRows.push(guyList.slice(i, i + 8));
+    }
+    setRows(tempRows);
+  }, [guyList]);
 
   useEffect(() => {
     const rowKeys = "!@#$%"; // Shift + 1-5 for rows
@@ -47,24 +51,33 @@ const GuyDisplay = (props) => {
     };
   }, [selectedRow, selectedCol, rows, props]);
 
+  const guySwitcher = (rowIdx, colIdx, newGuy) => {
+    const newRows = structuredClone(rows);
+    newRows[rowIdx][colIdx] = newGuy;
+    setRows(newRows);
+  };
+
   useEffect(() => {
     if (selectedCol !== null && selectedRow !== null) {
-      console.log("Row: " + selectedRow);
-      console.log("Col: " + selectedCol);
       const guy = rows[selectedRow]?.[selectedCol];
-      console.log(guy);
       if (guy) {
         // Programmatically trigger the onClick handler for the selected guy
-        const guyElement = document.getElementById(guy._id);
-        console.log(guyElement);
+        const guyElement = document.querySelectorAll(`[button_id="${guy._id}"]`)[0];
+        // const guyElement = document.getElementById(guy._id);
         if (guyElement) {
+          guySwitcher(selectedRow, selectedCol, props.selectedGuy);
           guyElement.click(); // Simulate click
         }
       }
       setSelectedRow(null);
       setSelectedCol(null); // Reset selection
     }
-  }, [selectedRow, selectedCol]);
+  }, [selectedCol]);
+
+  useEffect(() => {
+    setSelectedCol(null);
+    setSelectedRow(null);
+  }, [props.selectedGuy]);
 
   if (userId) {
     return (

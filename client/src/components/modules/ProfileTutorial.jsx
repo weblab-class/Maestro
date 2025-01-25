@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./ProfileTutorial.css";
-import { GuyContext, UserContext } from "../App";
+import { UserContext } from "../App";
 
 const ProfileTutorial = () => {
   const { userId } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
 
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
@@ -13,10 +12,6 @@ const ProfileTutorial = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-  };
-
-  const onChange = () => {
-    setGuyVisibility(!guyVisibility);
   };
 
   useEffect(() => {

@@ -28,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Composer />} />
       <Route path="/search" element={<Search />} />
       <Route path="/soundmaker" element={<NewSoundMaker />} />
+      <Route path="/profile" element={<ProfileCard />} />
       <Route path="/profile/:userId" element={<ProfileCard />} />
     </Route>
   )

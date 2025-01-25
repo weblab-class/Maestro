@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./SearchTutorial.css";
-import { GuyContext, UserContext } from "../App";
+import { UserContext } from "../App";
 
 const SearchTutorial = () => {
   const { userId } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
-  const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
 
   const handleOpenPopup = () => {
     setIsPopupOpen(true);
@@ -13,10 +12,6 @@ const SearchTutorial = () => {
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
-  };
-
-  const onChange = () => {
-    setGuyVisibility(!guyVisibility);
   };
 
   useEffect(() => {
@@ -64,7 +59,7 @@ const SearchTutorial = () => {
                 <code>Control + # </code>: Selects a guy from the left panel
               </li>
               <li>
-                <code>Control + ` </code>: Deselect a guy
+                <code>Control </code>: Deselect a guy
               </li>
               <li>
                 <code>Right or Left arrow </code>: Change Page

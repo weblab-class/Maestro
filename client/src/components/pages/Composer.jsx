@@ -3,11 +3,10 @@ import "../../utilities.css";
 import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
-import { GuyContext } from "../App";
 import { get } from "../../utilities";
 
 const Composer = () => {
-  const { guyVisibility, setGuyVisibility } = useContext(GuyContext);
+  const [guyVisibility, setGuyVisibility] = useState(false);
 
   const keyboardKeys = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
   const [buttonBinds, setButtonBinds] = useState([]);
@@ -103,7 +102,7 @@ const Composer = () => {
       setSelectedGuy(selectedGuy_temp);
     }
 
-    if (pressedKey === "CapsLock") {
+    if (pressedKey === " ") {
       setGuyVisibility(!guyVisibility);
     }
   };
@@ -118,7 +117,11 @@ const Composer = () => {
 
   return (
     <div>
-      <Keyboard buttonBinds={buttonBinds} onButtonClick={onButtonClick} />
+      <Keyboard
+        buttonBinds={buttonBinds}
+        onButtonClick={onButtonClick}
+        guyVisibility={guyVisibility}
+      />
       <GuyList onGuyClick={onGuyClick} selectedGuy={selectedGuy} />
     </div>
   );

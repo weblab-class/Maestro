@@ -5,7 +5,6 @@ import { GoogleLogin } from "@react-oauth/google";
 import "./NavBar.css";
 import MainTutorial from "./MainTutorial";
 import { UserContext } from "../App";
-import { get } from "../../utilities";
 import SearchTutorial from "./SearchTutorial";
 import ProfileTutorial from "./ProfileTutorial";
 
