@@ -14,11 +14,21 @@ const GuyDisplay = (props) => {
 
   useEffect(() => {
     if (userId) {
+      console.log(
+        guyList.map((guy) => {
+          return guy.name;
+        })
+      );
       get("/api/guyListGet").then(({ guyList }) => {
         setGuyList(guyList);
+        console.log(
+          guyList.map((guy) => {
+            return guy.name;
+          })
+        );
       });
     }
-  }, [userId]);
+  }, [userId, props.resetter]);
 
   // Split the guyList into chunks of 8
   useEffect(() => {
@@ -27,7 +37,7 @@ const GuyDisplay = (props) => {
       tempRows.push(guyList.slice(i, i + 8));
     }
     setRows(tempRows);
-  }, [guyList]);
+  }, [guyList, props.resetter]);
 
   useEffect(() => {
     const rowKeys = "!@#$%"; // Shift + 1-5 for rows

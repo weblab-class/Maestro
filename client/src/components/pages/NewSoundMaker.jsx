@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import assetIds from "../../assets/assetIds";
 import "./NewSoundMaker.css";
+import AvatarList from "../modules/AvatarList";
 
 const NewSoundMaker = (props) => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
@@ -175,6 +176,7 @@ const NewSoundMaker = (props) => {
             setGuyName("");
             setAssetId("");
             setShowConfirm(false);
+            setShowNavigateOption(false);
           }
         });
       });
@@ -305,17 +307,12 @@ const NewSoundMaker = (props) => {
               onChange={(e) => {
                 setGuyName(e.target.value);
               }}
+              value={guyName}
             />
           </div>
-          <div className="note-label">
-            {" "}
-            <label>Emoji code: </label>
-            <input
-              type="text"
-              onChange={(e) => {
-                setAssetId(e.target.value);
-              }}
-            />
+          <div className="avatar-list-container">
+            <div className="avatar-list-title"> Guy Icon</div>
+            <AvatarList selectedAvatar={assetId} handleAvatarClick={setAssetId} />
           </div>
           <div>
             <button

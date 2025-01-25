@@ -20,6 +20,8 @@ const Search = () => {
   const [results, setResults] = useState([]);
   const [selectedGuy, setSelectedGuy] = useState(null);
 
+  const [resetter, setResetter] = useState(false);
+
   const handleNameChange = (event) => setNameInput(event.target.value);
   const handleUsernameChange = (event) => setUsernameInput(event.target.value);
 
@@ -81,12 +83,14 @@ const Search = () => {
           selectedGuy={selectedGuy}
           changePage={changePage}
           page={page}
+          resetter={resetter}
+          setResetter={setResetter}
         />
       </div>
 
       {/* Right panel */}
       <div className="right-panel">
-        <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} />
+        <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} resetter={resetter} />
       </div>
     </div>
   );

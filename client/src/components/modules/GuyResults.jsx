@@ -3,7 +3,15 @@ import "./GuyResults.css";
 
 import GuyResultsGuy from "./GuyResultsGuy";
 
-const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, page }) => {
+const GuyResults = ({
+  results = [],
+  setSelectedGuy,
+  selectedGuy,
+  changePage,
+  page,
+  resetter,
+  setResetter,
+}) => {
   const containerRef = useRef(null);
 
   const scrollStep = 50;
@@ -66,6 +74,8 @@ const GuyResults = ({ results = [], setSelectedGuy, selectedGuy, changePage, pag
                 guy={result}
                 setSelectedGuy={setSelectedGuy}
                 selectedGuy={selectedGuy}
+                resetter={resetter}
+                setResetter={setResetter}
               />
             );
           })

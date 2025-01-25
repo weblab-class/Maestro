@@ -31,10 +31,6 @@ const GuyDisplayGuy = (props) => {
   };
 
   useEffect(() => {
-    console.log(id);
-  }, [id]);
-
-  useEffect(() => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });

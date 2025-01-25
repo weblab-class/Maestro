@@ -14,7 +14,6 @@ export const UserContext = createContext(null);
 import NavBar from "./modules/NavBar";
 import { useNavigate } from "react-router-dom";
 
-
 /**
  * Define the "App" component
  */
@@ -26,10 +25,6 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(assetId);
-  }, [assetId]);
-
-  useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
@@ -37,7 +32,7 @@ const App = () => {
         setAssetId(user.asset_id);
       }
     });
-  }, []);
+  }, [userId]);
 
   const handleLogin = (credentialResponse) => {
     const userToken = credentialResponse.credential;
@@ -52,10 +47,9 @@ const App = () => {
 
   const handleLogout = () => {
     setUserId(undefined);
-    console.log('asdfasdf');
     setAssetId("1fae5");
     post("/api/logout");
-    navigate("/")
+    navigate("/");
   };
 
   const authContextValue = {

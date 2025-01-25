@@ -3,7 +3,6 @@ import { get, post } from "../../utilities";
 import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../App";
 import { GoogleLogin } from "@react-oauth/google";
-import assetIds from "../../assets/assetIds";
 import AvatarList from "../modules/AvatarList";
 
 import "../../utilities.css";
@@ -26,27 +25,12 @@ const ProfileCard = () => {
     if (idToFetch) {
       get("/api/user", { userid: idToFetch }).then((userObj) => {
         setUser(userObj);
+        setAssetId(userObj.asset_id);
       });
     } else {
       setUser(null);
     }
   }, [paramUserId, contextUserId]);
-
-  const checkAssetId = (id) => {
-    // Check if the id is directly in the list
-    if (assetIds.includes(id)) {
-      return id; // Return the id as is if it's found in the list
-    }
-
-    // Check if the id without the "u" at the start is in the list
-    const idWithoutU = id.startsWith("u") ? id.slice(1) : id;
-    if (assetIds.includes(idWithoutU)) {
-      return idWithoutU; // Return the id without "u" if it's found in the list
-    }
-
-    // If neither condition is met, return false
-    return false;
-  };
 
   const handleNameSave = () => {
     post("/api/nameSet", { newName: newName, userId: contextUserId }).then(({ newName }) => {

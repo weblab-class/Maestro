@@ -1,7 +1,8 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState, useEffect, useContext } from "react";
 import "./GuyResultsGuy.css";
 import { get } from "../../utilities";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 /**
  * GuyResultsGuy displays details of a single guy result.
@@ -13,6 +14,7 @@ import { Link } from "react-router-dom";
  */
 
 const GuyResultsGuy = memo((props) => {
+  const { userId } = useContext(UserContext);
   const guy = props.guy;
   const selectedGuy = props.selectedGuy;
 
@@ -32,6 +34,15 @@ const GuyResultsGuy = memo((props) => {
     }
   };
 
+  const deleteGuy = () => {
+    // Make the API request to delete the guy
+    get(`/api/delGuy`, { guyId: guy._id }).then(() => {
+      // Call the updateGuys function to remove the guy from the list
+      window.location.reload();
+      // props.setResetter(!props.resetter);
+    });
+  };
+
   return (
     <div className={`result-guy-box ${guy === selectedGuy ? "result-guy-selected" : ""}`}>
       <p className="result-guy-index">{props.index}</p>
@@ -45,6 +56,11 @@ const GuyResultsGuy = memo((props) => {
       <Link to={`/profile/${guy.creator_id}`} className="result-guy-username">
         {creatorName}
       </Link>
+      {userId === guy.creator_id && (
+        <button onClick={deleteGuy} className="delete-guy-button">
+          Delete
+        </button>
+      )}
     </div>
   );
 });

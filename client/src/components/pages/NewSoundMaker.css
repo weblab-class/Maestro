@@ -78,3 +78,93 @@
 .confirm-actions button {
   margin: 5px;
 }
+
+/* Container for Avatar List */
+.avatar-list-container {
+  background-color: #f4f4f4; /* Light gray background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem; /* Add some padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  max-width: 90%; /* Limit width for better responsiveness */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Avatar Grid */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Individual Avatar Button */
+.avatar-option {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 12px; /* Make the buttons more rounded */
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  width: 60px; /* Set fixed width for buttons */
+  height: 60px; /* Set fixed height for buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Avatar Image inside Button */
+.avatar-option img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Hover and Selected Effects */
+.avatar-option.selected {
+  border-color: #007bff; /* Highlight selected avatar */
+  transform: scale(1.1);
+}
+
+.avatar-option:hover {
+  transform: scale(1.05); /* Slight hover scale */
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.pagination-controls span {
+  min-width: 100px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+/* Title Styling */
+.avatar-list-title {
+  text-align: center; /* Center the title text */
+  font-size: 1.5rem; /* Adjust font size */
+  font-weight: bold; /* Make the title bold */
+  color: #333; /* Set a dark color for the text */
+  margin-bottom: 1rem; /* Space between title and avatar grid */
+}

@@ -74,7 +74,7 @@ router.get("/username", (req, res) => {
     .then((user) => {
       if (!user) {
         // If no user is found, send a 404 response
-        return res.send("someone");
+        return res.send({ name: "someone" });
       }
 
       // Send the user data, you can send only the necessary fields if needed
@@ -261,9 +261,9 @@ router.post("/postGuy", (req, res) => {
     res.send(savedGuy);
   });
 });
-
 router.post("/pfpset", async (req, res) => {
   let newPfp = req.body.newPfp;
+  req.user.asset_id = newPfp;
   const user = await User.findById(req.body.userId);
   user.asset_id = newPfp;
   user.save();
@@ -276,6 +276,18 @@ router.post("/nameSet", async (req, res) => {
   user.save();
   res.send({ newName: user.name });
 });
+
+// router.get("/delGuy", async (req, res) => {
+//   try {
+//     const guyId = req.query.guyId;
+//     console.log(guyId);
+//     await Guy.deleteOne({ _id: new mongoose.Types.ObjectId(guyId) });
+//     res.status(200).send({ message: "Guy deleted successfully" });
+//   } catch (error) {
+//     console.error("Error deleting guy:", error);
+//     res.status(500).send({ error: "Failed to delete guy" });
+//   }
+// });
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {

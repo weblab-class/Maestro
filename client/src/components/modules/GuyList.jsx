@@ -29,6 +29,7 @@ const GuyList = (props) => {
       onClick={() => {
         navigate("/soundmaker");
       }}
+      key="11"
     >
       Create a new Guy!
     </button>,
@@ -37,6 +38,7 @@ const GuyList = (props) => {
       onClick={() => {
         navigate("/search");
       }}
+      key="12"
     >
       Find a new Guy!
     </button>,
@@ -92,10 +94,10 @@ const GuyList = (props) => {
       </div>
 
       <div className="GuyList" onWheel={handleScroll}>
-        {currentRowItems.map((item) => {
+        {currentRowItems.map((item, index) => {
           // If the item has a guy_id (assuming that's how you identify a Guy)
           if (item.sound) {
-            return <Guy key={item._id} guy={item} onGuyClick={props.onGuyClick} />;
+            return <Guy key={index} guy={item} onGuyClick={props.onGuyClick} />;
           }
           // If the item does not have a guy_id (render a button)
           return item;

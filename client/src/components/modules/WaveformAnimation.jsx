@@ -12,7 +12,6 @@ const WaveformAnimation = ({ fmSynth }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     const waveform = analyser.current.getValue();
-    console.log(waveform)
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
@@ -34,9 +33,7 @@ const WaveformAnimation = ({ fmSynth }) => {
     context.strokeStyle = "#8ACE00"; //Green
     context.lineWidth = 3;
     context.stroke();
-    context.arc(200, 75, 3, Math.PI * 2);
-    context.fillStyle = "black"
-    context.fill();
+    context.arc(200, 75, 3, 0, Math.PI * 2, false);
   };
 
   useEffect(() => {
