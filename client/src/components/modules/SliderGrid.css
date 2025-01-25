@@ -11,7 +11,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr; /* 2 sliders per row */
     gap: 20px;                      /* Space between sliders */
-    max-width: 1000px;               /* Optional: Set a max width for the grid */
+    
     width: 100%;                    /* Make the grid responsive */
     padding: 20px;                 /* Add some padding around the grid */
     box-sizing: border-box;         /* Ensure padding doesn’t affect width */

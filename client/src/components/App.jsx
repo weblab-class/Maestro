@@ -12,6 +12,8 @@ import { get, post } from "../utilities";
 export const UserContext = createContext(null);
 
 import NavBar from "./modules/NavBar";
+import { useNavigate } from "react-router-dom";
+
 
 /**
  * Define the "App" component
@@ -20,6 +22,8 @@ const App = () => {
   const [userId, setUserId] = useState(undefined);
 
   const [assetId, setAssetId] = useState("1fae5");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(assetId);
@@ -48,8 +52,10 @@ const App = () => {
 
   const handleLogout = () => {
     setUserId(undefined);
+    console.log('asdfasdf');
     setAssetId("1fae5");
     post("/api/logout");
+    navigate("/")
   };
 
   const authContextValue = {

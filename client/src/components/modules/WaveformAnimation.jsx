@@ -12,17 +12,18 @@ const WaveformAnimation = ({ fmSynth }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     const waveform = analyser.current.getValue();
+    console.log(waveform)
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
 
     const width = canvas.width;
     const height = canvas.height;
-    const step = Math.ceil(waveform.length / width);
+    const step = waveform.length / width;
     const amplitude = height / 2;
 
-    for (let i = 0; i < width; i++) {
-      const index = i * step;
+    for (let i = 0; i < width + 100; i++) {
+      const index = Math.ceil(i * step);
       const y = waveform[index] * amplitude + amplitude;
       if (i === 0) {
         context.moveTo(i, y);
@@ -33,6 +34,9 @@ const WaveformAnimation = ({ fmSynth }) => {
     context.strokeStyle = "#8ACE00"; //Green
     context.lineWidth = 3;
     context.stroke();
+    context.arc(200, 75, 3, Math.PI * 2);
+    context.fillStyle = "black"
+    context.fill();
   };
 
   useEffect(() => {

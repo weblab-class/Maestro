@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
+
 import "./NavBar.css";
 import MainTutorial from "./MainTutorial";
 import { UserContext } from "../App";
 import SearchTutorial from "./SearchTutorial";
 import ProfileTutorial from "./ProfileTutorial";
+import ProfileDropdown from "./ProfileDropdown";
 
 /*
  * NavBar displays the title, a button for showing a tutorial,
@@ -18,6 +20,7 @@ const NavBar = () => {
 
   const { userId, handleLogin, handleLogout, assetId } = useContext(UserContext);
   const pathname = useLocation().pathname;
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   if (pathname === "/") {
     tutorial = <MainTutorial />;
@@ -27,42 +30,40 @@ const NavBar = () => {
     tutorial = <ProfileTutorial />;
   }
 
+  const handleLoginClick = (credentialResponse) => {
+    handleLogin(credentialResponse);
+
+    // await setIsLoggedIn(true);
+  };
+  
+  // useEffect(() =>
+  // {
+  //   setIsLoggedIn(false);
+  // }, [userId]);
+
+
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-linkContainer NavBar-leftContainer">{tutorial}</div>
-
-      <div className="NavBar-title">
+    <div className="NavBar-linkContainer ">{tutorial}</div>
+    <div className="NavBar-title">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>
-      </div>
-      <div className="NavBar-linkContainer  NavBar-rightContainer">
-        {userId ? (
-          <div>
-            <button className="NavBar-link NavBar-login u-inlineBlock" onClick={handleLogout}>
-              Sign out
-            </button>
-            <Link to={`/profile/${userId}`} className="NavBar-link">
-              <button className="open-button">
-                <img
-                  src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${assetId}/512.webp`}
-                  width="40px"
-                  height="40px"
-                />
-              </button>
-            </Link>
-          </div>
-        ) : (
-          <div className="NavBar-login">
-            <GoogleLogin
-              text="signin_with"
-              onSuccess={handleLogin}
-              onFailure={(err) => console.log(err)}
-              containerProps={{ className: "NavBar-link NavBar-login" }}
-            />
-          </div>
-        )}
-      </div>
+    </div>
+        {userId ? (<ProfileDropdown />
+      
+    ) : (
+      <GoogleLogin
+            text="signin_with"
+            onSuccess={handleLoginClick}
+            onFailure={(err) => console.log(err)}
+            containerProps={{ className: "" }}
+          />
+    )}
+
+
+    
+
     </nav>
   );
 };
