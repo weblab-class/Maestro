@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
+
 import { get } from "../../utilities";
+
 import GuyResults from "../modules/GuyResults";
 import GuyDisplay from "../modules/GuyDisplay";
 
 import "./Search.css";
 
-const Search = () => {
-  // Get query parameters from the URL
-  const params = new URLSearchParams(window.location.search);
+/**
+ * Search Page. Add new guys to your guyList.
+ */
 
-  // Retrieve specific parameters
+const Search = () => {
+  const params = new URLSearchParams(window.location.search);
   const name = params.get("name");
   const username = params.get("username");
 
@@ -76,7 +79,6 @@ const Search = () => {
 
       {/* Left panel */}
       <div className="results-panel">
-        {/* Optionally add content here */}
         <GuyResults
           results={results}
           setSelectedGuy={setSelectedGuy}
@@ -89,7 +91,7 @@ const Search = () => {
       </div>
 
       {/* Right panel */}
-      <div className="right-panel">
+      <div className="display-panel">
         <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} resetter={resetter} />
       </div>
     </div>

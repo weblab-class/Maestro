@@ -1,5 +1,5 @@
 import "./GuyList.css";
-import Guy from "./Guy";
+import GuyListGuy from "./GuyListGuy";
 import { UserContext } from "../App";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -95,9 +95,9 @@ const GuyList = (props) => {
 
       <div className="GuyList" onWheel={handleScroll}>
         {currentRowItems.map((item, index) => {
-          // If the item has a guy_id (assuming that's how you identify a Guy)
+          // If the item has a guy_id (assuming that's how you identify a GuyListGuy)
           if (item.sound) {
-            return <Guy key={index} guy={item} onGuyClick={props.onGuyClick} />;
+            return <GuyListGuy key={index} guy={item} setSelectedGuy={props.setSelectedGuy} />;
           }
           // If the item does not have a guy_id (render a button)
           return item;

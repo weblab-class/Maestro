@@ -41,31 +41,20 @@ const Composer = () => {
   }, []); // Empty dependency array ensures this runs only once, on component mount
 
   const onButtonClick = (key, fmSynth) => {
-    return () => {
-      if (selectedGuy !== null) {
-        setButtonBinds((prevBinds) => {
-          return prevBinds.map((bind) =>
-            bind.key === key ? { key: key, guy: selectedGuy } : bind
-          );
-        });
-        setSelectedGuy(null);
+    if (selectedGuy !== null) {
+      setButtonBinds((prevBinds) => {
+        return prevBinds.map((bind) => (bind.key === key ? { key: key, guy: selectedGuy } : bind));
+      });
+      setSelectedGuy(null);
+    } else {
+      const sound = buttonBinds.find((bind) => bind.key === key).guy.sound;
+      if (typeof sound === "string") {
+        var audio = new Audio(sound);
+        audio.play();
       } else {
-        const sound = buttonBinds.find((bind) => bind.key === key).guy.sound;
-        if (typeof sound === "string") {
-          var audio = new Audio(sound);
-          audio.play();
-        } else {
-          console.log(sound);
-          fmSynth.triggerAttackRelease(sound.note, "2n");
-        }
+        fmSynth.triggerAttackRelease(sound.note, "2n");
       }
-    };
-  };
-
-  const onGuyClick = (guy) => {
-    return () => {
-      setSelectedGuy(guy);
-    };
+    }
   };
 
   function convertKey(inputKey) {
@@ -128,7 +117,7 @@ const Composer = () => {
         onButtonClick={onButtonClick}
         guyVisibility={guyVisibility}
       />
-      <GuyList onGuyClick={onGuyClick} selectedGuy={selectedGuy} />
+      <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
     </div>
   );
 };

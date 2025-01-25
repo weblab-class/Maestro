@@ -1,16 +1,16 @@
-import "./Guy.css";
+import "./GuyListGuy.css";
 import { get } from "../../utilities";
 import { useState, useEffect } from "react";
 
 /**
- * Guy is a container for guy documents. These contain an emoticon and a sound.
+ * GuyListGuy is a container for guy documents. These contain an emoticon and a sound.
  *
  * Proptypes
  * @param {Object} guy
  * @param {String} key
  * @param {Function} onGuyClick
  */
-const Guy = (props) => {
+const GuyListGuy = (props) => {
   const guy = props.guy;
 
   const [creatorId, setCreatorId] = useState("");
@@ -27,7 +27,7 @@ const Guy = (props) => {
       <img
         className="guy-icon"
         src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
-        onClick={props.onGuyClick(guy)}
+        onClick={() => props.setSelectedGuy(guy)}
         width="100"
         height="100"
       />
@@ -35,4 +35,4 @@ const Guy = (props) => {
   );
 };
 
-export default Guy;
+export default GuyListGuy;

@@ -16,8 +16,6 @@ const Key = (props) => {
   const guy = props.guy;
   const guyVisibility = props.guyVisibility;
 
-  const fmSynth = useRef(null);
-
   // Makes it so the keys on the keyboard cannot be selected with tab.
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
@@ -38,15 +36,17 @@ const Key = (props) => {
       <button
         className="key-button tooltip"
         id={props.buttonKey}
-        onClick={props.onButtonClick(
-          props.buttonKey,
-          typeof guy.sound !== "string"
-            ? new Tone.FMSynth({
-                ...guy.sound.parameters,
-                modulationIndex: 10,
-              }).toDestination()
-            : null
-        )}
+        onClick={() =>
+          props.onButtonClick(
+            props.buttonKey,
+            typeof guy.sound !== "string"
+              ? new Tone.FMSynth({
+                  ...guy.sound.parameters,
+                  modulationIndex: 10,
+                }).toDestination()
+              : null
+          )
+        }
         tabIndex={-1}
       >
         <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
@@ -58,15 +58,17 @@ const Key = (props) => {
       <button
         className="key-button tooltip"
         id={props.buttonKey}
-        onClick={props.onButtonClick(
-          props.buttonKey,
-          typeof guy.sound !== "string"
-            ? new Tone.FMSynth({
-                ...guy.sound.parameters,
-                modulationIndex: 10,
-              }).toDestination()
-            : null
-        )}
+        onClick={() =>
+          props.onButtonClick(
+            props.buttonKey,
+            typeof guy.sound !== "string"
+              ? new Tone.FMSynth({
+                  ...guy.sound.parameters,
+                  modulationIndex: 10,
+                }).toDestination()
+              : null
+          )
+        }
         tabIndex={-1}
       >
         <span className="tooltiptext">{guy.name + " by " + creatorId} </span>

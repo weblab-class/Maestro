@@ -34,7 +34,6 @@ const NewSoundMaker = (props) => {
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [showNavigateOption, setShowNavigateOption] = useState(false);
-  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -132,7 +131,7 @@ const NewSoundMaker = (props) => {
     if (isValidNote(note)) {
       fmSynth.current.triggerAttackRelease(note, "2n");
     } else {
-      setMessage("Choose a valid Note!");
+      alert("Choose a valid Note!");
     }
   };
 
@@ -317,6 +316,11 @@ const NewSoundMaker = (props) => {
               onChange={(e) => {
                 setGuyName(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === " ") {
+                  e.preventDefault();
+                }
+              }}
               value={guyName}
               maxLength={10}
             />
@@ -330,21 +334,18 @@ const NewSoundMaker = (props) => {
               className="play-button"
               onClick={() => {
                 if (!isValidNote(note)) {
-                  setMessage("Choose a valid Note!");
+                  alert("Choose a valid Note!");
                 } else if (guyName.trim() === "") {
-                  setMessage("Enter a valid Name!");
+                  alert("Enter a valid Name!");
                 } else if (assetId === "") {
-                  setMessage("Select an Icon!");
+                  alert("Select an Icon!");
                 } else {
-                  setMessage("");
                   setShowConfirm(true);
                 }
               }}
             >
               Next
             </button>
-
-            {message && <p style={{ color: "red" }}>{message}</p>}
 
             {showConfirm && !showNavigateOption && (
               <div className="confirm">

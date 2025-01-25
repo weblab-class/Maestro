@@ -49,7 +49,7 @@ body {
 }
 
 /* Left panel styling */
-.right-panel {
+.display-panel {
   padding: 15px; /* Reduced padding */
   box-sizing: border-box;
   height: calc(100vh - 120px); /* Ensure it fits under the search header */

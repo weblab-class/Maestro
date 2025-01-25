@@ -10,6 +10,7 @@ import Key from "./Key";
  * @param {Function} onButtonClick // run when key gets clicked
  *
  */
+
 const Keyboard = (props) => {
   const splits = [10, 20, 29, 37]; // End indices of each range
   return (

@@ -1,12 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
-import { get, post } from "../../utilities";
 import { useParams, Link } from "react-router-dom";
-import { UserContext } from "../App";
 import { GoogleLogin } from "@react-oauth/google";
+import { UserContext } from "../App";
+
+import { get, post } from "../../utilities";
+
 import AvatarList from "../modules/AvatarList";
 
-import "../../utilities.css";
 import "./ProfileCard.css";
+
+/**
+ * Profile page! Displays information about a user.
+ * If the user is logged in, can change their pfp or name.
+ */
 
 const ProfileCard = () => {
   const { userId: paramUserId } = useParams();
@@ -18,9 +24,6 @@ const ProfileCard = () => {
 
   const [newName, setNewName] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState("");
-
-  const [avatarError, setAvatarError] = useState("");
-  const [nameError, setNameError] = useState("");
 
   useEffect(() => {
     const idToFetch = paramUserId || contextUserId;
@@ -67,59 +70,67 @@ const ProfileCard = () => {
   if (!user) {
     return <div>Loading!</div>;
   }
+
   const isCurrentUser = contextUserId === user._id;
+
   return (
     <div className="profile-card-container">
       <div className="profile-card">
         <div className="profile-card-header">
-          <img
-            className="profile-card-avatar"
-            src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.webp`}
-            alt="User Avatar"
-            onClick={() => isCurrentUser && setIsAvatarPopupOpen(true)}
-            style={{ cursor: isCurrentUser ? "pointer" : "default" }}
-          />
-          {isEditingName ? (
-            <div className="profile-card-name-editor">
-              <input
-                type="text"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                placeholder="Enter new name"
-                maxLength={10}
-              />
+          <div className="profile-card-avatar-container">
+            <img
+              className="profile-card-avatar"
+              src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.webp`}
+              alt="User Avatar"
+            />
+            {isCurrentUser && (
               <button
-                onClick={() => {
-                  if (newName.trim() !== "") {
-                    handleNameSave;
-                  } else {
-                    setNameError("Enter a valid Name!");
-                  }
-                }}
+                className="edit-button"
+                onClick={() => setIsAvatarPopupOpen(true)}
+                aria-label="Edit Avatar"
               >
-                Save
+                ✏️
               </button>
-              <button
-                onClick={() => {
-                  setIsEditingName(false);
-                  setNameError(false);
-                }}
-              >
-                Cancel
-              </button>
-              {nameError && (
-                <p style={{ color: "red" }}>{nameError}</p> // Display the error message in red
-              )}
-            </div>
-          ) : (
-            <div
-              className="profile-card-name"
-              onClick={() => isCurrentUser && setIsEditingName(true)}
-              style={{ cursor: isCurrentUser ? "pointer" : "default" }}
-            >
-              {user.name}
-            </div>
-          )}
+            )}
+          </div>
+          <div className="profile-card-name-container">
+            {isEditingName ? (
+              <div className="profile-card-name-editor">
+                <input
+                  type="text"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  placeholder="Enter new name"
+                  maxLength={10}
+                />
+                <button
+                  onClick={() => {
+                    if (newName.trim() !== "") {
+                      handleNameSave();
+                    } else {
+                      alert("Enter a valid Name!");
+                    }
+                  }}
+                >
+                  Save
+                </button>
+                <button onClick={() => setIsEditingName(false)}>Cancel</button>
+              </div>
+            ) : (
+              <div className="profile-card-name">
+                {user.name}
+                {isCurrentUser && (
+                  <button
+                    className="edit-button"
+                    onClick={() => setIsEditingName(true)}
+                    aria-label="Edit Name"
+                  >
+                    ✏️
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
         <div className="profile-card-id">{user._id}</div>
         <Link
@@ -134,21 +145,16 @@ const ProfileCard = () => {
         <div className="avatar-popup">
           <div className="avatar-popup-content">
             <h3>Change Avatar</h3>
-            {avatarError && (
-              <p style={{ color: "red" }}>{avatarError}</p> // Display the error message in red
-            )}
 
             <AvatarList
               selectedAvatar={selectedAvatar}
-              handleAvatarClick={(avatar) => {
-                setSelectedAvatar(avatar);
-              }}
+              handleAvatarClick={(avatar) => setSelectedAvatar(avatar)}
             />
 
             <button
               onClick={() => {
                 if (selectedAvatar === "") {
-                  setAvatarError("Select an avatar to save it!");
+                  alert("Select an avatar to save it!");
                 } else {
                   handleAvatarSave();
                   setIsAvatarPopupOpen(false);
@@ -157,14 +163,7 @@ const ProfileCard = () => {
             >
               Save
             </button>
-            <button
-              onClick={() => {
-                setIsAvatarPopupOpen(false);
-                setAvatarError("");
-              }}
-            >
-              Cancel
-            </button>
+            <button onClick={() => setIsAvatarPopupOpen(false)}>Cancel</button>
           </div>
         </div>
       )}

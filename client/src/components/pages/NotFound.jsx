@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Renders if page was not found
+ */
+
 const NotFound = () => {
   return (
     <div>

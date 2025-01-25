@@ -3,6 +3,7 @@ import "./GuyResultsGuy.css";
 import { get } from "../../utilities";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
+import * as Tone from "tone";
 
 /**
  * GuyResultsGuy displays details of a single guy result.
@@ -19,6 +20,14 @@ const GuyResultsGuy = memo((props) => {
   const selectedGuy = props.selectedGuy;
 
   const [creatorName, setCreatorName] = useState("");
+  let fmSynth = null;
+
+  if (typeof guy.sound !== "string") {
+    fmSynth = new Tone.FMSynth({
+      ...guy.sound.parameters,
+      modulationIndex: 10,
+    }).toDestination();
+  }
 
   useEffect(() => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
@@ -31,6 +40,9 @@ const GuyResultsGuy = memo((props) => {
     if (typeof guy.sound === "string") {
       var sound = new Audio(guy.sound);
       sound.play();
+    } else {
+      console.log("hello");
+      fmSynth.triggerAttackRelease(guy.sound.note, "2n");
     }
   };
 
