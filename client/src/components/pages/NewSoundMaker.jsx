@@ -7,14 +7,18 @@ import { post, get } from "../../utilities";
 import { UserContext } from "../App";
 import { GoogleLogin } from "@react-oauth/google";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import assetIds from "../../assets/assetIds";
 import "./NewSoundMaker.css";
 import AvatarList from "../modules/AvatarList";
 
-const NewSoundMaker = (props) => {
+const NewSoundMaker = () => {
   const { userId, handleLogin, handleLogout } = useContext(UserContext);
+
+  const location = useLocation();
+  const guy = location.state?.guy || null;
+
   const [harmonicity, setHarmonicity] = useState(2);
   const [oscillator, setOscillator] = useState("sine");
   const [modulation, setModulation] = useState("square");
@@ -27,6 +31,23 @@ const NewSoundMaker = (props) => {
   const [modEnvSustain, setModEnvSustain] = useState(0.5);
   const [modEnvRelease, setModEnvRelease] = useState(0.8);
   const [note, setNote] = useState("C4");
+
+  useEffect(() => {
+    if (guy !== null) {
+      setHarmonicity(guy.sound.parameters.harmonicity);
+      setOscillator(guy.sound.parameters.oscillator.type);
+      setModulation(guy.sound.parameters.modulation.type);
+      setEnvAttack(guy.sound.parameters.envelope.attack);
+      setEnvDecay(guy.sound.parameters.envelope.decay);
+      setEnvSustain(guy.sound.parameters.envelope.sustain);
+      setEnvRelease(guy.sound.parameters.envelope.release);
+      setModEnvAttack(guy.sound.parameters.modulationEnvelope.attack);
+      setModEnvDecay(guy.sound.parameters.modulationEnvelope.decay);
+      setModEnvSustain(guy.sound.parameters.modulationEnvelope.sustain);
+      setModEnvRelease(guy.sound.parameters.modulationEnvelope.release);
+      setNote(guy.sound.note);
+    }
+  }, [guy]);
 
   const [guyName, setGuyName] = useState("");
   const [assetId, setAssetId] = useState("");

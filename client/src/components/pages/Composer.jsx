@@ -4,7 +4,6 @@ import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
 import { get } from "../../utilities";
-import * as Tone from "tone";
 
 const Composer = () => {
   const [guyVisibility, setGuyVisibility] = useState(false);
@@ -12,8 +11,6 @@ const Composer = () => {
   const keyboardKeys = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
   const [buttonBinds, setButtonBinds] = useState([]);
   const [selectedGuy, setSelectedGuy] = useState(null);
-
-  const fmSynth = useRef(null);
 
   // Fetch random guys on first render and assign them to the keyboard keys
   useEffect(() => {
@@ -112,6 +109,16 @@ const Composer = () => {
 
   return (
     <div>
+      <button
+        onClick={() =>
+          new Audio(
+            "https://www.dropbox.com/scl/fi/lzmjjk77jqmvghkb8ppt0/dog-3.mp3?rlkey=b70zbr7l0n76hogqkwyiwzzhv&raw=1"
+          ).play()
+        }
+      >
+        Play Sound
+      </button>
+
       <Keyboard
         buttonBinds={buttonBinds}
         onButtonClick={onButtonClick}

@@ -9,11 +9,6 @@ import AvatarList from "../modules/AvatarList";
 
 import "./ProfileCard.css";
 
-/**
- * Profile page! Displays information about a user.
- * If the user is logged in, can change their pfp or name.
- */
-
 const ProfileCard = () => {
   const { userId: paramUserId } = useParams();
   const [user, setUser] = useState();
@@ -85,7 +80,7 @@ const ProfileCard = () => {
             />
             {isCurrentUser && (
               <button
-                className="edit-button"
+                className="edit-avatar-button"
                 onClick={() => setIsAvatarPopupOpen(true)}
                 aria-label="Edit Avatar"
               >
@@ -121,7 +116,7 @@ const ProfileCard = () => {
                 {user.name}
                 {isCurrentUser && (
                   <button
-                    className="edit-button"
+                    className="edit-name-button"
                     onClick={() => setIsEditingName(true)}
                     aria-label="Edit Name"
                   >

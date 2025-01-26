@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import "./Slider.css";
 
 const Slider = (props) => {
-  const [value, setValue] = useState(props.value);
-
   const handleChange = (e) => {
     const newValue = parseFloat(e.target.value);
     if (isNaN(newValue)) {
-      setValue(0);
       props.onChange(0);
     } else {
-      setValue(newValue);
       props.onChange(newValue);
     }
   };
@@ -21,7 +17,7 @@ const Slider = (props) => {
     }
   };
 
-  const percentage = ((value - props.min) / (props.max - props.min)) * 100;
+  const percentage = ((props.value - props.min) / (props.max - props.min)) * 100;
 
   return (
     <div className="slider-container">
@@ -34,7 +30,7 @@ const Slider = (props) => {
         className="slider-value"
         min={props.min}
         max={props.max}
-        value={value}
+        value={props.value}
         step={(props.max - props.min) / 20}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
@@ -46,7 +42,7 @@ const Slider = (props) => {
         min={props.min}
         max={props.max}
         step={props.step}
-        value={value}
+        value={props.value}
         onChange={handleChange}
         tabIndex="-1"
         style={{

@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-
 
 import "./NavBar.css";
 import MainTutorial from "./MainTutorial";
@@ -20,7 +19,7 @@ const NavBar = () => {
 
   const { userId, handleLogin, handleLogout, assetId } = useContext(UserContext);
   const pathname = useLocation().pathname;
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   if (pathname === "/") {
     tutorial = <MainTutorial />;
@@ -32,38 +31,26 @@ const NavBar = () => {
 
   const handleLoginClick = (credentialResponse) => {
     handleLogin(credentialResponse);
-
-    // await setIsLoggedIn(true);
   };
-  
-  // useEffect(() =>
-  // {
-  //   setIsLoggedIn(false);
-  // }, [userId]);
-
 
   return (
     <nav className="NavBar-container">
-    <div className="NavBar-linkContainer ">{tutorial}</div>
-    <div className="NavBar-title">
+      <div className="NavBar-linkContainer ">{tutorial}</div>
+      <div className="NavBar-title">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>
-    </div>
-        {userId ? (<ProfileDropdown />
-      
-    ) : (
-      <GoogleLogin
-            text="signin_with"
-            onSuccess={handleLoginClick}
-            onFailure={(err) => console.log(err)}
-            containerProps={{ className: "" }}
-          />
-    )}
-
-
-    
-
+      </div>
+      {userId ? (
+        <ProfileDropdown setIsOpen={setIsOpen} isOpen={isOpen} />
+      ) : (
+        <GoogleLogin
+          text="signin_with"
+          onSuccess={handleLoginClick}
+          onFailure={(err) => console.log(err)}
+          containerProps={{ className: "" }}
+        />
+      )}
     </nav>
   );
 };

@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect, useContext } from "react";
 import "./GuyResultsGuy.css";
 import { get } from "../../utilities";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import * as Tone from "tone";
 
@@ -18,6 +18,7 @@ const GuyResultsGuy = memo((props) => {
   const { userId } = useContext(UserContext);
   const guy = props.guy;
   const selectedGuy = props.selectedGuy;
+  const navigate = useNavigate();
 
   const [creatorName, setCreatorName] = useState("");
   let fmSynth = null;
@@ -46,15 +47,6 @@ const GuyResultsGuy = memo((props) => {
     }
   };
 
-  const deleteGuy = () => {
-    // Make the API request to delete the guy
-    get(`/api/delGuy`, { guyId: guy._id }).then(() => {
-      // Call the updateGuys function to remove the guy from the list
-      window.location.reload();
-      // props.setResetter(!props.resetter);
-    });
-  };
-
   return (
     <div className={`result-guy-box ${guy === selectedGuy ? "result-guy-selected" : ""}`}>
       <p className="result-guy-index">{props.index}</p>
@@ -68,9 +60,14 @@ const GuyResultsGuy = memo((props) => {
       <Link to={`/profile/${guy.creator_id}`} className="result-guy-username">
         {creatorName}
       </Link>
-      {userId === guy.creator_id && (
-        <button onClick={deleteGuy} className="delete-guy-button">
-          Delete
+      {typeof guy.sound !== "string" && (
+        <button
+          onClick={() => {
+            navigate("/soundmaker", { state: { guy } });
+          }}
+          className="edit-guy-button"
+        >
+          Remix Guy!
         </button>
       )}
     </div>

@@ -1,3 +1,8 @@
+// if (typeof global === "undefined") {
+//   let global = window;
+// }
+window.global ||= window;
+
 import React, { useState, useEffect, createContext } from "react";
 import { Outlet } from "react-router-dom";
 

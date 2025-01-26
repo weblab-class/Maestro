@@ -95,3 +95,27 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.profile-card-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.edit-avatar-button {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.profile-card-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-name-button {
+  font-size: 1.2rem;
+  cursor: pointer;
+}

@@ -274,18 +274,6 @@ router.post("/nameSet", async (req, res) => {
   res.send({ newName: user.name });
 });
 
-// router.get("/delGuy", async (req, res) => {
-//   try {
-//     const guyId = req.query.guyId;
-//     console.log(guyId);
-//     await Guy.deleteOne({ _id: new mongoose.Types.ObjectId(guyId) });
-//     res.status(200).send({ message: "Guy deleted successfully" });
-//   } catch (error) {
-//     console.error("Error deleting guy:", error);
-//     res.status(500).send({ error: "Failed to delete guy" });
-//   }
-// });
-
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
