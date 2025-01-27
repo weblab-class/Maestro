@@ -1,6 +1,7 @@
 import "./GuyDisplayGuy.css";
 import { get, post } from "../../utilities";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../App";
 
 /**
  * Guy is a container for guy documents. These contain an emoticon and a sound.
@@ -11,6 +12,7 @@ import { useState, useEffect } from "react";
  * @param {Function} onGuyClick
  */
 const GuyDisplayGuy = (props) => {
+  const { isAnimated } = useContext(UserContext);
   const selectedGuy = props.selectedGuy;
   const [guy, setGuy] = useState(props.guy);
   const [id, setId] = useState(props.guy._id);
@@ -47,7 +49,9 @@ const GuyDisplayGuy = (props) => {
       <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
       <img
         className="guy-icon"
-        src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
+        src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.${
+          +isAnimated ? "webp" : "png"
+        }`}
         width="60"
         height="60"
       />

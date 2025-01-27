@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import assetIds from "../../assets/assetIds";
 import "./AvatarList.css";
+import { UserContext } from "../App";
 
 const AvatarList = ({ selectedAvatar, handleAvatarClick }) => {
+  const { isAnimated } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20; // Number of avatars per page
   const totalPages = Math.ceil(assetIds.length / itemsPerPage);
@@ -38,7 +40,9 @@ const AvatarList = ({ selectedAvatar, handleAvatarClick }) => {
             onClick={() => handleAvatarClick(avatar)}
           >
             <img
-              src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${avatar}/512.webp`}
+              src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${avatar}/512.${
+                +isAnimated ? "webp" : "png"
+              }`}
               alt={`Avatar ${index}`}
               width="40"
               height="40"

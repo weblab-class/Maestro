@@ -15,7 +15,7 @@ import * as Tone from "tone";
  */
 
 const GuyResultsGuy = memo((props) => {
-  const { userId } = useContext(UserContext);
+  const { isAnimated } = useContext(UserContext);
   const guy = props.guy;
   const selectedGuy = props.selectedGuy;
   const navigate = useNavigate();
@@ -52,7 +52,9 @@ const GuyResultsGuy = memo((props) => {
       <p className="result-guy-index">{props.index}</p>
       <button index={`${props.index}`} className="result-guy-image-button" onClick={onClick}>
         <img
-          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
+          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.${
+            +isAnimated ? "webp" : "png"
+          }`}
           className="result-guy-image"
         />
       </button>

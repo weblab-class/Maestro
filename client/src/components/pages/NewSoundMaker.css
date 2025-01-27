@@ -168,3 +168,84 @@
   color: #333; /* Set a dark color for the text */
   margin-bottom: 1rem; /* Space between title and avatar grid */
 }
+
+.save-button {
+  width: 150px; /* Set a wider width */
+  height: 50px; /* Increase height for a bigger feel */
+  font-size: 18px; /* Larger font for better readability */
+  font-weight: bold;
+  background-color: #007bff; /* Stylish blue background */
+  color: #ffffff; /* White text */
+  border: none;
+  border-radius: 30px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #0056b3; /* Slightly darker blue on hover */
+  transform: scale(1.05); /* Subtle zoom effect */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+.save-button:active {
+  background-color: #004494; /* Darker blue when active */
+  transform: scale(0.95); /* Pressed effect */
+}
+
+/* Container for tabs */
+.tab-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+/* Tab header */
+.tab-header {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+/* Tab buttons */
+.tab-button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tab-button:not(:last-child) {
+  margin-right: 8px;
+}
+
+.tab-button:hover {
+  background-color: #d6d6d6;
+}
+
+/* Active tab */
+.tab-button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Tab content */
+.tab-content {
+  padding: 20px;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}

@@ -24,8 +24,8 @@ import { useNavigate } from "react-router-dom";
  */
 const App = () => {
   const [userId, setUserId] = useState(undefined);
-
   const [assetId, setAssetId] = useState("1fae5");
+  const [isAnimated, setIsAnimated] = useState(true);
 
   const navigate = useNavigate();
 
@@ -63,6 +63,8 @@ const App = () => {
     handleLogout,
     assetId,
     setAssetId,
+    isAnimated,
+    setIsAnimated,
   };
 
   return (

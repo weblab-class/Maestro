@@ -241,23 +241,13 @@ router.post("/switchGuys", async (req, res) => {
   }
 });
 
-router.post("/postSound", (req, res) => {
-  const soundData = req.body.soundData;
-  const sound = new Sound({
-    note: soundData.note,
-    parameters: soundData.parameters,
-  });
-  console.log(sound);
-
-  sound.save().then((savedSound) => res.send({ soundId: savedSound._id }));
-});
-
 router.post("/postGuy", (req, res) => {
   const guy = new Guy(req.body.guy);
   guy.save().then((savedGuy) => {
     res.send(savedGuy);
   });
 });
+
 router.post("/pfpset", async (req, res) => {
   let newPfp = req.body.newPfp;
   req.user.asset_id = newPfp;

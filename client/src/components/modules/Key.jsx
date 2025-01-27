@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import "./Key.css";
 import { get } from "../../utilities";
 import * as Tone from "tone";
+import { UserContext } from "../App";
 
 /**
  * Key represents an onscreen button, which produces a sound when clicked.
@@ -13,6 +14,7 @@ import * as Tone from "tone";
  */
 
 const Key = (props) => {
+  const { isAnimated } = useContext(UserContext);
   const guy = props.guy;
   const guyVisibility = props.guyVisibility;
 
@@ -73,7 +75,9 @@ const Key = (props) => {
       >
         <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
         <img
-          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
+          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.${
+            +isAnimated ? "webp" : "png"
+          }`}
           width="40px"
           height="40px"
         />

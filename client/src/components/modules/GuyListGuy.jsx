@@ -1,6 +1,7 @@
 import "./GuyListGuy.css";
 import { get } from "../../utilities";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../App";
 
 /**
  * GuyListGuy is a container for guy documents. These contain an emoticon and a sound.
@@ -11,6 +12,7 @@ import { useState, useEffect } from "react";
  * @param {Function} onGuyClick
  */
 const GuyListGuy = (props) => {
+  const { isAnimated } = useContext(UserContext);
   const guy = props.guy;
 
   const [creatorId, setCreatorId] = useState("");
@@ -26,7 +28,9 @@ const GuyListGuy = (props) => {
       <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
       <img
         className="guy-icon"
-        src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.webp`}
+        src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.${
+          +isAnimated ? "webp" : "png"
+        }`}
         onClick={() => props.setSelectedGuy(guy)}
         width="100"
         height="100"

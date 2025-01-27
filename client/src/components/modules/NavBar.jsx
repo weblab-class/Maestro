@@ -17,7 +17,7 @@ import ProfileDropdown from "./ProfileDropdown";
 const NavBar = () => {
   let tutorial = "";
 
-  const { userId, handleLogin, handleLogout, assetId } = useContext(UserContext);
+  const { userId, handleLogin, setIsAnimated, isAnimated } = useContext(UserContext);
   const pathname = useLocation().pathname;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,10 +36,20 @@ const NavBar = () => {
   return (
     <nav className="NavBar-container">
       <div className="NavBar-linkContainer ">{tutorial}</div>
-      <div className="NavBar-title">
+      <div className="NavBar-title neon-text">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>
+      </div>
+      <div className="toggle-container">
+        <button
+          onClick={() => {
+            setIsAnimated(!isAnimated);
+          }}
+          className={`toggle-button ${isAnimated ? "toggle-off" : "toggle-on"}`}
+        >
+          {isAnimated ? "Guy animations: OFF" : "Guy animations: ON"}
+        </button>
       </div>
       {userId ? (
         <ProfileDropdown setIsOpen={setIsOpen} isOpen={isOpen} />

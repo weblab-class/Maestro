@@ -109,16 +109,6 @@ const Composer = () => {
 
   return (
     <div>
-      <button
-        onClick={() =>
-          new Audio(
-            "https://www.dropbox.com/scl/fi/lzmjjk77jqmvghkb8ppt0/dog-3.mp3?rlkey=b70zbr7l0n76hogqkwyiwzzhv&raw=1"
-          ).play()
-        }
-      >
-        Play Sound
-      </button>
-
       <Keyboard
         buttonBinds={buttonBinds}
         onButtonClick={onButtonClick}

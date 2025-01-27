@@ -33,8 +33,67 @@
   opacity: 0.8;
 }
 
-
 .NavBar-link + .NavBar-link {
   margin-left: var(--m);
 }
 
+@keyframes pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+  }
+  50% {
+    text-shadow: 0 0 15px #0ff, 0 0 30px #0ff, 0 0 60px #0ff, 0 0 90px #0ff;
+  }
+}
+
+.neon-text {
+  animation: pulse 2s infinite alternate;
+  font-size: 3rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff, 0 0 80px #0ff,
+    0 0 100px #0ff;
+  font-family: "Arial", sans-serif; /* Customize as needed */
+}
+
+/* Styling for the toggle container */
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+/* Base styles for the button */
+.toggle-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Styles for the ON state */
+.toggle-on {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.toggle-on:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Styles for the OFF state */
+.toggle-off {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.toggle-off:hover {
+  background-color: #e53935;
+  transform: scale(1.05);
+}

@@ -3,7 +3,7 @@ import "./MainTutorial.css";
 import { UserContext } from "../App";
 
 const MainTutorial = () => {
-  const { userId } = useContext(UserContext);
+  const { userId, isAnimated } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
 
   const handleOpenPopup = () => {
@@ -23,7 +23,9 @@ const MainTutorial = () => {
       {/* Button to open the popup */}
       <button className="open-button" onClick={handleOpenPopup}>
         <img
-          src="https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.webp"
+          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.${
+            +isAnimated ? "webp" : "png"
+          }`}
           width="40px"
           height="40px"
           alt="Open Tutorial"

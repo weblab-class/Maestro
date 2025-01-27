@@ -12,7 +12,7 @@ import "./ProfileCard.css";
 const ProfileCard = () => {
   const { userId: paramUserId } = useParams();
   const [user, setUser] = useState();
-  const { userId: contextUserId, handleLogin, setAssetId } = useContext(UserContext);
+  const { userId: contextUserId, handleLogin, setAssetId, isAnimated } = useContext(UserContext);
 
   const [isEditingName, setIsEditingName] = useState(false);
   const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
@@ -75,7 +75,9 @@ const ProfileCard = () => {
           <div className="profile-card-avatar-container">
             <img
               className="profile-card-avatar"
-              src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.webp`}
+              src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.${
+                +isAnimated ? "webp" : "png"
+              }`}
               alt="User Avatar"
             />
             {isCurrentUser && (

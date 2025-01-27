@@ -14,7 +14,7 @@ import "./NewSoundMaker.css";
 import AvatarList from "../modules/AvatarList";
 
 const NewSoundMaker = () => {
-  const { userId, handleLogin, handleLogout } = useContext(UserContext);
+  const { userId, handleLogin } = useContext(UserContext);
 
   const location = useLocation();
   const guy = location.state?.guy || null;
@@ -31,6 +31,9 @@ const NewSoundMaker = () => {
   const [modEnvSustain, setModEnvSustain] = useState(0.5);
   const [modEnvRelease, setModEnvRelease] = useState(0.8);
   const [note, setNote] = useState("C4");
+
+  const [activeTab, setActiveTab] = useState("synth");
+  const [guyLink, setGuyLink] = useState("");
 
   useEffect(() => {
     if (guy !== null) {
@@ -124,13 +127,13 @@ const NewSoundMaker = () => {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
 
-  function isValidNote(input) {
+  const isValidNote = (input) => {
     // Regular expression to match musical notes from A0 to C8 (including sharps)
     const noteRegex = /^(A|B|C|D|E|F|G)(#|b)?[0-8]$/;
 
     // Test the input against the regex
     return noteRegex.test(input);
-  }
+  };
 
   const checkAssetId = (id) => {
     // Check if the id is directly in the list
@@ -156,10 +159,29 @@ const NewSoundMaker = () => {
     }
   };
 
+  const isValidDropboxLink = (link) => {
+    // Check if the link matches Dropbox's typical URL structure
+    const dropboxRegex =
+      /^https:\/\/www\.dropbox\.com\/s(cl)?\/[\w\d]+\/.+(\?dl=\d|(\?|&)raw=\d)?$/;
+    return dropboxRegex.test(link);
+  };
+
+  const convertDropboxLink = (link) => {
+    if (!isValidDropboxLink(link)) {
+      return { valid: false, message: "Invalid Dropbox link." };
+    }
+
+    // Replace dl=0 or dl=1 with raw=1 or add raw=1 if not present
+    const modifiedLink = link.replace(/(\?|&)dl=\d/, "$1raw=1").replace(/(\?|&)raw=\d/, "$1raw=1");
+    return { valid: true, link: modifiedLink };
+  };
+
   const saveSound = (bool) => {
     const newAssetId = checkAssetId(assetId);
-    if (newAssetId) {
-      const soundData = {
+    let soundData = null; // Declare soundData outside if/else to scope it properly
+
+    if (activeTab === "synth") {
+      soundData = {
         note: note,
         parameters: {
           harmonicity: harmonicity,
@@ -179,28 +201,36 @@ const NewSoundMaker = () => {
           },
         },
       };
-
-      post("/api/postGuy", {
-        guy: {
-          name: guyName,
-          creator_id: userId,
-          asset_id: newAssetId,
-          sound: soundData,
-        },
-        userId: userId,
-      }).then(() => {
-        if (bool) {
-          navigate(
-            `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
-          );
-        } else {
-          setGuyName("");
-          setAssetId("");
-          setShowConfirm(false);
-          setShowNavigateOption(false);
-        }
-      });
+    } else if (activeTab === "upload") {
+      const result = convertDropboxLink(guyLink);
+      if (result.valid) {
+        soundData = result.link; // Ensure the soundData structure matches expectations
+      } else {
+        console.error("Invalid Dropbox link");
+        return; // Exit the function if the link is invalid
+      }
     }
+
+    post("/api/postGuy", {
+      guy: {
+        name: guyName,
+        creator_id: userId,
+        asset_id: newAssetId,
+        sound: soundData,
+      },
+      userId: userId,
+    }).then(() => {
+      if (bool) {
+        navigate(
+          `/search?username=${encodeURIComponent(username)}&name=${encodeURIComponent(guyName)}`
+        );
+      } else {
+        setGuyName("");
+        setAssetId("");
+        setShowConfirm(false);
+        setShowNavigateOption(false);
+      }
+    });
   };
 
   if (!userId) {
@@ -217,115 +247,154 @@ const NewSoundMaker = () => {
   }
   return (
     <div className="soundmaker-container">
-      <div className="soundstuff">
-        {" "}
-        <div className="note-container">
-          <div className="note-label">
-            {" "}
-            <label>Note: </label>
-            <input
-              type="text"
-              onChange={(e) => setNote(e.target.value)}
-              value={note}
-              onKeyDown={(e) => {
-                if (e.key === " ") {
-                  e.preventDefault();
-                }
-              }}
-              maxLength={3}
-            />
-          </div>
-        </div>
-        <Dropdown
-          label="Oscillator Waveform"
-          options={waveforms}
-          value={oscillator}
-          onChange={setOscillator}
-        />
-        <Dropdown
-          label="Modulation Waveform"
-          options={waveforms}
-          value={modulation}
-          onChange={setModulation}
-        />
-        <Slider
-          label="Harmonicity"
-          min={0}
-          max={10}
-          step={0.1}
-          value={harmonicity}
-          onChange={setHarmonicity}
-        />
-        <Slider
-          label="Envelope Attack"
-          min={0}
-          max={2}
-          step={0.01}
-          value={envAttack}
-          onChange={setEnvAttack}
-        />
-        <Slider
-          label="Envelope Decay"
-          min={0}
-          max={2}
-          step={0.01}
-          value={envDecay}
-          onChange={setEnvDecay}
-        />
-        <Slider
-          label="Envelope Sustain"
-          min={0}
-          max={1}
-          step={0.01}
-          value={envSustain}
-          onChange={setEnvSustain}
-        />
-        <Slider
-          label="Envelope Release"
-          min={0}
-          max={5}
-          step={0.01}
-          value={envRelease}
-          onChange={setEnvRelease}
-        />
-        <Slider
-          label="Modulation Envelope Attack"
-          min={0}
-          max={2}
-          step={0.01}
-          value={modEnvAttack}
-          onChange={setModEnvAttack}
-        />
-        <Slider
-          label="Modulation Envelope Decay"
-          min={0}
-          max={2}
-          step={0.01}
-          value={modEnvDecay}
-          onChange={setModEnvDecay}
-        />
-        <Slider
-          label="Modulation Envelope Sustain"
-          min={0}
-          max={1}
-          step={0.01}
-          value={modEnvSustain}
-          onChange={setModEnvSustain}
-        />
-        <Slider
-          label="Modulation Envelope Release"
-          min={0}
-          max={5}
-          step={0.01}
-          value={modEnvRelease}
-          onChange={setModEnvRelease}
-        />
-        <div className="sound-button-container">
-          <button buttonid="play-button" className="play-button" onClick={playNote}>
-            Play Note
+      <div className="tab-container soundstuff">
+        {/* Tab Headers */}
+        <div className="tab-header">
+          <button
+            className={`tab-button ${activeTab === "synth" ? "active" : ""}`}
+            onClick={() => setActiveTab("synth")}
+          >
+            Synth Modifier
+          </button>
+          <button
+            className={`tab-button ${activeTab === "upload" ? "active" : ""}`}
+            onClick={() => setActiveTab("upload")}
+          >
+            Custom Sound
           </button>
         </div>
-        <WaveformAnimation fmSynth={fmSynth.current} />
+
+        {/* Tab Content */}
+        <div className="tab-content">
+          {activeTab === "synth" && (
+            <div className="synth-content">
+              <div className="note-container">
+                <div className="note-label">
+                  {" "}
+                  <label>Note: </label>
+                  <input
+                    type="text"
+                    onChange={(e) => setNote(e.target.value)}
+                    value={note}
+                    onKeyDown={(e) => {
+                      if (e.key === " ") {
+                        e.preventDefault();
+                      }
+                    }}
+                    maxLength={3}
+                  />
+                </div>
+              </div>
+              <Dropdown
+                label="Oscillator Waveform"
+                options={waveforms}
+                value={oscillator}
+                onChange={setOscillator}
+              />
+              <Dropdown
+                label="Modulation Waveform"
+                options={waveforms}
+                value={modulation}
+                onChange={setModulation}
+              />
+              <Slider
+                label="Harmonicity"
+                min={0}
+                max={10}
+                step={0.1}
+                value={harmonicity}
+                onChange={setHarmonicity}
+              />
+              <Slider
+                label="Envelope Attack"
+                min={0}
+                max={2}
+                step={0.01}
+                value={envAttack}
+                onChange={setEnvAttack}
+              />
+              <Slider
+                label="Envelope Decay"
+                min={0}
+                max={2}
+                step={0.01}
+                value={envDecay}
+                onChange={setEnvDecay}
+              />
+              <Slider
+                label="Envelope Sustain"
+                min={0}
+                max={1}
+                step={0.01}
+                value={envSustain}
+                onChange={setEnvSustain}
+              />
+              <Slider
+                label="Envelope Release"
+                min={0}
+                max={5}
+                step={0.01}
+                value={envRelease}
+                onChange={setEnvRelease}
+              />
+              <Slider
+                label="Modulation Envelope Attack"
+                min={0}
+                max={2}
+                step={0.01}
+                value={modEnvAttack}
+                onChange={setModEnvAttack}
+              />
+              <Slider
+                label="Modulation Envelope Decay"
+                min={0}
+                max={2}
+                step={0.01}
+                value={modEnvDecay}
+                onChange={setModEnvDecay}
+              />
+              <Slider
+                label="Modulation Envelope Sustain"
+                min={0}
+                max={1}
+                step={0.01}
+                value={modEnvSustain}
+                onChange={setModEnvSustain}
+              />
+              <Slider
+                label="Modulation Envelope Release"
+                min={0}
+                max={5}
+                step={0.01}
+                value={modEnvRelease}
+                onChange={setModEnvRelease}
+              />
+              <div className="sound-button-container">
+                <button buttonid="play-button" className="play-button" onClick={playNote}>
+                  Play Note
+                </button>
+              </div>
+              <WaveformAnimation fmSynth={fmSynth.current} />
+            </div>
+          )}
+          {activeTab === "upload" && (
+            <div className="upload-content">
+              <p>If you would like to use your own sounds:</p>
+              <ol>
+                <li>Upload your sound to Dropbox as an mp3.</li>
+                <li>Copy the sound link, and make sure it is viewable by anyone!</li>
+                <li>Paste the link here!</li>
+              </ol>
+              <input
+                type="text"
+                value={guyLink}
+                onChange={(e) => {
+                  setGuyLink(e.target.value);
+                }}
+              ></input>
+            </div>
+          )}
+        </div>
       </div>
       <div className="guystuff">
         <div className="note-container">
@@ -352,10 +421,12 @@ const NewSoundMaker = () => {
           </div>
           <div>
             <button
-              className="play-button"
+              className="save-button"
               onClick={() => {
-                if (!isValidNote(note)) {
+                if (activeTab === "synth" && !isValidNote(note)) {
                   alert("Choose a valid Note!");
+                } else if (activeTab === "upload" && !isValidDropboxLink(guyLink)) {
+                  alert("Enter a valid Dropbox Link!");
                 } else if (guyName.trim() === "") {
                   alert("Enter a valid Name!");
                 } else if (assetId === "") {
