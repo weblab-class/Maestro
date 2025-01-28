@@ -4,7 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 
 const ProfileDropdown = () => {
-  const { userId, handleLogin, handleLogout, assetId, isAnimated } = useContext(UserContext);
+  const { userId, handleLogin, handleLogout, assetId, isAnimated, setIsAnimated } =
+    useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,8 +28,8 @@ const ProfileDropdown = () => {
     <div className="profile-dropdown">
       <button className="profile-button" onClick={toggleDropdown}>
         <img
-          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/1f600/512.${
-            +isAnimated ? "webp" : "png"
+          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${userId ? assetId : "1fae5"}/512.${
+            isAnimated ? "webp" : "png"
           }`}
           width="40px"
           height="40px"
@@ -39,11 +40,16 @@ const ProfileDropdown = () => {
           <button className="dropdown-item" onClick={profileLinkClick}>
             My Profile
           </button>
-          {/* <Link to={`/profile/${userId}`} 
-        className="dropdown-item"
-        >My Profile</Link> */}
           <button className="dropdown-item" onClick={handleLogout}>
             Log Out
+          </button>
+          <button
+            onClick={() => {
+              setIsAnimated(!isAnimated);
+            }}
+            className={`dropdown-item`}
+          >
+            {isAnimated ? "Guy animations: OFF" : "Guy animations: ON"}
           </button>
         </div>
       )}

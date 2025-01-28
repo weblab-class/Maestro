@@ -107,8 +107,13 @@ const Composer = () => {
     };
   }, [guyVisibility, selectedGuy]); // Re-run if guyVisibility or selectedGuy changes
 
+  const handleInteraction = () => {
+    setIsInteracting(true);
+    setTimeout(() => setIsInteracting(false), 1000); // Reset the effect
+  };
+
   return (
-    <div>
+    <div onClick={handleInteraction} onKeyDown={handleInteraction} className={`dynamic-background`}>
       <Keyboard
         buttonBinds={buttonBinds}
         onButtonClick={onButtonClick}

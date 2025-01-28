@@ -41,3 +41,7 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.popup-button-container {
+  width: 210px;
+}

@@ -1,7 +1,7 @@
 .avatar-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* 5 columns */
-  grid-template-rows: repeat(4, auto); /* 4 rows */
+  grid-template-rows: repeat(4, 60px); /* 4 rows */
   gap: 1rem; /* Space between grid items */
   justify-content: center; /* Optional: Center the grid horizontally */
   padding: 1rem; /* Optional: Add padding around the grid */

@@ -70,8 +70,10 @@ const App = () => {
   return (
     <div>
       <UserContext.Provider value={authContextValue}>
-        <NavBar assetId={assetId} />
-        <Outlet />
+        <div className="App-container">
+          <NavBar assetId={assetId} />
+          <Outlet />
+        </div>
       </UserContext.Provider>
     </div>
   );

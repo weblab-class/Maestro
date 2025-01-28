@@ -50,20 +50,11 @@ const ProfileCard = () => {
   };
 
   if (!user && !paramUserId) {
-    return (
-      <div className="profile-login-container">
-        <GoogleLogin
-          text="signin_with"
-          onSuccess={handleLogin}
-          onFailure={(err) => console.log(err)}
-          containerProps={{ className: "NavBar-link NavBar-login" }}
-        />
-      </div>
-    );
+    return <div className="profile-card-container"></div>;
   }
 
   if (!user) {
-    return <div>Loading!</div>;
+    return <div className="profile-card-container"></div>;
   }
 
   const isCurrentUser = contextUserId === user._id;
@@ -74,21 +65,13 @@ const ProfileCard = () => {
         <div className="profile-card-header">
           <div className="profile-card-avatar-container">
             <img
-              className="profile-card-avatar"
+              className={`profile-card-avatar ${isCurrentUser ? "u-pointer wiggling" : ""}`}
               src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${user.asset_id}/512.${
                 +isAnimated ? "webp" : "png"
               }`}
               alt="User Avatar"
+              onClick={isCurrentUser ? () => setIsAvatarPopupOpen(true) : undefined} // Make the image unclickable if the user is not logged in
             />
-            {isCurrentUser && (
-              <button
-                className="edit-avatar-button"
-                onClick={() => setIsAvatarPopupOpen(true)}
-                aria-label="Edit Avatar"
-              >
-                ✏️
-              </button>
-            )}
           </div>
           <div className="profile-card-name-container">
             {isEditingName ? (
@@ -114,17 +97,11 @@ const ProfileCard = () => {
                 <button onClick={() => setIsEditingName(false)}>Cancel</button>
               </div>
             ) : (
-              <div className="profile-card-name">
+              <div
+                className={`profile-card-name ${isCurrentUser ? "u-pointer wiggling" : ""}`}
+                onClick={isCurrentUser ? () => setIsEditingName(true) : undefined}
+              >
                 {user.name}
-                {isCurrentUser && (
-                  <button
-                    className="edit-name-button"
-                    onClick={() => setIsEditingName(true)}
-                    aria-label="Edit Name"
-                  >
-                    ✏️
-                  </button>
-                )}
               </div>
             )}
           </div>

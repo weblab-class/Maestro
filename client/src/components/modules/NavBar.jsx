@@ -25,7 +25,7 @@ const NavBar = () => {
     tutorial = <MainTutorial />;
   } else if (pathname.startsWith("/search")) {
     tutorial = <SearchTutorial />;
-  } else if (pathname.startsWith("/profile")) {
+  } else {
     tutorial = <ProfileTutorial />;
   }
 
@@ -35,13 +35,13 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-      <div className="NavBar-linkContainer ">{tutorial}</div>
+      {tutorial}
       <div className="NavBar-title neon-text">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>
       </div>
-      <div className="toggle-container">
+      {/* <div className="toggle-container">
         <button
           onClick={() => {
             setIsAnimated(!isAnimated);
@@ -50,7 +50,7 @@ const NavBar = () => {
         >
           {isAnimated ? "Guy animations: OFF" : "Guy animations: ON"}
         </button>
-      </div>
+      </div> */}
       {userId ? (
         <ProfileDropdown setIsOpen={setIsOpen} isOpen={isOpen} />
       ) : (

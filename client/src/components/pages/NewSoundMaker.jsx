@@ -285,6 +285,7 @@ const NewSoundMaker = () => {
                   />
                 </div>
               </div>
+
               <Dropdown
                 label="Oscillator Waveform"
                 options={waveforms}
@@ -297,6 +298,7 @@ const NewSoundMaker = () => {
                 value={modulation}
                 onChange={setModulation}
               />
+
               <Slider
                 label="Harmonicity"
                 min={0}
@@ -373,108 +375,108 @@ const NewSoundMaker = () => {
                 <button buttonid="play-button" className="play-button" onClick={playNote}>
                   Play Note
                 </button>
+
+                <WaveformAnimation fmSynth={fmSynth.current} />
               </div>
-              <WaveformAnimation fmSynth={fmSynth.current} />
             </div>
           )}
           {activeTab === "upload" && (
             <div className="upload-content">
-              <p>If you would like to use your own sounds:</p>
-              <ol>
-                <li>Upload your sound to Dropbox as an mp3.</li>
+              <p className="upload-instructions">If you would like to use your own sounds:</p>
+              <ol className="upload-steps">
+                <li>Upload your sound to Dropbox as an MP3.</li>
                 <li>Copy the sound link, and make sure it is viewable by anyone!</li>
-                <li>Paste the link here!</li>
+                <li>Paste the link here:</li>
               </ol>
-              <input
-                type="text"
-                value={guyLink}
-                onChange={(e) => {
-                  setGuyLink(e.target.value);
-                }}
-              ></input>
+              <div className="upload-input-container">
+                <input
+                  type="text"
+                  placeholder="Paste your link here..."
+                  value={guyLink}
+                  onChange={(e) => setGuyLink(e.target.value)}
+                  className="upload-input"
+                />
+              </div>
             </div>
           )}
         </div>
       </div>
-      <div className="guystuff">
+      <div className="guystuff tab-content">
         <div className="note-container">
           <div className="note-label">
-            {" "}
-            <label>Guy Name: </label>
+            <label>Guy Name:</label>
             <input
               type="text"
-              onChange={(e) => {
-                setGuyName(e.target.value);
-              }}
+              onChange={(e) => setGuyName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === " ") {
-                  e.preventDefault();
-                }
+                if (e.key === " ") e.preventDefault();
               }}
               value={guyName}
               maxLength={10}
+              placeholder="Enter name"
+              className="guy-name-input"
             />
           </div>
-          <div className="avatar-list-container">
-            <div className="avatar-list-title"> Guy Icon</div>
-            <AvatarList selectedAvatar={assetId} handleAvatarClick={setAssetId} />
-          </div>
-          <div>
-            <button
-              className="save-button"
-              onClick={() => {
-                if (activeTab === "synth" && !isValidNote(note)) {
-                  alert("Choose a valid Note!");
-                } else if (activeTab === "upload" && !isValidDropboxLink(guyLink)) {
-                  alert("Enter a valid Dropbox Link!");
-                } else if (guyName.trim() === "") {
-                  alert("Enter a valid Name!");
-                } else if (assetId === "") {
-                  alert("Select an Icon!");
-                } else {
-                  setShowConfirm(true);
-                }
-              }}
-            >
-              Next
-            </button>
+        </div>
+        <div className="avatar-list-container">
+          <div className="avatar-list-title">Guy Icon</div>
+          <AvatarList selectedAvatar={assetId} handleAvatarClick={setAssetId} />
+        </div>
+        <div className="note-actions">
+          <button
+            className="play-button"
+            onClick={() => {
+              if (activeTab === "synth" && !isValidNote(note)) {
+                alert("Choose a valid Note!");
+              } else if (activeTab === "upload" && !isValidDropboxLink(guyLink)) {
+                alert("Enter a valid Dropbox Link!");
+              } else if (guyName.trim() === "") {
+                alert("Enter a valid Name!");
+              } else if (assetId === "") {
+                alert("Select an Icon!");
+              } else {
+                setShowConfirm(true);
+              }
+            }}
+          >
+            Next
+          </button>
 
-            {showConfirm && !showNavigateOption && (
-              <div className="confirm">
-                <div className="confirm-content">
-                  <p>Do you want to publish your sound?</p>
-                  <div className="confirm-actions">
-                    <button
-                      onClick={() => {
-                        setShowNavigateOption(true); // Show navigation options
-                      }}
-                    >
-                      Publish
-                    </button>
-                    <button
-                      onClick={() => {
-                        setShowConfirm(false); // Cancel confirmation
-                      }}
-                    >
-                      Do Not Publish
-                    </button>
-                  </div>
+          {showConfirm && !showNavigateOption && (
+            <div className="confirm">
+              <div className="confirm-content">
+                <p>Do you want to publish your sound?</p>
+                <div className="confirm-actions">
+                  <button
+                    onClick={() => {
+                      setShowNavigateOption(true); // Show navigation options
+                    }}
+                  >
+                    Publish
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowConfirm(false); // Cancel confirmation
+                    }}
+                  >
+                    Do Not Publish
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+          )}
 
-            {showNavigateOption && (
-              <div className="confirm">
-                <div className="confirm-content">
-                  <p>Would you like to navigate to another page?</p>
-                  <div className="confirm-actions">
-                    <button onClick={() => saveSound(true)}>Yes, navigate</button>
-                    <button onClick={() => saveSound(false)}>No, stay here</button>
-                  </div>
+          {showNavigateOption && (
+            <div className="confirm">
+              <div className="confirm-content">
+                <p>Would you like to navigate to another page?</p>
+                <div className="confirm-actions">
+                  <button onClick={() => saveSound(true)}>Yes, navigate</button>
+                  <button onClick={() => saveSound(false)}>No, stay here</button>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

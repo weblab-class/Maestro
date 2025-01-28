@@ -19,9 +19,9 @@ const ProfileTutorial = () => {
   }, [userId]);
 
   return (
-    <div>
+    <div className="popup-button-container">
       {/* Button to open the popup */}
-      <button className="open-button" onClick={handleOpenPopup}>
+      <button className="open-button profile-button" onClick={handleOpenPopup}>
         <img
           src={`https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.${
             +isAnimated ? "webp" : "png"

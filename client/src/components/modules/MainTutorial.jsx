@@ -19,7 +19,7 @@ const MainTutorial = () => {
   }, [userId]);
 
   return (
-    <div>
+    <div className="popup-button-container">
       {/* Button to open the popup */}
       <button className="open-button" onClick={handleOpenPopup}>
         <img
