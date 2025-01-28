@@ -31,6 +31,7 @@ const Keyboard = (props) => {
           </div>
         );
       })}
+      <div id={props.id}></div>;
     </div>
   );
 };

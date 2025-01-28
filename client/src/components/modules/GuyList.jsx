@@ -58,9 +58,9 @@ const GuyList = (props) => {
 
   // Handle up/down key clicks
   const handleKeyDown = (event) => {
-    if (event.key === "ArrowDown") {
+    if (event.key === "ArrowRight") {
       setDisplayRow((prevRow) => (prevRow + 1) % numRows);
-    } else if (event.key === "ArrowUp") {
+    } else if (event.key === "ArrowLeft") {
       setDisplayRow((prevRow) => (prevRow - 1 + numRows) % numRows);
     }
   };
@@ -89,9 +89,16 @@ const GuyList = (props) => {
 
   return (
     <div className="GuyListWrapper">
-      <div className="RowIndicator">
+    {/* change color  if include & put under*/}
+      {/* <div className="RowIndicator">
         Row: {displayRow + 1} / {numRows}
-      </div>
+      </div> */}
+      <button  
+        style={{ border: "none", outline: "none", backgroundColor: "white" }}
+        onClick={() => handleKeyDown({ key: "ArrowLeft" })}> 
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#1b73e8"><path d="M400-80 0-480l400-400 61 61.67L122.67-480 461-141.67 400-80Z"/>
+        </svg>
+        </button>
 
       <div className="GuyList" onWheel={handleScroll}>
         {currentRowItems.map((item, index) => {
@@ -103,10 +110,17 @@ const GuyList = (props) => {
           return item;
         })}
       </div>
+      <button 
+        style={{ border: "none", outline: "none", backgroundColor: "white" }} 
+        onClick={() => handleKeyDown({ key: "ArrowRight" })}> 
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#1b73e8"><path d="m309.67-81.33-61-61.67L587-481.33 248.67-819.67l61-61.66 400 400-400 400Z"/>
+        </svg>
+        </button>
 
       <div className={`SelectedGuyIndicator ${!props.selectedGuy ? "placeholder" : ""}`}>
         {props.selectedGuy ? props.selectedGuy.name : ""}
       </div>
+      <div id={props.id}></div>;
     </div>
   );
 };

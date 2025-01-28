@@ -1,47 +1,67 @@
-/* Styles for the popup overlay */
-.popup-overlay {
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Button to Start Tutorial */
+.start-tutorial-button {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; /* Renders above other content */
-}
-
-/* Styles for the popup content */
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  width: 90%; /* Makes it responsive */
-  text-align: left;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Button styles */
-.open-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-button {
+  top: 20px;
+  left: 20px;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.start-tutorial-button:hover {
+  background-color: #0056b3;
+}
+
+/* Target Elements */
+.tutorial-target {
+  margin: 150px 50px;
+  padding: 20px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Speech Box */
+.speech-box {
+  display: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  position: absolute;
+}
+
+.speech-content {
+  margin-bottom: 10px;
+}
+
+.speech-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.speech-buttons button {
+  padding: 5px 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.popup-button-container {
-  width: 210px;
+.speech-buttons button:hover {
+  background: #0056b3;
 }

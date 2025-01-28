@@ -3,6 +3,7 @@ import "../../utilities.css";
 import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
+import NavigatorButtons from "../modules/NavigatorButtons";
 import { get } from "../../utilities";
 
 const Composer = () => {
@@ -118,8 +119,16 @@ const Composer = () => {
         buttonBinds={buttonBinds}
         onButtonClick={onButtonClick}
         guyVisibility={guyVisibility}
+        id="target1-keyboard"
       />
-      <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
+      <NavigatorButtons
+      id="target3-navbuttons"
+      />
+      <GuyList 
+      setSelectedGuy={setSelectedGuy} 
+      selectedGuy={selectedGuy} 
+      id="target2-guylist"
+      />
     </div>
   );
 };
