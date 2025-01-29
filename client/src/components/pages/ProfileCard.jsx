@@ -121,7 +121,7 @@ const ProfileCard = () => {
           to={`/search/?username=${encodeURIComponent(user.name)}`}
           className="profile-card-link"
         >
-          Browse my guys!
+          Browse my Guys!
         </Link>
       </div>
 

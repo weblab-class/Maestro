@@ -27,7 +27,7 @@ const router = createBrowserRouter(
     <Route errorElement={<NotFound />} element={<App />}>
       <Route path="/" element={<Composer />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/soundmaker" element={<NewSoundMaker />} />
+      <Route path="/guycreator" element={<NewSoundMaker />} />
       <Route path="/profile/:userId" element={<ProfileCard />} />
       <Route path="/profile" element={<ProfileCard />} />
     </Route>

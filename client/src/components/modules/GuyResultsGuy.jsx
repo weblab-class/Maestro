@@ -64,7 +64,7 @@ const GuyResultsGuy = memo((props) => {
       {typeof guy.sound !== "string" && (
         <button
           onClick={() => {
-            navigate("/soundmaker", { state: { guy } });
+            navigate("/guycreator", { state: { guy } });
           }}
           className="edit-guy-button"
         >

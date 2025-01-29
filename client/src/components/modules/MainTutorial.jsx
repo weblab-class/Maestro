@@ -1,108 +1,77 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./MainTutorial.css";
 import { UserContext } from "../App";
-import { useNavigate, useLocation } from "react-router-dom";
-
-const tutorialSteps = [
-  { id: "step1", message: "Step 1", element: "#target1-keyboard"},
-  { id: "step2", message: "Step 2", element: "#target2-guylist"},
-  { id: "step3", message: "Step 3", element: "#target3-navbuttons"},
-  { id: "step4", message: "Step 4", element: "#target4-guyresults"}
-];
 
 const MainTutorial = () => {
-  const [isTutorialActive, setIsTutorialActive] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [position, setPosition] = useState({ top: 0, left: 0 });
-  const speechBoxRef = useRef(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const { userId, isAnimated } = useContext(UserContext);
+  const [isPopupOpen, setIsPopupOpen] = useState(true);
+
+  const handleOpenPopup = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
 
   useEffect(() => {
-    if (isTutorialActive) {
-      const targetElement = document.querySelector(tutorialSteps[currentStep].element);
-      if (targetElement) {
-        const rect = targetElement.getBoundingClientRect();
-        const speechBoxHeight = speechBoxRef.current?.offsetHeight || 0;
-        const speechBoxWidth = speechBoxRef.current?.offsetWidth || 0;
-  
-        setPosition({
-          top: rect.top + window.scrollY - speechBoxHeight + (tutorialSteps[currentStep].offsetTop || 0),
-          left: rect.left + window.scrollX + rect.width / 2 - speechBoxWidth / 2 + (tutorialSteps[currentStep].offsetLeft || 0),
-        });
-      }
-    }
-  }, [currentStep, isTutorialActive]);
-
-  const startTutorial = () => {
-    setIsTutorialActive(true);
-    setCurrentStep(0);
-  };
-
-  const handleNext = () => {
-    // if (currentStep === 2) {
-    //   navigate("/search", {state: 4});
-    //   setCurrentStep((prev) => prev + 1)
-    // } else if (currentStep < tutorialSteps.length - 1) {
-    //   setCurrentStep((prev) => prev + 1);
-    // };
-    if (currentStep < tutorialSteps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
-    }
-  };
-
-  const handleBack = () => {
-    // if (currentStep === 3 && location.pathname === "/search") {
-    //   // Navigate back to the previous page
-    //   navigate("/", {state: 3});
-    //   setCurrentStep((prev) => prev - 1);
-    // } else if (currentStep > 0) {
-    //   setCurrentStep((prev) => prev - 1);
-    // }/
-    if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
-    }
-  };
-
-  const handleDone = () => {
-    setIsTutorialActive(false);
-  };
-
-  // const location = useLocation()
-
-  useEffect(()=>{setIsTutorialActive(false)}, [location])
+    setIsPopupOpen(userId === undefined);
+  }, [userId]);
 
   return (
     <div>
-      {/* Button to Start Tutorial */}
-
-      <button className="open-button" onClick={startTutorial}>
+      {/* Button to open the popup */}
+      <button className="open-button" onClick={handleOpenPopup}>
         <img
-          src="https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.webp"
+          src={`https://fonts.gstatic.com/s/e/notoemoji/latest/2753/512.${
+            +isAnimated ? "webp" : "png"
+          }`}
           width="40px"
           height="40px"
           alt="Open Tutorial"
         />
       </button>
 
-      {/* Tutorial Speech Box */}
-      {isTutorialActive && (
-        <div
-          ref={speechBoxRef}
-          className="speech-box"
-          style={{
-            position: "absolute",
-            top: `${position.top}px`,
-            left: `${position.left}px`,
-            zIndex: 1000,
-            transitionDelay: .7
-          }}
-        >
-          <div className="speech-content">{tutorialSteps[currentStep].message}</div>
-          <div className="speech-buttons">
-            {currentStep > 0 && <button onClick={handleBack}>Back</button>}
-            {currentStep < tutorialSteps.length - 1 && <button onClick={handleNext}>Next</button>}
-            {currentStep === tutorialSteps.length - 1 && <button onClick={handleDone}>Done</button>}
+      {/* Popup */}
+      {isPopupOpen && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2 className="bolded-words">Welcome to Maestro!</h2>
+            <p>
+             Are you ready to make some music? 
+            </p>
+
+            <p className="list-spacing">Whether you want to build sounds from scratch or discover new ones, Maestro gives you the tools to create music like never before!</p>
+            <p className="list-spacing">In Maestro, every sound is stored in a <strong className="bolded-words">Guy</strong> with its own name and emoji. These Guys are the building blocks of your track. So get ready to 
+            <strong className="bolded-words"> build beats, one Guy at a time!</strong></p>
+            <p>Let's get started!</p>
+
+            <hr></hr>
+
+            <p>You are currently on the <strong className="bolded-words">COMPOSER</strong> page.</p>
+            <p>How to use this page:</p>
+            <ul className="list-spacing">
+            <li>The Composer is the hub for making tracks with your Guys.</li>
+    <li>On this page is an animated keyboard and your Guy list.</li>
+    <li>Click a Guy in the Guy list to select it. When a Guy is selected, its name will appear next to the list.</li>
+    <ul >
+        <li>To assign a Guy to a key on your keyboard:</li>
+        <ul>
+            <li>Select a Guy.</li>
+            <li>Click a key on the animated keyboard, or press a key on your computer keyboard.</li>
+        </ul>
+    </ul>
+    <li>Press or click keys to play sounds and make your own music!</li>
+              <li >
+              Hold <code>Shift</code> and press multiple keys on your computer keyboard to assign the selected Guy to them.</li>
+                
+              <li >Press <code>Spacebar</code> to toggle between letters/numbers and Guy emojis on the animated keyboard.</li>
+            </ul>
+
+            {/* Close button */}
+            <button className="close-button" onClick={handleClosePopup}>
+              Close
+            </button>
           </div>
         </div>
       )}

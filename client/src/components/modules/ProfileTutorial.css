@@ -1,0 +1,61 @@
+/* Styles for the popup overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500; /* Renders above other content */
+  }
+  
+  /* Styles for the popup content */
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%; /* Makes it responsive */
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: "Roboto";
+  }
+  
+  /* Button styles */
+  .open-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .close-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "Zen Dots", serif;
+  }
+  
+  .popup-button-container {
+    width: 210px;
+  }
+  
+  .bolded-words {
+    font-family: "Zen Dots", serif;
+  }
+  
+  .list-spacing {
+    line-height: 1.5;
+  }
+  
+  .list-line-spacing {
+    line-height: 1;
+  }

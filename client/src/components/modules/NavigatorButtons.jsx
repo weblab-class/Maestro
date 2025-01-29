@@ -8,7 +8,7 @@ const NavigatorButtons = (props) => {
         <button
         className="guy-impostor nav-button"
         onClick={() => {
-          navigate("./soundmaker");
+          navigate("./guycreator");
         }
         }
         key="11"

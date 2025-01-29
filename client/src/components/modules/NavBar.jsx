@@ -8,6 +8,7 @@ import { UserContext } from "../App";
 import SearchTutorial from "./SearchTutorial";
 import ProfileTutorial from "./ProfileTutorial";
 import ProfileDropdown from "./ProfileDropdown";
+import SoundmakerTutorial from "./SoundmakerTutorial";
 
 /*
  * NavBar displays the title, a button for showing a tutorial,
@@ -21,13 +22,15 @@ const NavBar = () => {
   const pathname = useLocation().pathname;
   const [isOpen, setIsOpen] = useState(false);
 
-  // if (pathname === "/") {
-  //   tutorial = <MainTutorial />;
-  // } else if (pathname.startsWith("/search")) {
-  //   tutorial = <SearchTutorial />;
-  // } else {
-  //   tutorial = <ProfileTutorial />;
-  // }
+  if (pathname === "/") {
+    tutorial = <MainTutorial />;
+  } else if (pathname.startsWith("/search")) {
+    tutorial = <SearchTutorial />;
+  } else if (pathname.startsWith("/guycreator")) {
+    tutorial = <SoundmakerTutorial />;
+  } else {
+    tutorial = <ProfileTutorial />;
+  }
 
   const handleLoginClick = (credentialResponse) => {
     handleLogin(credentialResponse);
@@ -35,9 +38,9 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-      <MainTutorial />
+      <div className="tutorial-container">{tutorial}</div>
 
-      <div className="NavBar-title neon-text unselectable">
+      <div className="NavBar-title neon-text">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>
