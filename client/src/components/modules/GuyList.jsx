@@ -22,9 +22,7 @@ const GuyList = (props) => {
 
   const [guyList, setGuyList] = useState([]);
 
-  const renderList = [
-    ...guyList,
-  ];
+  const renderList = [...guyList];
 
   // Calculate the number of rows needed
   let numRows = Math.max(1, Math.ceil(guyList.length / itemsPerRow));
@@ -72,15 +70,24 @@ const GuyList = (props) => {
   return (
     <div className="GuyListWrapper">
       <div className="RowIndicator">
-        Row: {displayRow + 1} / {numRows}
+        Row: <br />
+        {displayRow + 1} / {numRows}
       </div>
 
-      <button  
-        style={{ border: "none", outline: "none", backgroundColor: "transparent" }}
-        onClick={() => handleKeyDown({ key: "ArrowLeft" })}> 
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="white"><path d="M400-80 0-480l400-400 61 61.67L122.67-480 461-141.67 400-80Z"/>
+      <button
+        style={{ border: "none", outline: "none", backgroundColor: "transparent", zIndex: 3 }}
+        onClick={() => handleKeyDown({ key: "ArrowLeft" })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="white"
+        >
+          <path d="M400-80 0-480l400-400 61 61.67L122.67-480 461-141.67 400-80Z" />
         </svg>
-        </button>
+      </button>
 
       <div className="GuyList">
         {currentRowItems.map((item, index) => {
@@ -92,13 +99,21 @@ const GuyList = (props) => {
           return item;
         })}
       </div>
-      <button 
-      // fill="#1b73e8"
-        style={{ border: "none", outline: "none", backgroundColor: "transparent" }} 
-        onClick={() => handleKeyDown({ key: "ArrowRight" })}> 
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="white"><path d="m309.67-81.33-61-61.67L587-481.33 248.67-819.67l61-61.66 400 400-400 400Z"/>
+      <button
+        // fill="#1b73e8"
+        style={{ border: "none", outline: "none", backgroundColor: "transparent", zIndex: 3 }}
+        onClick={() => handleKeyDown({ key: "ArrowRight" })}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="40px"
+          viewBox="0 -960 960 960"
+          width="40px"
+          fill="white"
+        >
+          <path d="m309.67-81.33-61-61.67L587-481.33 248.67-819.67l61-61.66 400 400-400 400Z" />
         </svg>
-        </button>
+      </button>
 
       <div className={`SelectedGuyIndicator ${!props.selectedGuy ? "placeholder" : ""}`}>
         {props.selectedGuy ? props.selectedGuy.name : ""}

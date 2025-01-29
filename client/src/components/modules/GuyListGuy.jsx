@@ -25,7 +25,6 @@ const GuyListGuy = (props) => {
 
   return (
     <button className="guy-button tooltip" width="120" height="120">
-      <span className="tooltiptext">{guy.name + " by " + creatorId} </span>
       <img
         className="guy-icon"
         src={`https://fonts.gstatic.com/s/e/notoemoji/latest/${guy.asset_id}/512.${

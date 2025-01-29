@@ -6,7 +6,7 @@
   width: 120px;
   height: 120px;
   box-shadow: 0 0 20px rgba(0, 200, 255, 0.8);
-  background: linear-gradient(135deg, #dbdbdb 10%, #ccc 30%, #ddd 50%, #ccc 70%, #dbdbdb 80%);
+  background: linear-gradient(135deg, #dadada 10%, #bbb 30%, #ababab 50%, #bbb 70%, #dadada 80%);
 }
 
 .tooltip {
@@ -17,26 +17,23 @@
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 100px;
   background-color: black;
   color: #fff;
   text-align: center;
-  padding: 5px 0;
+  padding: 5px;
   border-radius: 6px;
-
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 100px; /* Adjust width as needed */
+  white-space: normal; /* Allow text wrapping */
+  word-wrap: break-word; /* Ensure long words break properly */
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.tooltip .tooltiptext {
-  width: 100px;
-  bottom: 105%;
-  left: 50%;
-  margin-left: -50px;
 }

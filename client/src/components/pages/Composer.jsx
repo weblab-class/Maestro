@@ -18,7 +18,7 @@ const Composer = () => {
 
   const [lasers, setLasers] = useState([]);
   const { isAnimated } = useContext(UserContext);
-  const maxLasers = 40;
+  const maxLasers = 20;
 
   // Fetch random guys on first render and assign them to the keyboard keys
   useEffect(() => {

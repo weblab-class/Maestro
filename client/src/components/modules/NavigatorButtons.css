@@ -1,14 +1,16 @@
 .nav-button-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
 }
 
 .nav-button {
-    font-family: "Zen Dots", serif;
-    border-radius: 8px;
-    width: 200px;
-    height: 90px;
+  font-size: medium;
+  font-family: "Zen Dots", serif;
+  border-radius: 8px;
+  width: 120px;
+  height: 60px;
+  z-index: 3;
 }

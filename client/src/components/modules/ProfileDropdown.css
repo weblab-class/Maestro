@@ -6,10 +6,11 @@
 }
 
 .profile-button {
-  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 60px;
+  height: 60px;
 }
 
 .profile-button:hover {
