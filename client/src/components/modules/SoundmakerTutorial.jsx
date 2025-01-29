@@ -51,7 +51,7 @@ const SoundmakerTutorial = () => {
             <p>You are currently on the <strong className="bolded-words">GUY CREATOR</strong> page.</p>
             <p>How to use this page:</p>
             <ul className="list-spacing">
-            <li>The Guy Creator is where you can create, edit, and customize your Guys.</li>
+            <li>The Guy Creator is where you can create and customize your Guys.</li>
     <ul >
         <li>There are two ways to assign a sound to a Guy:</li>
         <ul>

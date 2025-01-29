@@ -57,7 +57,7 @@ const MainTutorial = () => {
     <ul >
         <li>To assign a Guy to a key on your keyboard:</li>
         <ul>
-            <li>Select a Guy</li>
+            <li>Select a Guy.</li>
             <li>Click a key on the animated keyboard, or press a key on your computer keyboard.</li>
         </ul>
     </ul>

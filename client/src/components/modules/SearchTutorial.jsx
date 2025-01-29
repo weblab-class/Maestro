@@ -61,11 +61,11 @@ const SearchTutorial = () => {
   
     <li>For Keyboard Users:</li>
     <ul>
-  <li><code>Control + #</code>: Select a Guy from the left panel</li>
-  <li><code>Control</code>: Deselect a Guy</li>
-  <li><code>Right/Left arrow</code>: Navigate between pages of results</li>
-  <li><code>Up/Down arrow</code>: Scroll through the results</li>
-  <li><code>Shift + #1 #2</code>: Replace a Guy in your composition</li>
+  <li><code>Control + #</code>: Select a Guy from the left panel.</li>
+  <li><code>Control</code>: Deselect a Guy.</li>
+  <li><code>Right/Left arrow</code>: Navigate between pages of results.</li>
+  <li><code>Up/Down arrow</code>: Scroll through the results.</li>
+  <li><code>Shift + #1 #2</code>: Replace a Guy in your Guy list to use in the Composer.</li>
 </ul>
             </ul>
 
