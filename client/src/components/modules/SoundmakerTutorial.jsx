@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./SoundmakerTutorial.css";
+import "./MainTutorial.css";
 import { UserContext } from "../App";
 
 const SoundmakerTutorial = () => {
@@ -37,34 +37,46 @@ const SoundmakerTutorial = () => {
         <div className="popup-overlay">
           <div className="popup-content">
             <h2 className="bolded-words">Welcome to Maestro!</h2>
-            <p>
-             Are you ready to make some music? 
-            </p>
+            <p>Are you ready to make some music?</p>
 
-            <p className="list-spacing">Whether you want to build sounds from scratch or discover new ones, Maestro gives you the tools to create music like never before!</p>
-            <p className="list-spacing">In Maestro, every sound is stored in a <strong className="bolded-words">Guy</strong> with its own name and emoji. These Guys are the building blocks of your track. So get ready to 
-            <strong className="bolded-words"> build beats, one Guy at a time!</strong></p>
+            <p className="list-spacing">
+              Whether you want to build sounds from scratch or discover new ones, Maestro gives you
+              the tools to create music like never before!
+            </p>
+            <p className="list-spacing">
+              In Maestro, every sound is stored in a <strong className="bolded-words">Guy</strong>{" "}
+              with its own name and emoji. These Guys are the building blocks of your track. So get
+              ready to
+              <strong className="bolded-words"> build beats, one Guy at a time!</strong>
+            </p>
             <p>Let's get started!</p>
 
             <hr></hr>
 
-            <p>You are currently on the <strong className="bolded-words">GUY CREATOR</strong> page.</p>
+            <p>
+              You are currently on the <strong className="bolded-words">GUY CREATOR</strong> page.
+            </p>
             <p>How to use this page:</p>
             <ul className="list-spacing">
-            <li>The Guy Creator is where you can create and customize your Guys.</li>
-    <ul >
-        <li>There are two ways to assign a sound to a Guy:</li>
-        <ul>
-            <li>Create a sound from scratch by modifying sound parameters with the <strong className="bolded-words">SYNTH MAKER</strong>.</li>
-            <li>Upload a <strong className="bolded-words">CUSTOM SOUND</strong> via Dropbox.</li>
-        </ul>
-    </ul>
-    <li>Once your sound is ready:</li>
-        <ul>
-            <li>Assign your Guy a name and an emoji.</li>
-            <li>Hit "Next" to finish creating your Guy.</li>
-            <li>Publish your Guy to share it with others.</li>
-        </ul>
+              <li>The Guy Creator is where you can create and customize your Guys.</li>
+              <ul>
+                <li>There are two ways to assign a sound to a Guy:</li>
+                <ul>
+                  <li>
+                    Create a sound from scratch by modifying sound parameters with the{" "}
+                    <strong className="bolded-words">SYNTH MAKER</strong>.
+                  </li>
+                  <li>
+                    Upload a <strong className="bolded-words">CUSTOM SOUND</strong> via Dropbox.
+                  </li>
+                </ul>
+              </ul>
+              <li>Once your sound is ready:</li>
+              <ul>
+                <li>Assign your Guy a name and an emoji.</li>
+                <li>Hit "Next" to finish creating your Guy.</li>
+                <li>Publish your Guy to share it with others.</li>
+              </ul>
             </ul>
 
             {/* Close button */}

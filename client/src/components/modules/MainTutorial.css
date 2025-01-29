@@ -25,13 +25,24 @@
 }
 
 /* Button styles */
+/* Button styles */
 .open-button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   width: 60px;
   height: 60px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: rgb(203, 203, 203);
+  transition: transform 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.open-button:hover {
+  background-color: rgb(56, 145, 145);
+}
+/* Pressed effect */
+.open-button:active {
+  transform: scale(0.95); /* Slightly shrink to simulate sinking */
+  background-color: rgb(19, 72, 72); /* Slightly darker for a subtle pressed look */
 }
 
 .close-button {

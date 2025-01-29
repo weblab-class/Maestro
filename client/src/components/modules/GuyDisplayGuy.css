@@ -1,8 +1,30 @@
 .display-guy-button {
-  background: linear-gradient(135deg, #dadada 10%, #bbb 30%, #ababab 50%, #bbb 70%, #dadada 80%);
   border-radius: 8px;
   padding: 4px;
   margin: 4px;
+  background: linear-gradient(
+    135deg,
+    #848383 10%,
+    #aaaaaa 30%,
+    #ababab 50%,
+    #aaaaaa 70%,
+    #848383 80%
+  );
+  transition: transform 0.1s ease-in-out, background 0.1s ease-in-out;
+  border: none;
+}
+
+/* Pressed effect */
+.display-guy-button:active {
+  transform: scale(0.95); /* Slightly shrink to simulate sinking */
+  background: linear-gradient(
+    135deg,
+    #6e6e6e 10%,
+    /* Darker than #848383 */ #979797 30%,
+    /* Darker than #aaaaaa */ #8f8f8f 50%,
+    /* Darker than #ababab */ #979797 70%,
+    #6e6e6e 80%
+  );
 }
 
 .tooltip {

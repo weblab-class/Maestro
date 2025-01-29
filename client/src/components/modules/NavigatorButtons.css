@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 60px;
   padding: 20px;
 }
 
@@ -13,4 +13,19 @@
   width: 120px;
   height: 60px;
   z-index: 3;
+  border: none;
+  background: linear-gradient(135deg, #a7a7a7 10%, #ccc 30%, #929292 50%, #ccc 70%, #a7a7a7 80%);
+  transition: background 0.2s, transform 0.2s ease-in-out, box-shadow 0.4s;
+}
+
+.nav-button:hover {
+  background: linear-gradient(
+    135deg,
+    #bfbfbf 10%,
+    #e0e0e0 30%,
+    #a0a0a0 50%,
+    #e0e0e0 70%,
+    #bfbfbf 80%
+  );
+  box-shadow: 4px 4px 10px rgba(255, 255, 255, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.4);
 }

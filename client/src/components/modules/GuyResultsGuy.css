@@ -16,10 +16,19 @@
 }
 
 .result-guy-image-button {
-  background-color: white;
+  background: linear-gradient(to bottom, #ffffff, #e0e0e0); /* Soft 3D gradient */
   border-radius: 2px;
   margin: 0 10px;
   padding: 0;
+  transition: transform 0.1s ease-in-out, background 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft drop shadow */
+}
+
+.result-guy-image-button:active {
+  background: linear-gradient(to bottom, #f0f0f0, #d6d6d6); /* Darker when pressed */
+  transform: scale(0.95); /* Slightly shrink to simulate sinking */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Reduce shadow to enhance pressed effect */
 }
 
 .result-guy-image {

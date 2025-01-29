@@ -31,7 +31,7 @@
     #fff 95%
   );
   background-size: 300% 300%;
-  animation: backgroundShift 40s infinite linear;
+  animation: backgroundShift 20s infinite linear;
   width: 50%;
   max-width: 525px;
   height: 300px;
