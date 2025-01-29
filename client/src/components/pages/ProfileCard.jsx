@@ -26,7 +26,10 @@ const ProfileCard = () => {
     if (idToFetch) {
       get("/api/user", { userid: idToFetch }).then((userObj) => {
         setUser(userObj);
-        setAssetId(userObj.asset_id);
+        //FIX BUG HERE AAAAAAAAAAAA
+        if (idToFetch === contextUserId) {
+          setAssetId(userObj.asset_id);
+        }
       });
     } else {
       setUser(null);
@@ -106,7 +109,7 @@ const ProfileCard = () => {
             )}
           </div>
         </div>
-        <div className="profile-card-id">{user._id}</div>
+        <div className="profile-card-id">{`ID: ${user._id}`}</div>
         <Link
           to={`/search/?username=${encodeURIComponent(user.name)}`}
           className="profile-card-link"

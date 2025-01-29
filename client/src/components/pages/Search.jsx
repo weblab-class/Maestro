@@ -57,28 +57,39 @@ const Search = () => {
   return (
     <div className="search-container">
       {/* Header for search inputs and buttons */}
-      <div className="search-header">
-        <input
-          type="text"
-          placeholder="Search guy name!"
-          value={nameInput}
-          className="search-input"
-          onChange={handleNameChange}
-        />
-        <input
-          type="text"
-          placeholder="Search username!"
-          value={usernameInput}
-          className="search-input"
-          onChange={handleUsernameChange}
-        />
-        <button onClick={search} className="action-button">
-          Search!
-        </button>
-      </div>
 
       {/* Left panel */}
       <div className="results-panel">
+        <div className="big-header">
+          <div className="search-header">
+            <input
+              type="text"
+              placeholder="Search guy name!"
+              value={nameInput}
+              className="search-input"
+              onChange={handleNameChange}
+            />
+            <input
+              type="text"
+              placeholder="Search username!"
+              value={usernameInput}
+              className="search-input"
+              onChange={handleUsernameChange}
+            />
+            <button onClick={search} className="action-button">
+              Search!
+            </button>
+          </div>
+          <div className="pagination-container">
+            <button onClick={changePage(-1)} className="action-button">
+              {"<"}
+            </button>
+            <div>{page}</div>
+            <button onClick={changePage(1)} className="action-button">
+              {">"}
+            </button>
+          </div>
+        </div>
         <GuyResults
           results={results}
           setSelectedGuy={setSelectedGuy}
@@ -91,9 +102,7 @@ const Search = () => {
       </div>
 
       {/* Right panel */}
-      <div className="display-panel">
-        <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} resetter={resetter} />
-      </div>
+      <GuyDisplay selectedGuy={selectedGuy} setSelectedGuy={setSelectedGuy} resetter={resetter} />
     </div>
   );
 };

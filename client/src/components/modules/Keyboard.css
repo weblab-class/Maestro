@@ -4,8 +4,10 @@
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
   height: 400px; /* Full viewport height */
+  z-index: 3;
 }
 .keyboard-row {
   display: flex; /* Keep buttons aligned in a row */
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  z-index: 3;
 }

@@ -18,6 +18,7 @@ export const UserContext = createContext(null);
 
 import NavBar from "./modules/NavBar";
 import { useNavigate } from "react-router-dom";
+import Maximized from "./modules/Maximized";
 
 /**
  * Define the "App" component
@@ -71,6 +72,7 @@ const App = () => {
     <div>
       <UserContext.Provider value={authContextValue}>
         <div className="App-container">
+          <Maximized />
           <NavBar assetId={assetId} />
           <Outlet />
         </div>

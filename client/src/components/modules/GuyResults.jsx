@@ -53,16 +53,7 @@ const GuyResults = ({
   }, [results]);
 
   return (
-    <div>
-      <div className="pagination-container">
-        <button onClick={changePage(-1)} className="action-button">
-          {"<"}
-        </button>
-        <div>{page}</div>
-        <button onClick={changePage(1)} className="action-button">
-          {">"}
-        </button>
-      </div>
+    <>
       <div className="guy-results-container" ref={containerRef}>
         {results.length > 0 ? (
           results.map((result, index) => {
@@ -83,7 +74,7 @@ const GuyResults = ({
           <p className="no-results">No results found</p>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
+import { motion } from "framer-motion";
+import { v4 as uuidv4 } from "uuid";
 import "../../utilities.css";
 import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
 import { get } from "../../utilities";
+import { UserContext } from "../App";
 
 const Composer = () => {
   const [guyVisibility, setGuyVisibility] = useState(false);
@@ -11,6 +14,10 @@ const Composer = () => {
   const keyboardKeys = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
   const [buttonBinds, setButtonBinds] = useState([]);
   const [selectedGuy, setSelectedGuy] = useState(null);
+
+  const [lasers, setLasers] = useState([]);
+  const { isAnimated } = useContext(UserContext);
+  const maxLasers = 40;
 
   // Fetch random guys on first render and assign them to the keyboard keys
   useEffect(() => {
@@ -52,7 +59,43 @@ const Composer = () => {
         fmSynth.triggerAttackRelease(sound.note, "2n");
       }
     }
+
+    if (lasers.length >= maxLasers) return; // Prevent spawning if at limit
+
+    const newLaser = {
+      id: Date.now(),
+      left: Math.random() * 100, // Random position across screen
+      color: `hsl(${Math.random() * 360}, 100%, 70%)`, // Random color
+    };
+
+    setLasers((prevLasers) => [...prevLasers, newLaser]);
+
+    // Remove the laser after it moves off-screen
+    setTimeout(() => {
+      setLasers((prevLasers) => prevLasers.filter((laser) => laser.id !== newLaser.id));
+    }, 2000); // Adjust time to match laser animation duration
   };
+
+  const [sparkles, setSparkles] = useState([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Limit the total number of sparkles on the screen
+      if (sparkles.length < 10) {
+        // Adjust this value for more or fewer sparkles
+        const newSparkle = {
+          id: Date.now(),
+          left: Math.random() * 100, // Random horizontal position (0 to 100%)
+          size: Math.random() * 5 + 2, // Random size (between 2px and 7px)
+          duration: Math.random() * 2 + 3, // Random fall duration (3s to 5s)
+        };
+        setSparkles((prevSparkles) => [...prevSparkles, newSparkle]);
+      }
+    }, 1000); // Generate a new sparkle every 500ms (can increase to reduce sparkles)
+
+    // Clear interval when component unmounts
+    return () => clearInterval(interval);
+  }, [sparkles]);
 
   function convertKey(inputKey) {
     const shiftedKeys = {
@@ -107,19 +150,46 @@ const Composer = () => {
     };
   }, [guyVisibility, selectedGuy]); // Re-run if guyVisibility or selectedGuy changes
 
-  const handleInteraction = () => {
-    setIsInteracting(true);
-    setTimeout(() => setIsInteracting(false), 1000); // Reset the effect
-  };
-
   return (
-    <div onClick={handleInteraction} onKeyDown={handleInteraction} className={`dynamic-background`}>
+    <div className={`background`}>
       <Keyboard
         buttonBinds={buttonBinds}
         onButtonClick={onButtonClick}
         guyVisibility={guyVisibility}
       />
       <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
+
+      <div className="laser-container">
+        {isAnimated &&
+          lasers.map((laser) => (
+            <motion.div
+              key={laser.id}
+              className="laser"
+              style={{
+                boxShadow: `0 0 30px ${laser.color}`, // Use the laser's color for the shadow
+                backgroundColor: laser.color, // Set the background to the laser's color
+                left: `${laser.left}%`, // Random horizontal position
+              }}
+              initial={{ top: "-300px" }} // Start above the screen
+              animate={{ top: "100vh" }} // Move to just past the bottom of the screen
+              transition={{ duration: 2, ease: "linear" }}
+            />
+          ))}
+        {/* Render each sparkle */}
+        {isAnimated &&
+          sparkles.map((sparkle) => (
+            <div
+              key={sparkle.id}
+              className="sparkle"
+              style={{
+                left: `${sparkle.left}%`,
+                width: `${sparkle.size}px`,
+                height: `${sparkle.size}px`,
+                animationDuration: `${sparkle.duration}s`, // Random fall duration
+              }}
+            ></div>
+          ))}
+      </div>
     </div>
   );
 };

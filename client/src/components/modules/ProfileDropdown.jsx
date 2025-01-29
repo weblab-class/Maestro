@@ -49,7 +49,7 @@ const ProfileDropdown = () => {
             }}
             className={`dropdown-item`}
           >
-            {isAnimated ? "Guy animations: OFF" : "Guy animations: ON"}
+            {isAnimated ? "Animations: ON" : "Animations: OFF"}
           </button>
         </div>
       )}

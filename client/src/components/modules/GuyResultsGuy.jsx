@@ -42,7 +42,6 @@ const GuyResultsGuy = memo((props) => {
       var sound = new Audio(guy.sound);
       sound.play();
     } else {
-      console.log("hello");
       fmSynth.triggerAttackRelease(guy.sound.note, "2n");
     }
   };

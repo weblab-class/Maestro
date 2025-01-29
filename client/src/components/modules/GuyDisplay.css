@@ -4,7 +4,6 @@
   justify-content: center; /* Vertically center content */
   align-items: center; /* Horizontally center content */
   position: relative;
-  top: 60px;
 }
 
 .guy-row {

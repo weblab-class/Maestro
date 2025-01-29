@@ -1,15 +1,11 @@
-/* Prevent overall page scrolling */
-body {
-  overflow: hidden;
-}
-
 /* Main container splits the screen into two sections */
 .search-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Left and right sections */
-  height: 100vh;
   gap: 0; /* No gap between columns */
   box-sizing: border-box;
+  background-color: var(--grey);
+  height: calc(100vh - 80px);
 }
 
 /* Search inputs and buttons row at the top */
@@ -52,15 +48,19 @@ body {
 .display-panel {
   padding: 15px; /* Reduced padding */
   box-sizing: border-box;
-  height: calc(100vh - 120px); /* Ensure it fits under the search header */
+  height: calc(100vh - 80px); /* Ensure it fits under the search header */
   overflow-y: auto; /* Allow scrolling within this container */
 }
 
 /* Results container that is scrollable inside its fixed height */
 .results-panel {
-  padding-left: 15px;
-  padding-right: 15px;
   border-left: 1px solid #ccc;
   box-sizing: border-box;
-  height: calc(100vh - 120px); /* Ensure it fits under the search header */
+  height: calc(100vh - 80px); /* Ensure it fits under the search header */
+  background-color: white;
+}
+
+.big-header {
+  position: sticky;
+  top: 0;
 }

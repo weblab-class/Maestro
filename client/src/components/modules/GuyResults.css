@@ -1,10 +1,18 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .guy-results-container {
   padding: 10px; /* Remove unnecessary padding */
   overflow-y: auto; /* Allow vertical scrolling */
   box-sizing: border-box; /* Ensure proper sizing */
   scroll-behavior: smooth; /* Smooth scrolling for key navigation */
-  max-height: 65vh; /* Adjust this to fit within the viewport */
+  /* max-height: 65vh; Adjust this to fit within the viewport */
   height: auto; /* Ensure it grows to fit content */
+  width: 100%;
 }
 
 /* Style for each individual result */
@@ -39,7 +47,7 @@
 
 .pagination-container {
   position: sticky;
-  top: 0; /* Keep the buttons at the very top of the scrollable area */
+  top: 0;
   z-index: 10; /* Ensure the buttons stay above other elements */
   display: flex;
   justify-content: center; /* Center-align the buttons */

@@ -5,6 +5,7 @@
   height: 100vh; /* Full height of the viewport */
   padding: 10px; /* Optional padding */
   gap: 20px; /* Space between the left and right containers */
+  background-color: var(--grey);
 }
 
 .soundstuff {

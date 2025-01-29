@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Renders above other content */
+  z-index: 500; /* Renders above other content */
 }
 
 /* Styles for the popup content */

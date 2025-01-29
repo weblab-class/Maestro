@@ -21,14 +21,14 @@ const GuyDisplayGuy = (props) => {
 
   const handleClick = () => {
     if (selectedGuy) {
-      post("/api/switchGuys", { oldGuyId: guy._id, newGuyId: selectedGuy._id }).then(
-        ({ newGuy }) => {
+      post("/api/switchGuys", { oldGuyId: guy._id, newGuyId: selectedGuy._id })
+        .then(({ newGuy }) => {
           console.log("New Guy: " + newGuy.name);
           setGuy(newGuy);
           props.setSelectedGuy(null);
           setId(newGuy._id);
-        }
-      );
+        })
+        .catch(() => alert("You cannot have duplicate guys in your list!"));
     }
   };
 
@@ -36,7 +36,7 @@ const GuyDisplayGuy = (props) => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });
-  }, []);
+  }, [guy]);
 
   return (
     <button

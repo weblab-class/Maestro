@@ -30,7 +30,7 @@ const Key = (props) => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });
-  }, []);
+  }, [guy]);
 
   // Conditionally render the emoji or key, depending on guyVisibility
   if (!guyVisibility) {

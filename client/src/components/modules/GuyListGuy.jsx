@@ -21,7 +21,7 @@ const GuyListGuy = (props) => {
     get("/api/username", { creator_id: guy.creator_id }).then((userResponse) => {
       setCreatorId(userResponse.name);
     });
-  }, []);
+  }, [guy]);
 
   return (
     <button className="guy-button tooltip" width="120" height="120">
