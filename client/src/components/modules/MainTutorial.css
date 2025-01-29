@@ -70,3 +70,9 @@
 .list-line-spacing {
   line-height: 1;
 }
+
+.close-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

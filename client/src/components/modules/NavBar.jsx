@@ -3,12 +3,12 @@ import { Link, useLocation } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
 import "./NavBar.css";
-import MainTutorial from "./MainTutorial";
+import MainTutorial from "./NewMainTutorial";
 import { UserContext } from "../App";
-import SearchTutorial from "./SearchTutorial";
-import ProfileTutorial from "./ProfileTutorial";
+import SearchTutorial from "./NewSearchTutorial";
+import ProfileTutorial from "./NewProfileTutorial";
 import ProfileDropdown from "./ProfileDropdown";
-import SoundmakerTutorial from "./SoundmakerTutorial";
+import SoundmakerTutorial from "./NewSoundmakerTutorial";
 
 /*
  * NavBar displays the title, a button for showing a tutorial,
@@ -40,7 +40,7 @@ const NavBar = () => {
     <nav className="NavBar-container">
       <div className="tutorial-container">{tutorial}</div>
 
-      <div className="NavBar-title neon-text">
+      <div className="NavBar-title neon-text unselectable">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>

@@ -24,19 +24,6 @@
   font-family: "Roboto";
 }
 
-/* Button styles */
-.open-button {
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-}
-
-.open-button:hover {
-  background-color: #0056b3;
-}
-
 .close-button {
   padding: 10px 20px;
   background-color: #007bff;
