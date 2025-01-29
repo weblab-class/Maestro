@@ -36,44 +36,39 @@ const SearchTutorial = () => {
       {isPopupOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <h1>Welcome to the Search Menu!</h1>
+          <h2 className="bolded-words">Welcome to Maestro!</h2>
+            <p>
+             Are you ready to make some music? 
+            </p>
 
-            <p>Here you can:</p>
-            <ul>
-              <li>Search for guys based on username or guy name.</li>
-              <li>View other user's profiles.</li>
-              <li>Use other user's guys in your own composer!</li>
-            </ul>
-            <p className="highlight">To start:</p>
-            <ul>
-              <li>Type a guy name or username into the searchboxes.</li>
-              <li>Navigate the results by clicking the arrows above the left panel.</li>
-              <li>Select a guy by clicking on a button in the left panel.</li>
-              <li>
-                With a guy selected, click on a guy in the right panel to use that guy in your next
-                composition!
-              </li>
+            <p className="list-spacing">Whether you want to build sounds from scratch or discover new ones, Maestro gives you the tools to create music like never before!</p>
+            <p className="list-spacing">In Maestro, every sound is stored in a <strong className="bolded-words">Guy</strong> with its own name and emoji. These Guys are the building blocks of your track. So get ready to 
+            <strong className="bolded-words"> build beats, one Guy at a time!</strong></p>
+            <p>Let's get started!</p>
+
+            <hr></hr>
+
+            <p>You are currently on the <strong className="bolded-words">SEARCH MENU</strong> page.</p>
+            <p>How to use this page:</p>
+            <ul className="list-spacing">
+            <li>The Search Menu allows you to view your published Guys, explore creations from other users, and select Guys to make music with in the Composer.
+            </li>
+        <li>Search for Guys via Guy name or creator username in the search bar.</li>
+        <li>Use the arrows to scroll through the results.</li>
+        <li>Click on a Guy to select it, then click it again in the right panel to use it in the Composer!</li>
+        <li>Click "Remix" to create new Guys by modifying existing sounds.</li>
+        
+  
+    <li>For Keyboard Users:</li>
+    <ul>
+  <li><code>Control + #</code>: Select a Guy from the left panel</li>
+  <li><code>Control</code>: Deselect a Guy</li>
+  <li><code>Right/Left arrow</code>: Navigate between pages of results</li>
+  <li><code>Up/Down arrow</code>: Scroll through the results</li>
+  <li><code>Shift + #1 #2</code>: Replace a Guy in your composition</li>
+</ul>
             </ul>
 
-            <p className="highlight">For Keyboard Users:</p>
-            <ul>
-              <li>
-                <code>Control + # </code>: Selects a guy from the left panel
-              </li>
-              <li>
-                <code>Control </code>: Deselect a guy
-              </li>
-              <li>
-                <code>Right or Left arrow </code>: Change Page
-              </li>
-              <li>
-                <code>Up or Down arrow </code>: Scroll Results
-              </li>
-              <li>
-                <code>Shift + #1 #2 </code>: Replaces the guy in row #1, column #2 with your
-                currently selected guy
-              </li>
-            </ul>
 
             {/* Close button */}
             <button className="close-button" onClick={handleClosePopup}>

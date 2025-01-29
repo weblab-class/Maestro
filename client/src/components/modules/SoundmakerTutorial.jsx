@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./MainTutorial.css";
+import "./SoundmakerTutorial.css";
 import { UserContext } from "../App";
 
-const MainTutorial = () => {
+const SoundmakerTutorial = () => {
   const { userId, isAnimated } = useContext(UserContext);
   const [isPopupOpen, setIsPopupOpen] = useState(true);
 
@@ -48,24 +48,23 @@ const MainTutorial = () => {
 
             <hr></hr>
 
-            <p>You are currently on the <strong className="bolded-words">COMPOSER</strong> page.</p>
+            <p>You are currently on the <strong className="bolded-words">GUY CREATOR</strong> page.</p>
             <p>How to use this page:</p>
             <ul className="list-spacing">
-            <li>The Composer is the hub for making tracks with your Guys.</li>
-    <li>On this page is an animated keyboard and your Guy list.</li>
-    <li>Click a Guy in the Guy list to select it. When a Guy is selected, its name will appear next to the list.</li>
+            <li>The Guy Creator is where you can create, edit, and customize your Guys.</li>
     <ul >
-        <li>To assign a Guy to a key on your keyboard:</li>
+        <li>There are two ways to assign a sound to a Guy:</li>
         <ul>
-            <li>Select a Guy</li>
-            <li>Click a key on the animated keyboard, or press a key on your computer keyboard.</li>
+            <li>Create a sound from scratch by modifying sound parameters with the <strong className="bolded-words">SYNTH MAKER</strong>.</li>
+            <li>Upload a <strong className="bolded-words">CUSTOM SOUND</strong> via Dropbox.</li>
         </ul>
     </ul>
-    <li>Press or click keys to play sounds and make your own music!</li>
-              <li >
-              Hold <code>Shift</code> and press multiple keys on your computer keyboard to assign the selected Guy to them.</li>
-                
-              <li >Press <code>Spacebar</code> to toggle between letters/numbers and Guy emojis on the animated keyboard.</li>
+    <li>Once your sound is ready:</li>
+        <ul>
+            <li>Assign your Guy a name and an emoji.</li>
+            <li>Hit "Next" to finish creating your Guy.</li>
+            <li>Publish your Guy to share it with others.</li>
+        </ul>
             </ul>
 
             {/* Close button */}
@@ -79,4 +78,4 @@ const MainTutorial = () => {
   );
 };
 
-export default MainTutorial;
+export default SoundmakerTutorial;
