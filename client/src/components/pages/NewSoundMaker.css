@@ -10,8 +10,7 @@
 
 .soundstuff {
   flex: 1; /* Occupies the remaining left space */
-  background-color: #f0f0f0; /* Optional background for visibility */
-  padding: 10px; /* Optional padding */
+  background-color: #0a0a0a; /* Optional background for visibility */
   border: 1px solid #ccc; /* Optional border */
 }
 
@@ -191,19 +190,15 @@
 /* Container for tabs */
 .tab-container {
   width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+  background-color: transparent;
+  border: none;
 }
 
 /* Tab header */
 .tab-header {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 10px;
 }
 
 /* Tab buttons */
@@ -216,8 +211,11 @@
   background-color: #e0e0e0;
   border: none;
   border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-family: "Zen Dots", serif;
 }
 
 .tab-button:not(:last-child) {
@@ -236,6 +234,17 @@
 
 /* Tab content */
 .tab-content {
+  padding: 20px;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Tab content */
+.non-tab-content {
   padding: 20px;
   font-size: 14px;
   background-color: white;
@@ -262,20 +271,13 @@
   cursor: pointer;
   transition: all 0.3s ease; /* Smooth transition for effects */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: "Zen Dots", serif;
 }
 
 .play-button:hover {
   background-color: #3a4bb7; /* Darker solid color on hover */
   transform: translateY(-2px); /* Slight lift effect */
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
-}
-
-.play-button:focus {
-  outline: none;
-}
-
-.play-button:active {
-  transform: translateY(0); /* Reset lift effect on click */
 }
 
 .waveform-animation {
@@ -340,13 +342,14 @@ select {
   border: 1px solid #ccc; /* Subtle border */
   border-radius: 4px; /* Rounded edges */
   font-size: 1rem; /* Adjust font size for readability */
+  transition: border-color 0.3s ease;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+  font-family: "Zen Dots", serif;
 }
 
 .upload-input:focus {
-  outline: none; /* Remove default focus outline */
-  border-color: #8ace00; /* Highlight border on focus */
-  box-shadow: 0 0 5px rgba(138, 206, 0, 0.5); /* Subtle glow on focus */
+  outline: none;
+  border-color: #007bff;
 }
 
 /* GuyDetailsContainer.css */
@@ -378,21 +381,6 @@ select {
   font-size: 1rem;
   margin-bottom: 8px;
   color: #333;
-}
-
-.guy-name-input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.guy-name-input:focus {
-  outline: none;
-  border-color: #8ace00;
-  box-shadow: 0 0 5px rgba(138, 206, 0, 0.5);
 }
 
 .avatar-list-container {
@@ -437,7 +425,7 @@ select {
 .note-actions {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding-top: 10px;
   justify-content: center;
 }
 
@@ -462,13 +450,57 @@ select {
   font-size: 1rem; /* Matches the font size with the label */
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px; /* Explicit width for the input */
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-  flex-grow: 1; /* Allows input to take remaining space */
+  transition: border-color 0.3s ease;
+  font-family: "Zen Dots", serif;
+  flex-grow: 0; /* This prevents the input from growing */
+  width: 400px; /* Optional: you can set a max-width */
 }
 
 .guy-name-input:focus {
   outline: none;
-  border-color: #8ace00;
-  box-shadow: 0 0 5px rgba(138, 206, 0, 0.5);
+  border-color: #007bff;
+}
+
+.note-input {
+  font-family: "Zen Dots", serif;
+  transition: border-color 0.3s ease;
+  border: 1px solid #ccc; /* Subtle border */
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.guy-container {
+  max-width: 90%; /* Limit width for better responsiveness */
+  margin: 0 auto;
+  display: flex;
+  align-items: center; /* Center the label and input vertically */
+  gap: 8px; /* Space between label and input */
+  width: 100%; /* Ensure it spans the full width of the parent */
+}
+
+.guy-label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.guy-name-input {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px; /* Fixed width of 400px */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
+  font-family: "Zen Dots", serif;
+  margin-bottom: 10px;
+  margin-left: auto; /* Push the input to the right side */
+}
+
+.guy-name-input:focus {
+  outline: none;
+  border-color: #007bff;
 }

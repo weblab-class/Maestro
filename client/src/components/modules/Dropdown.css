@@ -1,7 +1,12 @@
 .dropdown-label {
+  appearance: none;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   font-size: 16px;
   color: #333;
+}
+
+.custom-font {
+  font-family: "Zen Dots", serif;
 }

@@ -1,7 +1,6 @@
 .profile-dropdown {
   position: relative;
   display: flex;
-  /* width: 210px; */
   justify-content: flex-end;
 }
 
@@ -39,6 +38,7 @@
   cursor: pointer;
   color: #333;
   text-decoration: none; /* Remove underline for links */
+  font-family: "Zen Dots", serif;
 }
 
 .dropdown-item:hover {

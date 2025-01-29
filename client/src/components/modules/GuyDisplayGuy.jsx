@@ -28,7 +28,7 @@ const GuyDisplayGuy = (props) => {
           props.setSelectedGuy(null);
           setId(newGuy._id);
         })
-        .catch(() => alert("You cannot have duplicate guys in your list!"));
+        .catch(() => alert("This guy is already in your list!"));
     }
   };
 

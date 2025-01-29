@@ -274,6 +274,7 @@ const NewSoundMaker = () => {
                   <label>Note: </label>
                   <input
                     type="text"
+                    className="note-input"
                     onChange={(e) => setNote(e.target.value)}
                     value={note}
                     onKeyDown={(e) => {
@@ -401,22 +402,22 @@ const NewSoundMaker = () => {
           )}
         </div>
       </div>
-      <div className="guystuff tab-content">
-        <div className="note-container">
-          <div className="note-label">
+      <div className="guystuff non-tab-content">
+        <div className="guy-container">
+          <div className="guy-label">
             <label>Guy Name:</label>
-            <input
-              type="text"
-              onChange={(e) => setGuyName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === " ") e.preventDefault();
-              }}
-              value={guyName}
-              maxLength={10}
-              placeholder="Enter name"
-              className="guy-name-input"
-            />
           </div>
+          <input
+            type="text"
+            onChange={(e) => setGuyName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === " ") e.preventDefault();
+            }}
+            value={guyName}
+            maxLength={10}
+            placeholder="Enter new guy name"
+            className="guy-name-input"
+          />
         </div>
         <div className="avatar-list-container">
           <div className="avatar-list-title">Guy Icon</div>

@@ -40,6 +40,7 @@
 .pagination-controls span {
   min-width: 100px; /* Set a fixed width */
   text-align: center; /* Center align the text */
+  font-family: "Zen Dots", serif;
 }
 
 .pagination-controls button {
@@ -49,6 +50,7 @@
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  font-family: "Zen Dots", serif;
 }
 
 .pagination-controls button:disabled {

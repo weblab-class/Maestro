@@ -83,8 +83,9 @@ const ProfileCard = () => {
                   type="text"
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
-                  placeholder="Enter new name"
+                  placeholder="Enter new name!"
                   maxLength={10}
+                  className="profile-card-input"
                 />
                 <button
                   onClick={() => {
@@ -94,10 +95,16 @@ const ProfileCard = () => {
                       alert("Enter a valid Name!");
                     }
                   }}
+                  className="profile-card-save-button"
                 >
                   Save
                 </button>
-                <button onClick={() => setIsEditingName(false)}>Cancel</button>
+                <button
+                  onClick={() => setIsEditingName(false)}
+                  className="profile-card-cancel-button"
+                >
+                  Cancel
+                </button>
               </div>
             ) : (
               <div
@@ -121,26 +128,30 @@ const ProfileCard = () => {
       {isAvatarPopupOpen && (
         <div className="avatar-popup">
           <div className="avatar-popup-content">
-            <h3>Change Avatar</h3>
+            <h3 className="u-flex-justifyCenter">Change Avatar</h3>
 
             <AvatarList
               selectedAvatar={selectedAvatar}
               handleAvatarClick={(avatar) => setSelectedAvatar(avatar)}
             />
-
-            <button
-              onClick={() => {
-                if (selectedAvatar === "") {
-                  alert("Select an avatar to save it!");
-                } else {
-                  handleAvatarSave();
-                  setIsAvatarPopupOpen(false);
-                }
-              }}
-            >
-              Save
-            </button>
-            <button onClick={() => setIsAvatarPopupOpen(false)}>Cancel</button>
+            <div>
+              <button
+                className="profile-save-button"
+                onClick={() => {
+                  if (selectedAvatar === "") {
+                    alert("Select an avatar to save it!");
+                  } else {
+                    handleAvatarSave();
+                    setIsAvatarPopupOpen(false);
+                  }
+                }}
+              >
+                Save
+              </button>
+              <button className="profile-cancel-button" onClick={() => setIsAvatarPopupOpen(false)}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

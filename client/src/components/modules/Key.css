@@ -8,12 +8,38 @@
   align-items: center;
   justify-content: center;
   display: flex;
-  font-size: 25px;
+  font-size: 24px;
+  font-family: "Zen Dots", serif;
 }
 
 .tooltip {
-  font-size: 14px;
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  font-size: 12px;
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
   padding: 5px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 120px; /* Adjust width as needed */
+  white-space: normal; /* Allow text wrapping */
+  word-wrap: break-word; /* Ensure long words break properly */
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 .button-text {

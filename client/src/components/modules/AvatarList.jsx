@@ -52,11 +52,11 @@ const AvatarList = ({ selectedAvatar, handleAvatarClick }) => {
       </div>
 
       <div className="pagination-controls">
-        <button onClick={handlePreviousPage}>Previous</button>
+        <button onClick={handlePreviousPage}>{"<"} </button>
         <span>
-          Page {currentPage} of {totalPages}
+          {currentPage} / {totalPages}
         </span>
-        <button onClick={handleNextPage}>Next</button>
+        <button onClick={handleNextPage}>{">"} </button>
       </div>
     </div>
   );

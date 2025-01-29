@@ -44,7 +44,7 @@ const WaveformAnimation = ({ fmSynth }) => {
 
   return (
     <div className="waveform-animation">
-      <canvas ref={canvasRef} width={400} height={150} style={{ border: "1px solid #000" }} />
+      <canvas ref={canvasRef} width={400} height={127} style={{ border: "1px solid #000" }} />
     </div>
   );
 };

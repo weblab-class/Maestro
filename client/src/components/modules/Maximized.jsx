@@ -16,7 +16,7 @@ const Maximized = () => {
     checkWindowSize(); // Initial check when the component mounts
 
     // Show the button after 3 seconds
-    const timeout = setTimeout(() => setShowButton(true), 3000);
+    const timeout = setTimeout(() => setShowButton(true), 1500);
   }, []);
 
   const closePopup = () => {
@@ -28,7 +28,7 @@ const Maximized = () => {
     !isWindowMaximized && (
       <div className={`popup ${fadeOut ? "fadeOut" : ""}`}>
         <div className={`popupContent show`}>
-          <div className="navbar-title neon-text">MAESTRO</div>
+          <div className="navbar-title neon-text unselectable">MAESTRO</div>
           <p>For the best experience, please maximize your browser window.</p>
           <button onClick={closePopup} className={`button ${showButton ? "show" : ""}`}>
             Close

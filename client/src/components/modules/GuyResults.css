@@ -10,8 +10,7 @@ body {
   overflow-y: auto; /* Allow vertical scrolling */
   box-sizing: border-box; /* Ensure proper sizing */
   scroll-behavior: smooth; /* Smooth scrolling for key navigation */
-  /* max-height: 65vh; Adjust this to fit within the viewport */
-  height: auto; /* Ensure it grows to fit content */
+  height: 80%; /* Ensure it grows to fit content */
   width: 100%;
 }
 
@@ -53,7 +52,7 @@ body {
   justify-content: center; /* Center-align the buttons */
   gap: 10px; /* Space between buttons */
   background-color: #fff; /* White background for visibility */
-  padding: 10px; /* Add padding for touch-friendly buttons */
+  padding-bottom: 10px; /* Add padding for touch-friendly buttons */
   border-bottom: 1px solid #ddd; /* Optional: Add a subtle divider */
   align-items: center;
 }

@@ -35,11 +35,9 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-    
-    <MainTutorial />
+      <MainTutorial />
 
-      
-      <div className="NavBar-title neon-text">
+      <div className="NavBar-title neon-text unselectable">
         <Link to="/" className="NavBar-link">
           Maestro
         </Link>

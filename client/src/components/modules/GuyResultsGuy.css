@@ -37,9 +37,15 @@
 }
 
 .result-guy-username {
-  color: #3000b4;
+  color: #4e5bf0;
   font-size: 16px;
   margin: 20px;
+  text-decoration: none;
+}
+
+.result-guy-username:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 .result-guy-box.result-guy-selected {
@@ -49,7 +55,7 @@
 }
 
 .edit-guy-button {
-  background-color: #6200ea;
+  background-color: #4e5bf0; /* Solid color background */
   color: white;
   font-size: 16px;
   padding: 6px 12px;
@@ -57,4 +63,12 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+  font-family: "Zen Dots", serif;
+}
+
+.edit-guy-button:hover {
+  background-color: #3a4bb7; /* Darker solid color on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+  box-shadow: 0 3px 8px rgba(117, 117, 117, 0.2); /* Darker shadow on hover */
 }

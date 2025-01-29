@@ -17,7 +17,7 @@ const Composer = () => {
   const [selectedGuy, setSelectedGuy] = useState(null);
 
   const [lasers, setLasers] = useState([]);
-  const { isAnimated } = useContext(UserContext);
+  const { isAnimated, userId } = useContext(UserContext);
   const maxLasers = 20;
 
   // Fetch random guys on first render and assign them to the keyboard keys
@@ -158,9 +158,12 @@ const Composer = () => {
         onButtonClick={onButtonClick}
         guyVisibility={guyVisibility}
       />
-      <NavigatorButtons></NavigatorButtons>
-      <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
-
+      {userId && (
+        <>
+          <NavigatorButtons />
+          <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
+        </>
+      )}
       <div className="laser-container">
         {isAnimated &&
           lasers.map((laser) => (
