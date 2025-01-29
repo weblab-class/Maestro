@@ -39,7 +39,9 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
+    <div className="tutorial-container">
     {tutorial}
+    </div>
       
       <div className="NavBar-title neon-text">
         <Link to="/" className="NavBar-link">
