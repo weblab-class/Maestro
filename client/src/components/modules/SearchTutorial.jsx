@@ -51,12 +51,11 @@ const SearchTutorial = () => {
             <p>You are currently on the <strong className="bolded-words">SEARCH MENU</strong> page.</p>
             <p>How to use this page:</p>
             <ul className="list-spacing">
-            <li>The Search Menu allows you to view your published Guys, explore creations from other users, and select Guys to make music with in the Composer.
+            <li>The Search Menu allows you to view your published Guys, explore other users' creations, and select Guys to make music with in the Composer.
             </li>
-        <li>Search for Guys via Guy name or creator username in the search bar.</li>
-        <li>Use the arrows to scroll through the results.</li>
+        <li>Search for Guys by Guy name or creator username in the search bar.</li>
         <li>Click on a Guy to select it, then click it again in the right panel to use it in the Composer!</li>
-        <li>Click "Remix" to create new Guys by modifying existing sounds.</li>
+        <li>Click "Remix" to create new Guys by modifying existing synth maker sounds.</li>
         
   
     <li>For Keyboard Users:</li>

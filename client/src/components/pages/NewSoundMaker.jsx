@@ -254,7 +254,7 @@ const NewSoundMaker = () => {
             className={`tab-button ${activeTab === "synth" ? "active" : ""}`}
             onClick={() => setActiveTab("synth")}
           >
-            Synth Modifier
+            Synth Maker
           </button>
           <button
             className={`tab-button ${activeTab === "upload" ? "active" : ""}`}
