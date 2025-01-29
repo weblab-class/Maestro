@@ -1,0 +1,49 @@
+.GuyListWrapper {
+  display: flex;
+  justify-content: center; /* Space between row indicator and selected guy display */
+  align-items: center; /* Center content vertically */
+  height: calc(100vh - var(--navbar-height, 80px) - 400px);
+  padding: 0 20px; /* Padding for spacing */
+  font-size: 24px;
+  z-index: 3;
+}
+
+.GuyList {
+  display: flex;
+  gap: 12px; /* Space between guys */
+  justify-content: center; /* Center guys */
+  flex-grow: 1; /* Take up available space */
+  z-index: 3;
+}
+
+.GuyList::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+.RowIndicator,
+.SelectedGuyIndicator {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 150px;
+  z-index: 3;
+}
+
+.RowIndicator {
+  order: -1; /* Place on the left side */
+}
+
+.SelectedGuyIndicator {
+  text-align: center;
+  order: 1; /* Place on the right side */
+}
+
+.SelectedGuyIndicator.placeholder {
+  visibility: hidden; /* Keeps space but hides content */
+}
+
+.guy-impostor {
+  font-size: 24px;
+}

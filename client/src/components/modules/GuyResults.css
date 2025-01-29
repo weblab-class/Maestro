@@ -1,0 +1,59 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.guy-results-container {
+  padding: 10px; /* Remove unnecessary padding */
+  overflow-y: auto; /* Allow vertical scrolling */
+  box-sizing: border-box; /* Ensure proper sizing */
+  scroll-behavior: smooth; /* Smooth scrolling for key navigation */
+  /* max-height: 65vh; Adjust this to fit within the viewport */
+  height: auto; /* Ensure it grows to fit content */
+  width: 100%;
+}
+
+/* Style for each individual result */
+.result-guy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fafafa;
+}
+
+.result-guy:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+/* Add margin and padding to avoid the text from sticking to the edges */
+.result-guy p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style for when no results are found */
+.no-results {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+}
+
+.pagination-container {
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Ensure the buttons stay above other elements */
+  display: flex;
+  justify-content: center; /* Center-align the buttons */
+  gap: 10px; /* Space between buttons */
+  background-color: #fff; /* White background for visibility */
+  padding: 10px; /* Add padding for touch-friendly buttons */
+  border-bottom: 1px solid #ddd; /* Optional: Add a subtle divider */
+  align-items: center;
+}

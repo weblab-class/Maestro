@@ -1,0 +1,64 @@
+.NavBar-container {
+  padding: var(--s) var(--m);
+  /* background-color: var(--primary); */
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  height: 80px;
+  --navbar-height: 80px;
+}
+
+.NavBar-outer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.NavBar-title {
+  color: var(--white);
+  font-size: 56px;
+  text-align: center;
+  flex-grow: 1;
+  font-family: "Zen Dots", serif;
+}
+
+.NavBar-linkContainer {
+  width: 120px;
+}
+
+.NavBar-link,
+.NavBar-link:visited {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.NavBar-link:hover {
+  opacity: 0.8;
+}
+
+.NavBar-link + .NavBar-link {
+  margin-left: var(--m);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+  }
+  50% {
+    text-shadow: 0 0 15px #0ff, 0 0 30px #0ff, 0 0 60px #0ff, 0 0 90px #0ff;
+  }
+}
+
+.neon-text {
+  animation: pulse 2s infinite alternate;
+  font-size: 3rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff, 0 0 80px #0ff,
+    0 0 100px #0ff;
+    font-family: "Zen Dots", serif;
+    font-weight: 400;
+  font-style: normal;
+}
+

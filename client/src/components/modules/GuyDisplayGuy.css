@@ -1,0 +1,6 @@
+.display-guy-button {
+  background: linear-gradient(135deg, #dbdbdb 10%, #ccc 30%, #ddd 50%, #ccc 70%, #dbdbdb 80%);
+  border-radius: 8px;
+  padding: 4px;
+  margin: 4px;
+}
