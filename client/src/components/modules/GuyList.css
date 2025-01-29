@@ -1,8 +1,8 @@
 .GuyListWrapper {
   display: flex;
-  justify-content: space-between; /* Space between row indicator and selected guy display */
+  justify-content: center; /* Space between row indicator and selected guy display */
   align-items: center; /* Center content vertically */
-  height: 140px;
+  height: 180px;
   padding: 0 20px; /* Padding for spacing */
   font-size: 24px;
   border-bottom: 0px;

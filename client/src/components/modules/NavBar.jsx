@@ -21,13 +21,13 @@ const NavBar = () => {
   const pathname = useLocation().pathname;
   const [isOpen, setIsOpen] = useState(false);
 
-  if (pathname === "/") {
-    tutorial = <MainTutorial />;
-  } else if (pathname.startsWith("/search")) {
-    tutorial = <SearchTutorial />;
-  } else {
-    tutorial = <ProfileTutorial />;
-  }
+  // if (pathname === "/") {
+  //   tutorial = <MainTutorial />;
+  // } else if (pathname.startsWith("/search")) {
+  //   tutorial = <SearchTutorial />;
+  // } else {
+  //   tutorial = <ProfileTutorial />;
+  // }
 
   const handleLoginClick = (credentialResponse) => {
     handleLogin(credentialResponse);
@@ -35,7 +35,10 @@ const NavBar = () => {
 
   return (
     <nav className="NavBar-container">
-      {tutorial}
+    
+    <MainTutorial />
+
+      
       <div className="NavBar-title neon-text">
         <Link to="/" className="NavBar-link">
           Maestro

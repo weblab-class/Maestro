@@ -4,6 +4,7 @@ import "./Composer.css";
 import Keyboard from "../modules/Keyboard";
 import GuyList from "../modules/GuyList";
 import { get } from "../../utilities";
+import NavigatorButtons from "../modules/NavigatorButtons";
 
 const Composer = () => {
   const [guyVisibility, setGuyVisibility] = useState(false);
@@ -119,6 +120,7 @@ const Composer = () => {
         onButtonClick={onButtonClick}
         guyVisibility={guyVisibility}
       />
+      <NavigatorButtons></NavigatorButtons>
       <GuyList setSelectedGuy={setSelectedGuy} selectedGuy={selectedGuy} />
     </div>
   );

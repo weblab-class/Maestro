@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
-  height: 400px; /* Full viewport height */
+  height: 450px; 
 }
 .keyboard-row {
   display: flex; /* Keep buttons aligned in a row */
